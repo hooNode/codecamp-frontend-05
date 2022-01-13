@@ -334,7 +334,7 @@ color: red;
 height: 0px;
 `
 export const Modal = styled.div`
-width: 400px;
+width: 700px;
 height: 300px;
 background-color: rgba(117, 190, 218, 0.5);
 border: 1px solid black;

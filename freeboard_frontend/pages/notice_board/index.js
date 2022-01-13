@@ -5,11 +5,12 @@ import { useMutation, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 
 const CREATE_BOARD = gql`
-    mutation createBoard($writer: String, $title: String, $contents: String){
-        createBoard(writer: $writer, title: $title, contents: $contents){
+    mutation createBoard($createBoardInput: CreateBoardInput!){
+        createBoard(createBoardInput: $createBoardInput){
             _id
-            number
-            message
+            writer
+            title
+            contents
         }
     }
 `
@@ -66,10 +67,13 @@ export default function NoticeBoard() {
     if ((word1 !== '') && (word2 !== '') && (word3 !== '') && (word4 !== '')) {
       const result = await clientData({
         variables: {
-          writer: word1, title: word3, contents: word4
+          createBoardInput: {
+            writer: word1, password: word2, title: word3, contents: word4
+          }
         }
       })
-      setAllData(result.data.createBoard.message)
+
+      setAllData(<span>게시글 작성에 성공하셨습니다.<br /> ID: {result.data.createBoard._id}</span>)
       setModaltime(true)
     } else {
       setAllData("작성 내용을 다시 입력해주세요")
