@@ -15,29 +15,50 @@ export default function notice() {
 
   const checkWording1 = (e) => {
     setWord1(e.target.value);
+    console.log(e.target.value)
+    if (e.target.value === "") {
+      setMsg1(true);
+    } else {
+      setMsg1(false);
+    }
   }
   const checkWording2 = (e) => {
     setWord2(e.target.value);
+    if (e.target.value === "") {
+      setMsg2(true);
+    } else {
+      setMsg2(false);
+    }
   }
   const checkWording3 = (e) => {
     setWord3(e.target.value);
+    if (e.target.value === "") {
+      setMsg3(true);
+    } else {
+      setMsg3(false);
+    }
   }
   const checkWording4 = (e) => {
     setWord4(e.target.value);
+    if (e.target.value === "") {
+      setMsg4(true);
+    } else {
+      setMsg4(false);
+    }
   }
 
   const btnClick = () => {
     if (word1 === '') {
-      setMsg1(!msg1);
+      setMsg1(true);
     }
     if (word2 === '') {
-      setMsg2(!msg2);
+      setMsg2(true);
     }
     if (word3 === '') {
-      setMsg3(!msg3);
+      setMsg3(true);
     }
     if (word4 === '') {
-      setMsg4(!msg4);
+      setMsg4(true);
     }
   }
 
