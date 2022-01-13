@@ -26,7 +26,7 @@ const CREATE_PRODUCT = gql`
 export default function GraphqlMutationProduct() {
 
     const [allData, setAllData] = useState('ㅎㅇ');
-    // const [clientData] = useMutation(CREATE_BOARD)
+    const [clientData] = useMutation(CREATE_BOARD)
     const [clientProduct] = useMutation(CREATE_PRODUCT)
     const [seller, setSeller] = useState('')
     const [name, setName] = useState('')
@@ -36,41 +36,22 @@ export default function GraphqlMutationProduct() {
 
 
     const getData = async () => {
-        // const result = await clientData({
-        //     variables: {
-        //         writer: writer, title: title, contents: contents
-        //     }
-        // })
-        const result = await clientProduct({
+        const result = await clientData({
             variables: {
-                seller: seller, createProductInput: {
-                    name: name,
-                    detail: detail,
-                    price: price,
-                }
+                writer: writer, title: title, contents: contents
             }
         })
+        // const result = await clientProduct({
+        //     variables: {
+        //         seller: seller, createProductInput: {
+        //             name: name,
+        //             detail: detail,
+        //             price: price,
+        //         }
+        //     }
+        // })
         console.log(result)
-        setAllData(result.data.createProduct.message)
-
-        if (seller === '') {
-
-            setAllData("다시해")
-        }
-        if (detail === '') {
-
-            setAllData("다시해")
-        }
-        if (name === '') {
-
-            setAllData("다시해")
-        }
-        if (price === 0) {
-
-            setAllData("다시해")
-        }
-
-
+        setAllData(result.data.createBoard.message)
     }
 
     const onChangeWriter = (e) => {

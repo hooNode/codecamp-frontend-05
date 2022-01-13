@@ -3,8 +3,6 @@ import styled from '@emotion/styled'
 export const Form = styled.div`
     width: 1200px;
     height: 1847px;
-    margin-left: 20%;
-    margin-top: 5%;
     box-sizing: border-box; 
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -12,6 +10,10 @@ export const Form = styled.div`
     align-items: center;
     justify-content: center;
     background: #FFFFFF;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
 `
 
@@ -330,4 +332,21 @@ export const Btn = styled.button`
 export const ConfirmMsg = styled.div`
 color: red;
 height: 0px;
+`
+export const Modal = styled.div`
+width: 400px;
+height: 300px;
+background-color: rgba(117, 190, 218, 0.5);
+border: 1px solid black;
+border-radius: 15px;
+position: fixed;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+
+display: flex;
+justify-content: center;
+align-items: center;
+font-size: 20px;
+
 `
