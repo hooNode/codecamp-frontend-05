@@ -8,11 +8,8 @@ export default function RestGet() {
     const [allData, setAllData] = useState('ㅎㅇ');
 
     const getData = async () => {
-        const result = await axios.get('https://koreanjson.com/posts/1')
-        // const newResult = result.map((id) => <li>{id}</li>);
-        const title = result.data.title
-
-        setAllData(title)
+        const result = await axios.get('https://koreanjson.com/users')
+        console.log(result)
     }
 
     return (

@@ -14,7 +14,6 @@ const CREATE_BOARD = gql`
     }
 `
 
-
 export default function GraphqlMutation() {
 
     const [allData, setAllData] = useState('ㅎㅇ');
@@ -24,7 +23,7 @@ export default function GraphqlMutation() {
     const getData = async () => {
         const result = await clientData({
             variables: {
-                writer: "철수", title: "제목입니다~", contents: "내요이에요~~"
+                writer: "asd", title: "asd~", contents: "내요이에요~~"
             }
         })
         console.log(result)

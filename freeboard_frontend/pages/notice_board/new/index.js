@@ -1,8 +1,9 @@
-import * as S from '../../styles/notice_board.js';
+import * as S from '../../../styles/notice_board.js';
 import React from 'react'
 // import axios from 'axios';
 import { useMutation, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/router'
 
 const CREATE_BOARD = gql`
     mutation createBoard($createBoardInput: CreateBoardInput!){
@@ -16,6 +17,8 @@ const CREATE_BOARD = gql`
 `
 
 export default function NoticeBoard() {
+  const router = useRouter()
+
   const [msg1, setMsg1] = useState(false);
   const [msg2, setMsg2] = useState(false);
   const [msg3, setMsg3] = useState(false);
@@ -73,7 +76,10 @@ export default function NoticeBoard() {
         }
       })
 
-      setAllData(<span>게시글 작성에 성공하셨습니다.<br /> ID: {result.data.createBoard._id}</span>)
+      router.push('/notice_board/' + result.data.createBoard._id)
+
+      setAllData(`게시글 작성에 성공하셨습니다. ID:
+      ${result.data.createBoard._id}`)
       setModaltime(true)
     } else {
       setAllData("작성 내용을 다시 입력해주세요")
@@ -188,3 +194,4 @@ export default function NoticeBoard() {
 
   )
 }
+

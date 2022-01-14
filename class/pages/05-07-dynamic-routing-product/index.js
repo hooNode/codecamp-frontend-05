@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useState } from 'react'
 import * as S from './style'
 import { useMutation, gql } from '@apollo/client'
+import { useRouter } from 'next/router'
 
 // const CREATE_BOARD = gql`
 //     mutation createBoard($seller: String, $title: String, $contents: String){
@@ -24,7 +25,7 @@ const CREATE_PRODUCT = gql`
 `
 
 export default function GraphqlMutationProduct() {
-
+    const router = useRouter()
     const [allData, setAllData] = useState('ㅎㅇ');
     // const [clientData] = useMutation(CREATE_BOARD)
     const [clientProduct] = useMutation(CREATE_PRODUCT)
@@ -34,24 +35,31 @@ export default function GraphqlMutationProduct() {
     const [price, setPrice] = useState(0)
 
 
-
     const getData = async () => {
+        try {
+            const result = await clientProduct({
+                variables: {
+                    seller: seller, createProductInput: {
+                        name: name,
+                        detail: detail,
+                        price: price,
+                    }
+                }
+            })
+            console.log(result)
+            setAllData(result.data.createProduct.message)
+            router.push('/05-08-dynamic-routed-product/' + result.data.createProduct._id)
+            console.log('/05-08-dynamic-routed-product/' + result.data.createProduct._id)
+        } catch (err) {
+            alert(err.message)
+
+        }
         // const result = await clientData({
         //     variables: {
         //         writer: writer, title: title, contents: contents
         //     }
         // })
-        const result = await clientProduct({
-            variables: {
-                seller: seller, createProductInput: {
-                    name: name,
-                    detail: detail,
-                    price: price,
-                }
-            }
-        })
-        console.log(result)
-        setAllData(result.data.createProduct.message)
+
     }
 
     const onChangeWriter = (e) => {
@@ -71,6 +79,11 @@ export default function GraphqlMutationProduct() {
 
     }
 
+    const onClickMove = () => {
+
+
+        console.log(userId)
+    }
 
     return (
         <S.Fragment>
@@ -80,6 +93,9 @@ export default function GraphqlMutationProduct() {
             상품가격 :<input type="text" onChange={onChangePrice} /><br />
             <button onClick={getData}>상품 등록하기</button>
             <div>{allData}</div>
+            <button onClick={onClickMove}>만든 게시글로 이동하기</button>
+
         </S.Fragment>
+
     );
 };
