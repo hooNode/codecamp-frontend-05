@@ -53,7 +53,7 @@ export default function DynamicRoutePage() {
                             {data?.fetchBoard?.contents}<br />
                         </S.Body_Text>
                         <S.Body_Youtube>
-                            <iframe width="560" height="315" src="https://www.youtube.com/embed/aznRuPJhx5I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/aznRuPJhx5I" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
                         </S.Body_Youtube>
                     </S.Content_Body>
                     <S.Content_Footer>
