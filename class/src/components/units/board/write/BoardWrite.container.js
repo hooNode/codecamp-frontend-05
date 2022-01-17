@@ -28,14 +28,24 @@ export default function BoardWrite() {
 
     const onChangeWriter = (e) => {
         setWriter(e.target.value)
+        if (e.target.value && title && contents) {
+            setIsActive(true)
+        }
+
 
     }
     const onChangeTitle = (e) => {
         setTitle(e.target.value)
+        if (e.target.value && writer && contents) {
+            setIsActive(true)
+        }
 
     }
     const onChangeContents = (e) => {
         setContents(e.target.value)
+        if (e.target.value && title && writer) {
+            setIsActive(true)
+        }
 
     }
     return (

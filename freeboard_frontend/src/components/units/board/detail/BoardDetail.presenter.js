@@ -1,30 +1,8 @@
-import * as S from '../../../styles/board.js';
+import * as S from './BoardDetail.styles';
 import React from 'react'
-import { useRouter } from 'next/router'
-import { useQuery, gql } from '@apollo/client'
-
 import { RedditCircleFilled, EnvironmentFilled, LikeFilled, PushpinFilled } from '@ant-design/icons';
 
-
-const FETCH_BOARD = gql`
-    query fetchBoard($boardId: ID!){
-        fetchBoard(boardId : $boardId){
-            writer
-            title
-            contents
-        }
-    }
-`
-
-export default function DynamicRoutePage() {
-    const router = useRouter()
-
-    const { data } = useQuery(FETCH_BOARD, {
-        variables: {
-            boardId: router.query.aaa
-        }
-
-    })
+export default function DynamicRoutePage({ data }) {
     return (
         <S.Fragment>
             <S.Wrapper>
