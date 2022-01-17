@@ -33,7 +33,7 @@ export default function DynamicRoutePage() {
                         <S.Profile>
                             <RedditCircleFilled style={{ fontSize: "65px", color: "gray" }} />
                             <S.Sub_Profile>
-                                <span>{data ? data.fetchBoard.writer : "...loading"}</span>
+                                <span>{data?.fetchBoard?.writer}</span>
                                 <p>Date: 22.01.14</p>
                             </S.Sub_Profile>
                         </S.Profile>
@@ -44,13 +44,13 @@ export default function DynamicRoutePage() {
                     </S.Content_Header>
                     <S.Content_Body>
                         <S.Body_Title>
-                            {data ? data.fetchBoard.title : "...loading"}<br />
+                            {data?.fetchBoard?.title}<br />
                         </S.Body_Title>
                         <S.Body_Picture>
                             <img src="http://imgc.1300k.com/aaaaaib/goodsdesc/215025/01/215025014746_D5.jpg" style={{ width: "700px", height: "550px" }} />
                         </S.Body_Picture>
                         <S.Body_Text>
-                            {data ? data.fetchBoard.contents : "...loading"}<br />
+                            {data?.fetchBoard?.contents}<br />
                         </S.Body_Text>
                         <S.Body_Youtube>
                             <iframe width="560" height="315" src="https://www.youtube.com/embed/aznRuPJhx5I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>

@@ -49,7 +49,7 @@ export default function DynamicRoutePage() {
                 상품: {data ? data.fetchProduct.name : "...loading"}<br />
                 작성자: {data ? data.fetchProduct.seller : "...loading"}<br />
                 가격: {data ? data.fetchProduct.price : "...loading"}
-                내용: {data ? data.fetchProduct.detail : "...loading"}<br />
+                내용: {data ? data.fetchProduct.detail : ""}<br />
                 <button onClick={getData}>asd</button>
             </div>
         </>
