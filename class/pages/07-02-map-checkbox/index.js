@@ -24,7 +24,6 @@ const Column = styled.div`
 export default function MapCheckbox() {
     const { data } = useQuery(FETCH_BOARDS)
 
-
     return (
         <div>
             {data?.fetchBoards.map((el) => (
