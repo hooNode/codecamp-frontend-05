@@ -14,13 +14,15 @@ export default function BoardList({ data, createClick, pushClick, onClickDeleteA
         <S.Wrapper>
             <S.BoardTable>
                 <S.Row>
-                    <S.ColumnCheck><input type="checkbox" onChange={(e) => handleAllCheck(e.target.checked)}
-                        checked={
-                            checkItems.length === 10
-                                ? true
-                                : false
-                        }
-                    />
+                    <S.ColumnCheck>
+                        <input
+                            type="checkbox"
+                            onChange={(e) => handleAllCheck(e.target.checked)}
+                            checked={
+                                checkItems.length === 10
+                                    ? true
+                                    : false
+                            } />
                     </S.ColumnCheck>
                     <S.ColumnIndex>번호</S.ColumnIndex>
                     <S.ColumnTitle>제목</S.ColumnTitle>
@@ -31,19 +33,63 @@ export default function BoardList({ data, createClick, pushClick, onClickDeleteA
                 </S.Row>
                 {data?.fetchBoards.map((el, index) => (
                     <S.Row key={el._id}>
-                        <S.ColumnCheck ><input type="checkbox" onChange={(e) => handleSingleCheck(e.target.checked, el._id)}
-                            checked={checkItems.includes(el._id) ? true : false} /></S.ColumnCheck>
-                        <S.ColumnIndex>{10 - index}</S.ColumnIndex>
-                        <S.ColumnTitle>{el.title.length >= 10 ? el.title.slice(0, 10) + "..." : el.title}</S.ColumnTitle>
-                        <S.ColumnWriter>{el.writer.length >= 10 ? el.writer.slice(0, 10) + "..." : el.writer}</S.ColumnWriter>
-                        <S.ColumnContents onClick={() => pushClick(el._id)}>{el.contents.length >= 10 ? el.contents.slice(0, 10) + "..." : el.contents}</S.ColumnContents>
-                        <S.ColumnCreate>{el.createdAt.slice(0, 10)}</S.ColumnCreate>
-                        <S.ColumnBtn><button name={el._id} onClick={confirmCheck}>삭제</button></S.ColumnBtn>
+                        <S.ColumnCheck >
+                            <input
+                                type="checkbox"
+                                onChange={(e) => handleSingleCheck(e.target.checked, el._id)}
+                                checked={
+                                    checkItems.includes(el._id)
+                                        ? true
+                                        : false
+                                } />
+                        </S.ColumnCheck>
+                        <S.ColumnIndex>
+                            {10 - index}
+                        </S.ColumnIndex>
+                        <S.ColumnTitle>
+                            {
+                                el.title.length >= 10
+                                    ? el.title.slice(0, 10) + "..."
+                                    : el.title
+                            }
+                        </S.ColumnTitle>
+                        <S.ColumnWriter>
+                            {
+                                el.writer.length >= 10
+                                    ? el.writer.slice(0, 10) + "..."
+                                    : el.writer
+                            }
+                        </S.ColumnWriter>
+                        <S.ColumnContents
+                            onClick={() => pushClick(el._id)}
+                        >
+                            {
+                                el.contents.length >= 10
+                                    ? el.contents.slice(0, 10) + "..."
+                                    : el.contents
+                            }
+                        </S.ColumnContents>
+                        <S.ColumnCreate>
+                            {el.createdAt.slice(0, 10)}
+                        </S.ColumnCreate>
+                        <S.ColumnBtn>
+                            <button name={el._id} onClick={confirmCheck}>
+                                삭제
+                            </button>
+                        </S.ColumnBtn>
                     </S.Row>
 
                 ))}
-                <S.AllBtn><button onClick={() => onClickDeleteAll(checkItems)}>선택항목 삭제</button></S.AllBtn>
-                <S.CreateBtn><button onClick={createClick}>게시글 쓰기</button></S.CreateBtn>
+                <S.AllBtn>
+                    <button onClick={() => onClickDeleteAll(checkItems)}>
+                        선택항목 삭제
+                    </button>
+                </S.AllBtn>
+                <S.CreateBtn>
+                    <button onClick={createClick}>
+                        게시글 쓰기
+                    </button>
+                </S.CreateBtn>
 
             </S.BoardTable>
         </S.Wrapper >
