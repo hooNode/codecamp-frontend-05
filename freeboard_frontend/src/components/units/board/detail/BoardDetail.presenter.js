@@ -2,7 +2,11 @@ import * as S from './BoardDetail.styles';
 import React from 'react'
 import { RedditCircleFilled, EnvironmentFilled, LikeFilled, PushpinFilled } from '@ant-design/icons';
 
-export default function DynamicRoutePage({ data }) {
+export default function DynamicRoutePage({
+    data,
+    btnMoveToList,
+    btnMoveToEdit
+}) {
     return (
         <S.Fragment>
             <S.Wrapper>
@@ -45,45 +49,46 @@ export default function DynamicRoutePage({ data }) {
                         </S.Dislike_Btn>
                     </S.Content_Footer>
                 </S.Content>
-                <S.Body>
-                    <S.List_Btn>
 
-                    </S.List_Btn>
-                    <S.Edit_Btn>
-
-                    </S.Edit_Btn>
-                    <S.Delete_Btn>
-
-                    </S.Delete_Btn>
-                </S.Body>
-                <S.Footer>
-                    <S.Footer_Title>
-                        댓글
-                    </S.Footer_Title>
-                    <S.Footer_Tag>
-                        <S.Tag_Writer>
-
-                        </S.Tag_Writer>
-                        <S.Tag_Password>
-
-                        </S.Tag_Password>
-                        <S.Tag_Review>
-
-                        </S.Tag_Review>
-                    </S.Footer_Tag>
-                    <S.Footer_Text>
-                        <S.Text>
-
-                        </S.Text>
-                        <S.Text_Btn>
-
-                        </S.Text_Btn>
-                    </S.Footer_Text>
-                    <S.Footer_List>
-
-                    </S.Footer_List>
-                </S.Footer>
             </S.Wrapper>
+            <S.Body>
+                <S.List_Btn onClick={btnMoveToList}>
+                    목록으로
+                </S.List_Btn>
+                <S.Edit_Btn onClick={btnMoveToEdit}>
+                    수정하기
+                </S.Edit_Btn>
+                <S.Delete_Btn>
+                    삭제하기
+                </S.Delete_Btn>
+            </S.Body>
+            <S.Footer>
+                <S.Footer_Title>
+
+                </S.Footer_Title>
+                <S.Footer_Tag>
+                    <S.Tag_Writer>
+
+                    </S.Tag_Writer>
+                    <S.Tag_Password>
+
+                    </S.Tag_Password>
+                    <S.Tag_Review>
+
+                    </S.Tag_Review>
+                </S.Footer_Tag>
+                <S.Footer_Text>
+                    <S.Text>
+
+                    </S.Text>
+                    <S.Text_Btn>
+
+                    </S.Text_Btn>
+                </S.Footer_Text>
+                <S.Footer_List>
+
+                </S.Footer_List>
+            </S.Footer>
         </S.Fragment>
     )
 }

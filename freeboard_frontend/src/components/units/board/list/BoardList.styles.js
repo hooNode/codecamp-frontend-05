@@ -5,6 +5,7 @@ export const Wrapper = styled.div`
     width: 100vw;
     height: 100vh;
     display:flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0px;
@@ -91,8 +92,8 @@ export const ColumnBtn = styled.div`
 `
 export const AllBtn = styled.div`
     width: -webkit-fill-available;
-    position: absolute;
-    bottom: 40.7%;
+    /* position: absolute;
+    bottom: 40.7%; */
     margin: 10px 0px;
     margin-left: 1037px;
     & > button {
@@ -108,8 +109,8 @@ export const AllBtn = styled.div`
 `
 export const CreateBtn = styled.div`
     width: -webkit-fill-available;
-    position: absolute;
-    bottom: 40.7%;
+    /* position: absolute;
+    bottom: 40.7%; */
     margin: 10px 0px;
     margin-left: 1120px;
     & > button {

@@ -4,15 +4,17 @@ import React from 'react'
 
 export default function presenterBoard({
     msg1, msg2, msg3, msg4,
+    word1, word2, word3, word4,
     checkWording1, checkWording2, checkWording3, checkWording4,
-    btnClick, allData, modaltime, onBtn
+    btnClick, allData, modaltime, onBtn,
+    isEdit, btnEdit
 
 }) {
     return (
         <>
             <S.Form>
                 <S.Title>
-                    <span>게시물 등록</span>
+                    <span>게시물 {isEdit ? "수정" : "등록"}</span>
                 </S.Title>
                 <S.User>
                     <S.Id>
@@ -84,8 +86,8 @@ export default function presenterBoard({
                             <S.Radio_Btn2><input type="radio" name="radio"></input><span>사진</span></S.Radio_Btn2>
                         </S.Input_Radio>
                     </S.Content_Radio>
-                    <S.Btn type="submit" onClick={btnClick} onBtn={onBtn}>
-                        등록하기
+                    <S.Btn type="submit" onClick={isEdit ? btnEdit : btnClick} onBtn={onBtn}>
+                        {isEdit ? "수정하기" : "등록하기"}
                     </S.Btn>
                 </S.Content>
                 {modaltime ? <S.Modal>{allData}</S.Modal> : <div></div>}

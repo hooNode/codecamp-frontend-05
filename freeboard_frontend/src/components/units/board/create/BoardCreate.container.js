@@ -1,13 +1,15 @@
 import PBoardCreate from './BoardCreate.presenter'
 import React from 'react'
-import { CREATE_BOARD } from './BoardCreate.queries'
+import { CREATE_BOARD, UPDATE_BOARD } from './BoardCreate.queries'
 import { useMutation, gql } from '@apollo/client'
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/router'
 
 
 
-export default function CreateBoard() {
+export default function CreateBoard(
+    { isEdit }
+) {
     const router = useRouter()
 
     const [msg1, setMsg1] = useState(false);
@@ -23,6 +25,7 @@ export default function CreateBoard() {
 
     const [allData, setAllData] = useState('');
     const [clientData] = useMutation(CREATE_BOARD)
+    const [updateData] = useMutation(UPDATE_BOARD)
     const [modaltime, setModaltime] = useState(false);
 
     const checkWording1 = (e) => {
@@ -107,6 +110,44 @@ export default function CreateBoard() {
             setMsg4(true);
         }
     }
+
+    const btnEdit = async () => {
+        if ((word1 !== '') && (word2 !== '') && (word3 !== '') && (word4 !== '')) {
+            const result = await updateData({
+                variables: {
+                    updateBoardInput: {
+                        title: word3, contents: word4
+                    },
+                    password: word2,
+                    boardId: router.query.aaa
+                }
+            })
+
+            router.push(`/notice/${router.query.aaa}`)
+
+            setAllData(`게시글 수정에 성공하셨습니다. ID:
+          ${router.query.aaa}`)
+            setModaltime(true)
+        } else {
+            setAllData("작성 내용을 다시 입력해주세요")
+            setModaltime(true)
+        }
+
+        if (word1 === '') {
+            setMsg1(true);
+        }
+        if (word2 === '') {
+            setMsg2(true);
+        }
+        if (word3 === '') {
+            setMsg3(true);
+        }
+        if (word4 === '') {
+            setMsg4(true);
+        }
+    }
+
+
     useEffect(() => {
         if (modaltime === true) {
             setTimeout(() => {
@@ -129,6 +170,13 @@ export default function CreateBoard() {
             allData={allData}
             modaltime={modaltime}
             onBtn={onBtn}
+            isEdit={isEdit}
+            btnEdit={btnEdit}
+            word1={word1}
+            word2={word2}
+            word3={word3}
+            word4={word4}
+
         />
     )
 }

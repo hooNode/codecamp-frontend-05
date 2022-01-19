@@ -16,7 +16,19 @@ export default function DynamicRoutePage() {
         }
 
     })
+
+    const btnMoveToEdit = () => {
+        router.push(`/notice/${router.query.aaa}/edit`)
+    }
+    const btnMoveToList = () => {
+        router.push(`/notice/list`)
+    }
     return (
-        <PBoardDetail router={router} data={data} />
+        <PBoardDetail
+            router={router}
+            data={data}
+            btnMoveToList={btnMoveToList}
+            btnMoveToEdit={btnMoveToEdit}
+        />
     )
 }
