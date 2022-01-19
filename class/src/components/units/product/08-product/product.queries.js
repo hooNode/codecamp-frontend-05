@@ -9,7 +9,6 @@ mutation createProduct($seller: String, $createProductInput: CreateProductInput!
     }
 }
 `
-
 export const UPDATE_PRODUCT = gql`
 mutation updateProduct($productId: ID, $updateProductInput: UpdateProductInput!){
     updateProduct(productId: $productId, updateProductInput: $updateProductInput){
@@ -19,3 +18,4 @@ mutation updateProduct($productId: ID, $updateProductInput: UpdateProductInput!)
     }
 }
 `
+
