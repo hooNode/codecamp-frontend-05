@@ -1,10 +1,12 @@
 import * as S from './BoardCreate.styles';
 import React from 'react'
+import { useState, useEffect } from 'react';
 
 
 export default function presenterBoard({
     msg1, msg2, msg3, msg4,
     word1, word2, word3, word4,
+    setWord3,
     checkWording1, checkWording2, checkWording3, checkWording4,
     btnClick, allData, modaltime, onBtn,
     isEdit, btnEdit, data
@@ -19,16 +21,16 @@ export default function presenterBoard({
                 <S.User>
                     <S.Id>
                         <span>작성자</span>
-                        <S.ID_Input type="text" placeholder="이름을 입력해주세요." onChange={checkWording1} defaultValue={isEdit ? data?.fetchBoard.writer : ""} />
+                        <S.ID_Input type="text" disabled={isEdit} placeholder="이름을 입력해주세요." onChange={checkWording1} defaultValue={isEdit ? data?.fetchBoard.writer : ""} />
                         {
-                            isEdit || msg1 ? isEdit ? <div></div> : <S.ConfirmMsg>작성자를 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
+                            msg1 ? <S.ConfirmMsg>작성자를 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
                         }
                     </S.Id>
                     <S.Password>
                         <span>비밀번호</span>
                         <S.Password_Input type="password" placeholder="비밀번호을 입력해주세요." onChange={checkWording2} />
                         {
-                            msg2 ? isEdit ? <div></div> : <S.ConfirmMsg>비밀번호를 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
+                            msg2 ? <S.ConfirmMsg>비밀번호를 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
                         }
                     </S.Password>
                 </S.User>
@@ -37,14 +39,14 @@ export default function presenterBoard({
                         <span>제목</span>
                         <S.Title_Input type="text" placeholder='제목을 입력해주세요.' onChange={checkWording3} defaultValue={isEdit ? data?.fetchBoard.title : ""} />
                         {
-                            msg3 ? isEdit ? <div></div> : <S.ConfirmMsg>제목을 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
+                            msg3 ? <S.ConfirmMsg>제목을 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
                         }
                     </S.Content_Title>
                     <S.Content_Story>
                         <span>내용</span>
                         <S.Story_Input type="textarea" placeholder="내용을 입력해주세요." onChange={checkWording4} defaultValue={isEdit ? data?.fetchBoard.contents : ""} />
                         {
-                            msg4 ? isEdit ? <div></div> : <S.ConfirmMsg>내용을 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
+                            msg4 ?<S.ConfirmMsg>내용을 다시 확인해 주세요.</S.ConfirmMsg> : <div></div>
                         }
                     </S.Content_Story>
                     <S.Content_Address>

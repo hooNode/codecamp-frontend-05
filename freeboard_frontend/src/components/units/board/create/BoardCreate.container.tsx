@@ -37,7 +37,7 @@ export default function CreateBoard({
             setMsg1(false);
         }
         if (e.target.value && word2 && word3 && word4) {
-            { isEdit || setOnBtn(false) }
+            setOnBtn(false)
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -49,7 +49,7 @@ export default function CreateBoard({
             setMsg2(false);
         }
         if (e.target.value && word1 && word3 && word4) {
-            { isEdit || setOnBtn(false) }
+            setOnBtn(false)
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -61,7 +61,7 @@ export default function CreateBoard({
             setMsg3(false);
         }
         if (e.target.value && word2 && word1 && word4) {
-            { isEdit || setOnBtn(false) }
+            setOnBtn(false)
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -73,7 +73,7 @@ export default function CreateBoard({
             setMsg4(false);
         }
         if (e.target.value && word2 && word3 && word1) {
-            { isEdit || setOnBtn(false) }
+            setOnBtn(false)
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -136,21 +136,14 @@ export default function CreateBoard({
         const result = await updateData({
             variables: myVariables
         })
-        router.push(`/notice/${router.query.aaa}`)
-        // if ((word1 !== '') && (word2 !== '') && (word3 !== '') && (word4 !== '')) {
-        //     const result = await updateData({
-        //         variables: myVariables
-        //     })  
-
-        //     router.push(`/notice/${router.query.aaa}`)
-
-        //     setAllData(`게시글 수정에 성공하셨습니다. ID:
-        //   ${router.query.aaa}`)
-        //     setModaltime(true)
-        // } else {
-        //     setAllData("작성 내용을 다시 입력해주세요")
-        //     setModaltime(true)
-        // }
+        if (!msg3 && !msg4) {
+            router.push(`/notice/${router.query.aaa}`)
+            setAllData(`게시글 수정에 성공하셨습니다. ID: ${router.query.aaa}`)
+            setModaltime(true)
+        } else {
+            setAllData("작성 내용을 다시 입력해주세요")
+            setModaltime(true)
+        }
     }
 
 

@@ -335,9 +335,6 @@ export const Btn = styled.button`
     margin-top: 18px;
     background-color: ${( {onBtn}: IonBtn ) => onBtn ? "#D8D8D8" : "#FFD600"};
     border: none;
-    &:hover{
-        background-color: #FFD600;
-    }
 `
 
 
