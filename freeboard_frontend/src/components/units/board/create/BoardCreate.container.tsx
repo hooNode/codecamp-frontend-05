@@ -7,9 +7,10 @@ import { useRouter } from 'next/router'
 
 
 
-export default function CreateBoard(
-    { isEdit }
-) {
+export default function CreateBoard({
+    isEdit,
+    data
+}) {
     const router = useRouter()
 
     const [msg1, setMsg1] = useState(false);
@@ -36,7 +37,7 @@ export default function CreateBoard(
             setMsg1(false);
         }
         if (e.target.value && word2 && word3 && word4) {
-            setOnBtn(false)
+            { isEdit || setOnBtn(false) }
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -48,7 +49,7 @@ export default function CreateBoard(
             setMsg2(false);
         }
         if (e.target.value && word1 && word3 && word4) {
-            setOnBtn(false)
+            { isEdit || setOnBtn(false) }
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -60,7 +61,7 @@ export default function CreateBoard(
             setMsg3(false);
         }
         if (e.target.value && word2 && word1 && word4) {
-            setOnBtn(false)
+            { isEdit || setOnBtn(false) }
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -72,7 +73,7 @@ export default function CreateBoard(
             setMsg4(false);
         }
         if (e.target.value && word2 && word3 && word1) {
-            setOnBtn(false)
+            { isEdit || setOnBtn(false) }
             console.log("버튼타입변해효~", onBtn);
         }
     }
@@ -110,41 +111,46 @@ export default function CreateBoard(
             setMsg4(true);
         }
     }
+    
+
 
     const btnEdit = async () => {
-        if ((word1 !== '') && (word2 !== '') && (word3 !== '') && (word4 !== '')) {
-            const result = await updateData({
-                variables: {
-                    updateBoardInput: {
-                        title: word3, contents: word4
-                    },
-                    password: word2,
-                    boardId: router.query.aaa
-                }
-            })
-
-            router.push(`/notice/${router.query.aaa}`)
-
-            setAllData(`게시글 수정에 성공하셨습니다. ID:
-          ${router.query.aaa}`)
-            setModaltime(true)
-        } else {
-            setAllData("작성 내용을 다시 입력해주세요")
-            setModaltime(true)
+        interface IMyvariables {
+            boardId: string | string[],
+            password: string,
+            updateBoardInput: {
+                title?: string,
+                contents?: string,
+            },
+        
         }
 
-        if (word1 === '') {
-            setMsg1(true);
+    const myVariables: IMyvariables = {
+            updateBoardInput: {},
+            boardId: router.query.aaa,
+            password: word2
         }
-        if (word2 === '') {
-            setMsg2(true);
-        }
-        if (word3 === '') {
-            setMsg3(true);
-        }
-        if (word4 === '') {
-            setMsg4(true);
-        }
+
+        if (word3 !== '') myVariables.updateBoardInput.title = word3
+        if (word4 !== '') myVariables.updateBoardInput.contents = word4
+        const result = await updateData({
+            variables: myVariables
+        })
+        router.push(`/notice/${router.query.aaa}`)
+        // if ((word1 !== '') && (word2 !== '') && (word3 !== '') && (word4 !== '')) {
+        //     const result = await updateData({
+        //         variables: myVariables
+        //     })  
+
+        //     router.push(`/notice/${router.query.aaa}`)
+
+        //     setAllData(`게시글 수정에 성공하셨습니다. ID:
+        //   ${router.query.aaa}`)
+        //     setModaltime(true)
+        // } else {
+        //     setAllData("작성 내용을 다시 입력해주세요")
+        //     setModaltime(true)
+        // }
     }
 
 
@@ -176,7 +182,7 @@ export default function CreateBoard(
             word2={word2}
             word3={word3}
             word4={word4}
-
+            data={data}
         />
     )
 }

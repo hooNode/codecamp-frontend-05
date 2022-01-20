@@ -20,11 +20,18 @@ export default function BoardList() {
         }
     })
 
-
     const onClickDelete = (e) => {
-        console.log("실행은됨")
+
+        // interface IBoardId {
+        //     boardId: string
+        // }
+
+        // const myvariables:IBoardId = {
+        //     boardId : e.target.name
+        // }
+
         deleteBoard({
-            variables: { boardId: e.target.name },
+            variables: { boardId : e.target.name },
             refetchQueries: [
                 {
                     query: FETCH_BOARDS,

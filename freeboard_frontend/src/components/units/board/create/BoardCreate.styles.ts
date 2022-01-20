@@ -1,19 +1,26 @@
 import styled from '@emotion/styled'
 
+
+export const Fragment = styled.div`
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; 
+    padding-top: 100px;
+`
 export const Form = styled.div`
     width: 1200px;
     height: 1847px;
-    box-sizing: border-box; 
     box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     background: #FFFFFF;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
     
 `
 
@@ -314,7 +321,9 @@ export const Radio_Btn2 = styled.div`
     justify-content: center;
     
 `
-
+interface IonBtn {
+    onBtn:boolean,
+}
 
 export const Btn = styled.button`
     display: flex;
@@ -324,8 +333,11 @@ export const Btn = styled.button`
     width: 179px;
     height: 52px;
     margin-top: 18px;
-    background-color: ${({ onBtn }) => onBtn ? "#D8D8D8" : "#FFD600"};
+    background-color: ${( {onBtn}: IonBtn ) => onBtn ? "#D8D8D8" : "#FFD600"};
     border: none;
+    &:hover{
+        background-color: #FFD600;
+    }
 `
 
 
@@ -340,9 +352,7 @@ background-color: rgba(117, 190, 218, 0.5);
 border: 1px solid black;
 border-radius: 15px;
 position: fixed;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+transform: translate(0%, -50%);
 
 display: flex;
 justify-content: center;

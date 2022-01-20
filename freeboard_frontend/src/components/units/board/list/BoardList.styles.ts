@@ -1,14 +1,14 @@
 import styled from '@emotion/styled'
 
 export const Wrapper = styled.div`
-    box-sizing: border-box;
-    width: 100vw;
-    height: 100vh;
-    display:flex;
-    flex-direction: column;
+    display: flex;
+    flex-direction: column; 
     justify-content: center;
     align-items: center;
-    margin: 0px;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box; 
+    padding-top: 100px;
 
 `
 export const TableTop = styled.div`
@@ -26,11 +26,14 @@ export const BoardTable = styled.div`
     width: 1200px;
     height: 485px;    
 `
+interface Iid {
+    id : number;
+}
 export const Row = styled.div`
     display:flex;
     align-items: center;
     padding: 15px 20px 0px 20px;
-    border-bottom: ${({ id }) => id === 9 ? "" : "1px solid #BDBDBD"};
+    border-bottom: ${({ id }:Iid) => id === 9 ? "" : "1px solid #BDBDBD"};
     display: flex;
     padding: 0px;
     height: 44px;
