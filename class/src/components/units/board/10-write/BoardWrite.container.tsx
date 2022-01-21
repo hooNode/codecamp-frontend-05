@@ -1,4 +1,3 @@
-import axios from 'axios'
 import { ChangeEvent, useState } from 'react'
 import { useMutation } from '@apollo/client'
 import BoardWriteUI from './BoardWrite.presenter'
@@ -20,7 +19,7 @@ export default function BoardWrite(props : IBoardWrite) {
     const [qqq] = useMutation(CREATE_BOARD)
     const [www] = useMutation(UPDATE_BOARD)
 
-    //등록하기
+    // 등록하기
     const zzz = async () => {
         // const result = await axios.get("https://koreanjson.com/posts/1")
         const result = await qqq({
@@ -33,7 +32,7 @@ export default function BoardWrite(props : IBoardWrite) {
         router.push(`/09-01-boards/${result.data.createBoard.number}`)
     }
 
-    //수정하기
+    // 수정하기
     const xxx = async () => {
         console.log('수정하기를 클릭하셨군요!!!')
         

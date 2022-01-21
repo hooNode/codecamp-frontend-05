@@ -1,5 +1,7 @@
-import React from 'react'
-import axios from 'axios';
+/* eslint-disable import/no-duplicates */
+// eslint-disable-next-line no-use-before-define
+import React from 'react';
+// eslint-disable-next-line import/no-duplicates
 import { useState } from 'react'
 import * as S from './style'
 import { useMutation, gql } from '@apollo/client'
@@ -29,7 +31,6 @@ export default function GraphqlMutationArgs() {
         // setAllData(title)
         const result = await clientData()
         // const newResult = result.map((id) => <li>{id}</li>);
-        result.data?.createBoard?.message
         console.log(result)
         setAllData(result.data?.createBoard?.message || "쿠쿠쿠데이터가 오지 않았다네")
     }
