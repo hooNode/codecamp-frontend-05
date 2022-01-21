@@ -4,11 +4,8 @@ import { useMutation } from '@apollo/client'
 import BoardWriteUI from './BoardWrite.presenter'
 import { CREATE_BOARD, UPDATE_BOARD } from './BoardWrite.queries'
 import { useRouter } from 'next/router'
+import { IBoardWrite } from './BoardWrite.types'
 
-interface IBoardWrite {
-    isEdit: boolean
-    data?: any
-}
 
 export default function BoardWrite(props : IBoardWrite) {
     const router = useRouter()
