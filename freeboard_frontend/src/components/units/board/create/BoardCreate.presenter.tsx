@@ -1,6 +1,6 @@
-import * as S from './BoardCreate.styles';
-import React from 'react';
-import { useState, useEffect } from 'react';
+import * as S from "./BoardCreate.styles";
+import React from "react";
+import { IPresenterBoardProps } from "./BoardCreate.types";
 
 export default function presenterBoard({
   msg1,
@@ -11,7 +11,7 @@ export default function presenterBoard({
   word2,
   word3,
   word4,
-  setWord3,
+  onBtn,
   checkWording1,
   checkWording2,
   checkWording3,
@@ -19,16 +19,15 @@ export default function presenterBoard({
   btnClick,
   allData,
   modaltime,
-  onBtn,
   isEdit,
   btnEdit,
   data,
-}) {
+}: IPresenterBoardProps) {
   return (
     <S.Fragment>
       <S.Form>
         <S.Title>
-          <span>게시물 {isEdit ? '수정' : '등록'}</span>
+          <span>게시물 {isEdit ? "수정" : "등록"}</span>
         </S.Title>
         <S.User>
           <S.Id>
@@ -38,7 +37,7 @@ export default function presenterBoard({
               disabled={isEdit}
               placeholder="이름을 입력해주세요."
               onChange={checkWording1}
-              defaultValue={isEdit ? data?.fetchBoard.writer : ''}
+              defaultValue={isEdit ? data?.fetchBoard.writer : ""}
             />
             {msg1 ? (
               <S.ConfirmMsg>작성자를 다시 확인해 주세요.</S.ConfirmMsg>
@@ -67,7 +66,7 @@ export default function presenterBoard({
               type="text"
               placeholder="제목을 입력해주세요."
               onChange={checkWording3}
-              defaultValue={isEdit ? data?.fetchBoard.title : ''}
+              defaultValue={isEdit ? data?.fetchBoard.title : ""}
             />
             {msg3 ? (
               <S.ConfirmMsg>제목을 다시 확인해 주세요.</S.ConfirmMsg>
@@ -78,10 +77,9 @@ export default function presenterBoard({
           <S.Content_Story>
             <span>내용</span>
             <S.Story_Input
-              type="textarea"
               placeholder="내용을 입력해주세요."
               onChange={checkWording4}
-              defaultValue={isEdit ? data?.fetchBoard.contents : ''}
+              defaultValue={isEdit ? data?.fetchBoard.contents : ""}
             />
             {msg4 ? (
               <S.ConfirmMsg>내용을 다시 확인해 주세요.</S.ConfirmMsg>
@@ -139,7 +137,7 @@ export default function presenterBoard({
             onClick={isEdit ? btnEdit : btnClick}
             onBtn={onBtn}
           >
-            {isEdit ? '수정하기' : '등록하기'}
+            {isEdit ? "수정하기" : "등록하기"}
           </S.Btn>
         </S.Content>
         {modaltime ? <S.Modal>{allData}</S.Modal> : <div></div>}

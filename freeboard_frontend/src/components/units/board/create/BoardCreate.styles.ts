@@ -1,4 +1,5 @@
-import styled from '@emotion/styled';
+import styled from "@emotion/styled";
+import { IonBtn } from "./BoardCreate.types";
 
 export const Fragment = styled.div`
   display: flex;
@@ -301,9 +302,6 @@ export const Radio_Btn2 = styled.div`
   flex-direction: row;
   justify-content: center;
 `;
-interface IonBtn {
-  onBtn: boolean;
-}
 
 export const Btn = styled.button`
   display: flex;
@@ -313,8 +311,9 @@ export const Btn = styled.button`
   width: 179px;
   height: 52px;
   margin-top: 18px;
-  background-color: ${({ onBtn }: IonBtn) => (onBtn ? '#D8D8D8' : '#FFD600')};
+  background-color: ${({ onBtn }: IonBtn) => (onBtn ? "#D8D8D8" : "#FFD600")};
   border: none;
+  cursor: pointer;
 `;
 
 export const ConfirmMsg = styled.div`

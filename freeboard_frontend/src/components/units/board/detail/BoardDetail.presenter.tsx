@@ -1,16 +1,18 @@
-import * as S from './BoardDetail.styles';
-import React from 'react';
+import * as S from "./BoardDetail.styles";
+import React from "react";
 import {
   RedditCircleFilled,
   EnvironmentFilled,
   LikeFilled,
   PushpinFilled,
-} from '@ant-design/icons';
+} from "@ant-design/icons";
+import { getMyDate } from "../../../../commons/libraries/utils";
 
 export default function DynamicRoutePage({
   data,
   btnMoveToList,
   btnMoveToEdit,
+  btnClick,
 }) {
   return (
     <S.Fragment>
@@ -18,22 +20,22 @@ export default function DynamicRoutePage({
         <S.Content>
           <S.Content_Header>
             <S.Profile>
-              <RedditCircleFilled style={{ fontSize: '65px', color: 'gray' }} />
+              <RedditCircleFilled style={{ fontSize: "65px", color: "gray" }} />
               <S.Sub_Profile>
                 <span>{data?.fetchBoard?.writer}</span>
-                <p>Date: 22.01.14</p>
+                <p>{getMyDate(data?.fetchBoard?.createdAt)}</p>
               </S.Sub_Profile>
             </S.Profile>
             <S.Logo>
               <PushpinFilled
                 style={{
-                  color: '#FFD600',
-                  fontSize: '35px',
-                  marginRight: '5px',
+                  color: "#FFD600",
+                  fontSize: "35px",
+                  marginRight: "5px",
                 }}
               />
               <EnvironmentFilled
-                style={{ color: '#FFD600', fontSize: '35px' }}
+                style={{ color: "#FFD600", fontSize: "35px" }}
               />
             </S.Logo>
           </S.Content_Header>
@@ -45,7 +47,7 @@ export default function DynamicRoutePage({
             <S.Body_Picture>
               <img
                 src="http://imgc.1300k.com/aaaaaib/goodsdesc/215025/01/215025014746_D5.jpg"
-                style={{ width: '700px', height: '550px' }}
+                style={{ width: "700px", height: "550px" }}
               />
             </S.Body_Picture>
             <S.Body_Text>
@@ -66,11 +68,11 @@ export default function DynamicRoutePage({
           </S.Content_Body>
           <S.Content_Footer>
             <S.Like_Btn>
-              <LikeFilled style={{ color: '#FFD600', fontSize: '30px' }} />
+              <LikeFilled style={{ color: "#FFD600", fontSize: "30px" }} />
               1920
             </S.Like_Btn>
             <S.Dislike_Btn>
-              <LikeFilled style={{ fontSize: '30px' }} />
+              <LikeFilled style={{ fontSize: "30px" }} />
               1920
             </S.Dislike_Btn>
           </S.Content_Footer>
