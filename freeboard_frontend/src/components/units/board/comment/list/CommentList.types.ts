@@ -1,9 +1,18 @@
 import { IQuery } from "../../../../commons/types/generated/types";
+import {
+  ChangeEvent,
+  ChangeEventHandler,
+  MouseEvent,
+  TextareaHTMLAttributes,
+} from "react";
+
+type NewType = ChangeEvent<HTMLInputElement>;
 
 export interface IPresenterBoardProps {
-  data: any;
-  btnMoveToList: () => void;
-  btnMoveToEdit: () => void;
+  data;
+  btnMoveToList;
+  btnMoveToEdit;
+  btnClick;
 }
 
 export interface IBoardCreateProps {

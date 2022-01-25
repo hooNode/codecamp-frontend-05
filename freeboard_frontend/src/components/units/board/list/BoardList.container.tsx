@@ -1,4 +1,4 @@
-import React from "react";
+import React, { MouseEvent } from "react";
 import { useRouter } from "next/router";
 import PBoardList from "./BoardList.presenter";
 import { FETCH_BOARDS, DELETE_BOARD } from "./BoardList.queries";
@@ -10,40 +10,30 @@ export default function BoardList() {
   const { data } = useQuery(FETCH_BOARDS);
   const [checkItems, setCheckItems] = useState([]);
 
-  const [deleteBoard] = useMutation(DELETE_BOARD, {
-    variables: {
-      endDate: 0,
-      startDate: 0,
-      search: "",
-      page: 1,
-    },
-  });
+  const [deleteBoard] = useMutation(DELETE_BOARD);
 
-  const onClickDelete = (e) => {
-    // interface IBoardId {
-    //     boardId: string
-    // }
+  const onClickDelete = async (e: MouseEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    interface IBoardId {
+      boardId: string;
+    }
 
-    // const myvariables:IBoardId = {
-    //     boardId : e.target.name
-    // }
+    const myvariables: IBoardId = {
+      boardId: target.name,
+    };
 
-    deleteBoard({
-      variables: { boardId: e.target.name },
+    await deleteBoard({
+      variables: myvariables,
       refetchQueries: [
         {
           query: FETCH_BOARDS,
-          endDate: 0,
-          startDate: 0,
-          search: "",
-          page: 1,
         },
       ],
     });
-    setCheckItems(checkItems.filter((_id) => _id !== e.target.name));
+    setCheckItems(checkItems.filter((_id) => _id !== target.name));
   };
 
-  const onClickDeleteAll = (ids) => {
+  const onClickDeleteAll = (ids: string[]) => {
     console.log("실행은됨");
     ids.map((id) => {
       deleteBoard({
@@ -51,10 +41,6 @@ export default function BoardList() {
         refetchQueries: [
           {
             query: FETCH_BOARDS,
-            endDate: 0,
-            startDate: 0,
-            search: "",
-            page: 1,
           },
         ],
       });
@@ -62,7 +48,7 @@ export default function BoardList() {
     setCheckItems([]);
   };
 
-  const handleSingleCheck = (checked, id) => {
+  const handleSingleCheck = (checked: boolean, id: string) => {
     if (checked) {
       setCheckItems([...checkItems, id]);
     } else {
@@ -70,7 +56,7 @@ export default function BoardList() {
     }
   };
 
-  const handleAllCheck = (checked) => {
+  const handleAllCheck = (checked: boolean) => {
     if (checked) {
       const idArray = [];
       data.fetchBoards.forEach((el) => idArray.push(el._id));
@@ -96,7 +82,6 @@ export default function BoardList() {
       checkItems={checkItems}
       handleSingleCheck={handleSingleCheck}
       onClickDeleteAll={onClickDeleteAll}
-      setCheckItems={setCheckItems}
       pushClick={pushClick}
       createClick={createClick}
     />

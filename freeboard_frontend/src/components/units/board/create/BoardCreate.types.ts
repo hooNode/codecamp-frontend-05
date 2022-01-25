@@ -1,3 +1,4 @@
+import { IQuery } from "../../../../commons/types/generated/types";
 import {
   ChangeEvent,
   ChangeEventHandler,

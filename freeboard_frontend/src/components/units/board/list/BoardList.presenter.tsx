@@ -1,6 +1,7 @@
 import React from "react";
-import { useEffect } from "react";
+import { useEffect, MouseEvent } from "react";
 import * as S from "./BoardList.styles";
+import { IBoardList } from "./BoardList.types";
 
 export default function BoardList({
   data,
@@ -11,11 +12,12 @@ export default function BoardList({
   handleAllCheck,
   checkItems,
   onClickDelete,
-}) {
+}: IBoardList) {
   // (e) => e.target ? { onClickDelete } : console.log("체크해라")
-  const confirmCheck = (e) => {
-    console.log(checkItems.includes(e.target.name));
-    return checkItems.includes(e.target.name)
+  const confirmCheck = (e: MouseEvent<HTMLInputElement>) => {
+    const target = e.target as HTMLInputElement;
+    console.log(checkItems.includes(target.name));
+    return checkItems.includes(target.name)
       ? onClickDelete(e)
       : alert("체크하신 후 삭제해주세요.");
   };
@@ -37,7 +39,7 @@ export default function BoardList({
           <S.ColumnCreate>날짜</S.ColumnCreate>
           <S.ColumnBtn>삭제</S.ColumnBtn>
         </S.Row>
-        {data?.fetchBoards.map((el, index) => (
+        {data?.fetchBoards.map((el: any, index: number) => (
           <S.Row key={el._id}>
             <S.ColumnCheck>
               <input
