@@ -4,22 +4,21 @@ import { IonBtn } from "./BoardCreate.types";
 export const Fragment = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  width: 100%;
+  justify-content: flex-start;
   height: 100%;
   box-sizing: border-box;
-  padding-top: 100px;
 `;
 export const Form = styled.div`
   width: 1200px;
-  height: 1847px;
+  height: auto;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   background: #ffffff;
+  padding: 40px 0px;
 `;
 
 export const Title = styled.div`

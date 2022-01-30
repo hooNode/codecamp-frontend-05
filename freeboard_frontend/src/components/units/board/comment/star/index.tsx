@@ -25,7 +25,7 @@ export default function StarPage({ setRating }) {
         <StarOutlined
           key={index}
           onClick={() => byebye(index + 1)}
-          style={{ color: "blue" }}
+          style={{ color: "#FFD600" }}
         />
       );
     }

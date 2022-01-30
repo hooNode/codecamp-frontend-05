@@ -6,15 +6,16 @@ export const Fragment = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
+  max-width: 800px;
+
   box-sizing: border-box;
-  padding-top: 100px;
+  padding-bottom: 50px;
 `;
 export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 1200px;
+
   background: #ffffff;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   background: #ffffff;
@@ -57,7 +58,7 @@ export const Logo = styled.div`
   align-items: center;
 `;
 export const Content_Body = styled.div`
-  margin-top: 80px;
+  margin-top: 20px;
 `;
 export const Body_Title = styled.div`
   font-size: 40px;
@@ -76,18 +77,30 @@ export const Body_Text = styled.div`
   width: 996px;
   height: 120px;
   font-size: 18px;
+  display: flex;
+  justify-content: flex-start;
+`;
+export const WriterText = styled.div`
+  font-size: 30px;
+  font-weight: bold;
+`;
+export const ContentsText = styled.div`
+  color: #bdbdbd;
+  height: 100%;
+  overflow: scroll;
 `;
 export const Body_Youtube = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 80px;
+  padding-top: 40px;
 `;
 export const Content_Footer = styled.div`
   display: flex;
-  margin-top: 120px;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
+  padding: 20px 0px;
+  border-bottom: 1px solid #bdbdbd;
 `;
 export const Like_Btn = styled.div`
   display: flex;
@@ -109,47 +122,65 @@ export const Dislike_Btn = styled.div`
 
 export const Body = styled.div`
   display: flex;
-  margin-top: 70px;
 `;
 export const List_Btn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px 60px 18px 60px;
+  padding: 5px 20px 5px 20px;
   background: #ffffff;
-  border: 1px solid #bdbdbd;
-  box-sizing: border-box;
-  margin: 0px 20px;
+  border: 2px solid #bdbdbd;
+  border-radius: 10px;
+  margin: 0px 10px;
+  font-weight: thin;
+  color: black;
   cursor: pointer;
   &:hover {
-    background-color: #ffd600;
+    background-color: #b0b0b0;
   }
 `;
 export const Edit_Btn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 14px 60px;
+  padding: 5px 20px 5px 20px;
   background: #ffffff;
-  border: 1px solid #bdbdbd;
-  box-sizing: border-box;
-  margin: 0px 20px;
+  border: 2px solid #bdbdbd;
+  border-radius: 10px;
+  margin: 0px 10px;
+  font-weight: thin;
+  color: black;
   cursor: pointer;
   &:hover {
-    background-color: #ffd600;
+    background-color: #b0b0b0;
   }
 `;
 export const Delete_Btn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 14px 60px;
+  padding: 5px 20px 5px 20px;
   background: #ffffff;
-  border: 1px solid #bdbdbd;
-  box-sizing: border-box;
-  margin: 0px 20px;
+  border: 2px solid #bdbdbd;
+  border-radius: 10px;
+  margin: 0px 10px;
+  font-weight: thin;
+  color: black;
   cursor: pointer;
   &:hover {
-    background-color: #ffd600;
+    background-color: #b0b0b0;
   }
+`;
+
+export const BtnBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const ToFixBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 10px;
 `;

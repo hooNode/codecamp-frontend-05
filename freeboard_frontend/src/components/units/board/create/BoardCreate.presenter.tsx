@@ -22,6 +22,7 @@ export default function presenterBoard({
   isEdit,
   btnEdit,
   data,
+  getUTubeUrl,
 }: IPresenterBoardProps) {
   return (
     <S.Fragment>
@@ -87,18 +88,14 @@ export default function presenterBoard({
               <div></div>
             )}
           </S.Content_Story>
-          <S.Content_Address>
-            <span>주소</span>
-            <S.Address_one>
-              <S.Address_Input type="text" placeholder="04358" />
-              <S.Address_Button>우편번호 검색</S.Address_Button>
-            </S.Address_one>
-            <S.Address_Input1 type="text" />
-            <S.Address_Input2 type="text" />
-          </S.Content_Address>
           <S.Content_Youtube>
             <span>유튜브</span>
-            <S.Youtue_Input type="text" placeholder="링크를 복사해주세요." />
+            <S.Youtue_Input
+              type="text"
+              placeholder="링크를 복사해주세요."
+              onChange={getUTubeUrl}
+              defaultValue={isEdit ? data?.fetchBoard.youtubeUrl : ""}
+            />
           </S.Content_Youtube>
           <S.Content_Picture>
             <span>사진첨부</span>

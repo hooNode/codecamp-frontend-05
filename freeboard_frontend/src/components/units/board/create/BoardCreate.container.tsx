@@ -21,6 +21,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
   const [word2, setWord2] = useState("");
   const [word3, setWord3] = useState("");
   const [word4, setWord4] = useState("");
+  const [youTubeUrl, setYouTubeUrl] = useState("");
   const [onBtn, setOnBtn] = useState(true);
   const [allData, setAllData] = useState("");
   const [modaltime, setModaltime] = useState(false);
@@ -83,6 +84,11 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     }
   };
 
+  const getUTubeUrl = (e) => {
+    setYouTubeUrl(e.target.value);
+    console.log(youTubeUrl);
+  };
+
   const btnClick = async () => {
     if (word1 !== "" && word2 !== "" && word3 !== "" && word4 !== "") {
       const result = await clientData({
@@ -92,6 +98,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
             password: word2,
             title: word3,
             contents: word4,
+            youtubeUrl: youTubeUrl,
           },
         },
       });
@@ -127,6 +134,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
       updateBoardInput: {
         title?: string;
         contents?: string;
+        youtubeUrl?: string;
       };
     }
 
@@ -138,6 +146,8 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
 
     if (word3 !== "") myVariables.updateBoardInput.title = word3;
     if (word4 !== "") myVariables.updateBoardInput.contents = word4;
+    if (youTubeUrl !== "") myVariables.updateBoardInput.youtubeUrl = youTubeUrl;
+
     try {
       const result = await updateData({
         variables: myVariables,
@@ -184,6 +194,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
       word2={word2}
       word3={word3}
       word4={word4}
+      getUTubeUrl={getUTubeUrl}
       data={data}
     />
   );

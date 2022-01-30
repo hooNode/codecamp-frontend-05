@@ -1,6 +1,7 @@
 import * as S from "./CommentWrite.styles";
 import React from "react";
 import StarPage from "../star/index";
+import CommentListContainer from "../list/CommentList.container";
 
 export default function UICommentWrite({
   btnClick,
@@ -12,10 +13,7 @@ export default function UICommentWrite({
 }) {
   return (
     <S.Footer>
-      <S.Footer_Title>
-        <img src="/review.png" alt="error" width="20" height="20px" />
-        댓글
-      </S.Footer_Title>
+      <S.Footer_Title>댓글</S.Footer_Title>
       <S.Footer_Tag>
         <S.Tag_Writer placeholder="작성자" onChange={writerChange} />
         <S.Tag_Password placeholder="비밀번호" onChange={passwordChange} />
@@ -33,7 +31,9 @@ export default function UICommentWrite({
           <S.Text_Btn onClick={btnClick}>등록하기</S.Text_Btn>
         </S.PossibleArea>
       </S.Footer_Text>
-      <S.Footer_List></S.Footer_List>
+      <S.Footer_List>
+        <CommentListContainer />
+      </S.Footer_List>
     </S.Footer>
   );
 }

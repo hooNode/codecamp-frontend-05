@@ -1,6 +1,6 @@
-import BoardCreate from '../../../../src/components/units/board/create/BoardCreate.container';
-import { useRouter } from 'next/router';
-import { useQuery, gql } from '@apollo/client';
+import BoardCreate from "../../../../src/components/units/board/create/BoardCreate.container";
+import { useRouter } from "next/router";
+import { useQuery, gql } from "@apollo/client";
 
 export const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
@@ -8,6 +8,7 @@ export const FETCH_BOARD = gql`
       writer
       title
       contents
+      youtubeUrl
     }
   }
 `;

@@ -16,13 +16,11 @@ export default function NextArrow({
         ...style,
         background: "black",
         borderRadius: "100px",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        paddingTop: "5.5px",
-        paddingLeft: "1px",
-        width: "5%",
-        height: "10%",
+        cursor: "pointer",
+        paddingTop: "0.7rem",
+        paddingLeft: "2rem",
+        width: "10%",
+        height: "20%",
       }}
       onClick={onClick}
     />

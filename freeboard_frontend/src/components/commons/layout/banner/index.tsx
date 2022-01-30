@@ -1,4 +1,3 @@
-import React from "react";
 import Slick from "react-slick";
 import Slider from "react-slick";
 import styled from "@emotion/styled";
@@ -16,13 +15,14 @@ const Div = styled.div`
     justify-content: center;
     align-items: center;
     padding-top: 80px;
+    font-size: 60px;
   }
 `;
 
 const Container = styled.div`
-  width: 75%;
-  height: 278px;
-  padding-left: 700px;
+  width: 50%;
+  height: 20rem;
+
   .slick-dots {
     .slick-active {
       button::before {
@@ -33,6 +33,13 @@ const Container = styled.div`
       color: #e9e9e9;
     }
   }
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  justify-content: center;
+  font-size: 40px;
+  font-weight: bold;
 `;
 
 const CardSlier = () => {
@@ -47,27 +54,28 @@ const CardSlier = () => {
   };
   return (
     <Container>
+      <TextBox>베스트 동영상</TextBox>
       <Slider {...settings}>
         {" "}
         <Div>
           {" "}
-          <h3>처</h3>{" "}
+          <h3>유</h3>{" "}
         </Div>{" "}
         <Div>
           {" "}
-          <h3>음</h3>{" "}
+          <h3>튜</h3>{" "}
         </Div>{" "}
         <Div>
           {" "}
-          <h3>만</h3>{" "}
+          <h3>브</h3>{" "}
         </Div>{" "}
         <Div>
           {" "}
-          <h3>든</h3>{" "}
+          <h3>영</h3>{" "}
         </Div>{" "}
         <Div>
           {" "}
-          <h3>캐러셀</h3>{" "}
+          <h3>상</h3>{" "}
         </Div>{" "}
       </Slider>
     </Container>

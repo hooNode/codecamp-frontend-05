@@ -3,7 +3,8 @@ import { useRouter } from "next/router";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import UICommentWrite from "./CommentWrite.presenter";
-import { FETCH_BOARD, CREATE_BOARD_COMMENT } from "./CommentWrite.queries";
+import { CREATE_BOARD_COMMENT } from "./CommentWrite.queries";
+import { FETCH_BOARD_COMMENTS } from "../list/CommentList.container";
 
 export default function CommentWrite() {
   const router = useRouter();
@@ -38,6 +39,12 @@ export default function CommentWrite() {
         },
         boardId: String(router.query.aaa),
       },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD_COMMENTS,
+          variables: { boardId: String(router.query.aaa) },
+        },
+      ],
     });
   };
 

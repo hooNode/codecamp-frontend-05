@@ -1,33 +1,42 @@
-import * as S from "./CommentList.styles";
-import React from "react";
+import { Modal } from "antd";
+import * as S from "./BoardCommentList.styles";
+import { IBoardCommentListUIProps } from "./BoardCommentList.types";
 
-export default function DynamicRoutePage({
-  data,
-  btnMoveToList,
-  btnMoveToEdit,
-  btnClick,
-}) {
+export default function BoardCommentListUI(props: IBoardCommentListUIProps) {
   return (
-    <S.Fragment>
-      <S.Footer>
-        <S.Footer_Title>
-          <img src="/review.png" alt="error" width="20" height="20px" />
-          댓글
-        </S.Footer_Title>
-        <S.Footer_Tag>
-          <S.Tag_Writer placeholder="작성자" />
-          <S.Tag_Password placeholder="비밀번호" />
-          <S.Tag_Review>✩ ✩ ✩ ✩ ✩</S.Tag_Review>
-        </S.Footer_Tag>
-        <S.Footer_Text>
-          <S.Text placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."></S.Text>
-          <S.PossibleArea>
-            <S.TextCount>0 / 100</S.TextCount>
-            <S.Text_Btn>등록하기</S.Text_Btn>
-          </S.PossibleArea>
-        </S.Footer_Text>
-        <S.Footer_List></S.Footer_List>
-      </S.Footer>
-    </S.Fragment>
+    <div>
+      {props.isOpen && (
+        <Modal visible={true} onOk={props.onClickDelete}>
+          <div>비밀번호 입력: </div>
+          <S.PasswordInput
+            type="password"
+            onChange={props.onChangeDeletePassword}
+          />
+        </Modal>
+      )}
+      {props.data?.fetchBoardComments.map((el) => (
+        <S.ItemWrapper key={el._id} onClick={() => props.showWriter(el)}>
+          <S.FlexWrapper>
+            <S.Avatar src="/images/avatar.png" />
+            <S.MainWrapper>
+              <S.WriterWrapper>
+                <S.Writer>{el?.writer}</S.Writer>
+                <S.Star value={el?.rating} disabled />
+              </S.WriterWrapper>
+              <S.Contents>{el?.contents}</S.Contents>
+            </S.MainWrapper>
+            <S.OptionWrapper>
+              <S.UpdateIcon src="/images/boardComment/list/option_update_icon.png/" />
+              <S.DeleteIcon
+                id={el._id}
+                src="/images/boardComment/list/option_delete_icon.png/"
+                onClick={props.onClickOpenDeleteModal}
+              />
+            </S.OptionWrapper>
+          </S.FlexWrapper>
+          <S.DateString>{el?.createdAt}</S.DateString>
+        </S.ItemWrapper>
+      ))}
+    </div>
   );
 }
