@@ -10,20 +10,38 @@ export default function UICommentWrite({
   contentsChange,
   ratingChange,
   setRating,
+  writer,
+  password,
+  contents,
+  starNum,
+  setStarNum,
 }) {
   return (
     <S.Footer>
       <S.Footer_Title>댓글</S.Footer_Title>
       <S.Footer_Tag>
-        <S.Tag_Writer placeholder="작성자" onChange={writerChange} />
-        <S.Tag_Password placeholder="비밀번호" onChange={passwordChange} />
+        <S.Tag_Writer
+          placeholder="작성자"
+          value={writer}
+          onChange={writerChange}
+        />
+        <S.Tag_Password
+          placeholder="비밀번호"
+          value={password}
+          onChange={passwordChange}
+        />
         <S.Tag_Review>
-          <StarPage setRating={setRating} />
+          <StarPage
+            setRating={setRating}
+            starNum={starNum}
+            setStarNum={setStarNum}
+          />
         </S.Tag_Review>
       </S.Footer_Tag>
       <S.Footer_Text>
         <S.Text
           placeholder="개인정보를 공유 및 요청하거나, 명예 훼손, 무단 광고, 불법 정보 유포시 모니터링 후 삭제될 수 있으며, 이에 대한 민형사상 책임은 게시자에게 있습니다."
+          value={contents}
           onChange={contentsChange}
         ></S.Text>
         <S.PossibleArea>

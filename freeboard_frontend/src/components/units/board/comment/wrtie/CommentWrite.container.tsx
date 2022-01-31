@@ -13,6 +13,8 @@ export default function CommentWrite() {
   const [password, setPassword] = useState("");
   const [contents, setContent] = useState("");
   const [rating, setRating] = useState(0);
+  const [isFinish, setIsFinish] = useState(false);
+  const [starNum, setStarNum] = useState(0);
 
   const writerChange = (e: ChangeEvent<HTMLInputElement>) => {
     setWriter(e.target.value);
@@ -29,23 +31,32 @@ export default function CommentWrite() {
   };
 
   const btnClick = async () => {
-    const result = await commentData({
-      variables: {
-        createBoardCommentInput: {
-          writer: writer,
-          password: password,
-          contents: contents,
-          rating: Number(rating),
+    try {
+      const result = await commentData({
+        variables: {
+          createBoardCommentInput: {
+            writer: writer,
+            password: password,
+            contents: contents,
+            rating: Number(rating),
+          },
+          boardId: String(router.query.aaa),
         },
-        boardId: String(router.query.aaa),
-      },
-      refetchQueries: [
-        {
-          query: FETCH_BOARD_COMMENTS,
-          variables: { boardId: String(router.query.aaa) },
-        },
-      ],
-    });
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: String(router.query.aaa) },
+          },
+        ],
+      });
+      setRating(0);
+      setWriter("");
+      setPassword("");
+      setContent("");
+      setStarNum(0);
+    } catch (e) {
+      alert(e.message);
+    }
   };
 
   return (
@@ -56,6 +67,12 @@ export default function CommentWrite() {
       contentsChange={contentsChange}
       ratingChange={ratingChange}
       setRating={setRating}
+      writer={writer}
+      password={password}
+      contents={contents}
+      rating={rating}
+      setStarNum={setStarNum}
+      starNum={starNum}
     />
   );
 }

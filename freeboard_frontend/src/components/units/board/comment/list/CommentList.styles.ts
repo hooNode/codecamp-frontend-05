@@ -1,66 +1,61 @@
 import styled from "@emotion/styled";
-import { Rate } from "antd";
 
-export const ItemWrapper = styled.div`
-  width: 1200px;
-  margin: 0px 100px;
-  padding-top: 20px;
-  height: 128px;
-  border-bottom: 1px solid lightgray;
-  cursor: pointer;
-`;
-
-export const FlexWrapper = styled.div`
+export const CommentListContainer = styled.div`
   display: flex;
-  flex-direction: row;
-`;
-
-export const Avatar = styled.img`
-  width: 48px;
-  height: 48px;
-`;
-
-export const MainWrapper = styled.div`
+  flex-direction: column;
   width: 100%;
-  padding-left: 10px;
-`;
-export const WriterWrapper = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-export const Writer = styled.div`
   font-size: 20px;
-  font-weight: bold;
+  margin: 10px 0 40px 0;
+  padding-top: 15px;
+  border-top: 1px solid #e6e6e6;
 `;
-export const Contents = styled.div``;
-
-export const OptionWrapper = styled.div`
+export const FirstLine = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
 `;
-export const UpdateIcon = styled.img`
-  width: 24px;
-  height: 24px;
-  cursor: pointer;
+export const CreatedDay = styled.div`
+  color: #bdbdbd;
 `;
-export const DeleteIcon = styled.img`
-  width: 24px;
-  height: 24px;
+export const ImageIcon = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 60px;
+`;
+export const DeleteBtn = styled.button`
   cursor: pointer;
+  border: none;
+`;
+export const EditBtn = styled.button`
+  cursor: pointer;
+  border: none;
 `;
 
-export const DateString = styled.div`
-  color: lightgray;
-  padding-top: 15px;
-  padding-left: 60px;
+export const Modal = styled.div`
+  position: absolute;
+  top: 35%;
+  left: 0%;
+  background-color: black;
+  opacity: 0.5;
+  width: 100%;
+  height: 100vh;
 `;
-
 export const PasswordInput = styled.input`
   width: 100%;
   margin-top: 10px;
 `;
-
-export const Star = styled(Rate)`
-  padding-left: 20px;
+export const SecondLine = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0;
 `;
+export const WriterName = styled.div`
+  font-weight: 700;
+`;
+export const StarBox = styled.div`
+  margin-left: 30px;
+  width: 100px;
+`;
+export const ThirdLine = styled.div``;
+export const ContentsText = styled.div``;

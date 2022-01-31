@@ -47,10 +47,6 @@ export default function DynamicRoutePage({
             />
           </S.Body_Youtube>
           <S.Content_Body>
-            <S.Body_Title>
-              {data?.fetchBoard?.title}
-              <br />
-            </S.Body_Title>
             <S.Content_Footer>
               <S.Body>
                 <S.List_Btn onClick={btnMoveToList}>목록</S.List_Btn>

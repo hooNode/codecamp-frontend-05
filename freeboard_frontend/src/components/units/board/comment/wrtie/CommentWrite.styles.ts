@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 export const Footer = styled.div`
   width: 1200px;
   height: 500px;
-
+  font-size: 20px;
   border-top: 1px solid #bdbdbd;
   display: flex;
   flex-direction: column;
@@ -30,6 +30,7 @@ export const Tag_Writer = styled.input`
   width: 180px;
   height: 52px;
   border: none;
+  font-size: 20px;
   border-bottom: 1px solid #bdbdbd;
   background: none;
   margin-right: 24px;
@@ -101,6 +102,8 @@ export const Text = styled.textarea`
   align-items: flex-start;
   resize: none;
   background: none;
+  font-size: 20px;
+  padding-left: 10px;
   &::placeholder {
     font-weight: 500;
     font-size: 16px;
