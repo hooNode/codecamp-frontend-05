@@ -49,6 +49,7 @@ export default function CommentWrite() {
           },
         ],
       });
+      console.log(result.data?.createBoardComment._id);
       setRating(0);
       setWriter("");
       setPassword("");

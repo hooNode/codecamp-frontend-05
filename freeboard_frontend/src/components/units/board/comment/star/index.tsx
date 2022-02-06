@@ -22,21 +22,21 @@ export default function StarPage({
   };
 
   for (let i = 0; i < 5; i++) {
-    defaultStar.push(<StarOutlined key={i} onClick={() => byebye(i + 1)} />);
-    finishStar.push(<StarOutlined key={i} onClick={() => byebye(i + 1)} />);
+    defaultStar.push(<StarOutlined onClick={() => byebye(i + 1)} />);
+    finishStar.push(<StarOutlined onClick={() => byebye(i + 1)} />);
   }
 
   // eslint-disable-next-line array-callback-return
   const aaa = defaultStar.map((el, index) => {
     if (index < starNum) {
       defaultStar[index] = <></>;
-      return (el = (
+      return (
         <StarOutlined
           key={index}
           onClick={() => byebye(index + 1)}
           style={{ color: "#FFD600" }}
         />
-      ));
+      );
     }
   });
 
