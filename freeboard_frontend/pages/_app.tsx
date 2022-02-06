@@ -3,6 +3,7 @@ import { Global, css } from "@emotion/react";
 import Layout from "../src/components/commons/layout";
 import { AppProps } from "next/app";
 import { globalStyles } from "../src/commons/styles/globalStyles";
+import styled from "@emotion/styled";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const client = new ApolloClient({

@@ -44,7 +44,6 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     }
     if (e.target.value && word2 && word3 && word4) {
       setOnBtn(false);
-      console.log("버튼타입변해효~", onBtn);
     }
   };
   const checkWording2 = (e: ChangeEvent<HTMLInputElement>) => {
@@ -56,7 +55,6 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     }
     if (e.target.value && word1 && word3 && word4) {
       setOnBtn(false);
-      console.log("버튼타입변해효~", onBtn);
     }
   };
   const checkWording3 = (e: ChangeEvent<HTMLInputElement>) => {
@@ -68,7 +66,6 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     }
     if (e.target.value && word2 && word1 && word4) {
       setOnBtn(false);
-      console.log("버튼타입변해효~", onBtn);
     }
   };
   const checkWording4 = (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,13 +77,11 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     }
     if (e.target.value && word2 && word3 && word1) {
       setOnBtn(false);
-      console.log("버튼타입변해효~", onBtn);
     }
   };
 
   const getUTubeUrl = (e) => {
     setYouTubeUrl(e.target.value);
-    console.log(youTubeUrl);
   };
 
   const btnClick = async () => {
@@ -156,7 +151,6 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
         router.push(`/notice/${result.data?.updateBoard._id}`);
         setAllData(`게시글 수정에 성공하셨습니다. ID: ${router.query.aaa}`);
         setModaltime(true);
-        console.log(result.data?.updateBoard);
       } else {
         setAllData("작성 내용을 다시 입력해주세요");
         setModaltime(true);

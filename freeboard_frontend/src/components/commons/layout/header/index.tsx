@@ -7,11 +7,12 @@ const Wrapper = styled.div`
   width: 100%;
   height: 300px;
   padding: 0 100px;
+  background-color: white;
 `;
 
 const WarningMsg = styled.div`
   color: #b0b0b0;
-  font-size: 20px; ;
+  font-size: 20px;
 `;
 const TextBox = styled.div`
   display: flex;

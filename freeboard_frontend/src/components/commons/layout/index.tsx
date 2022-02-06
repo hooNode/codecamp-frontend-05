@@ -5,25 +5,22 @@ import Navigation from "./navigation";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
-const LayoutBody = styled.div`
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  height: 100vh;
-  margin-top: 40px;
-  /* background-color: red; */
-  margin-right: 3rem;
-`;
-
 const LayoutFixBox = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: auto;
 `;
+const LayoutBody = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-top: 40px;
+  margin-right: 3rem;
+`;
+
 const SideWrapper = styled.div`
-  height: 100vh;
+  /* height: 100vh; */
 `;
 const LayoutSidebar = styled.div`
   width: 23rem;
@@ -41,8 +38,6 @@ const BodyWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 100vw;
-  height: 100vh;
-  overflow: scroll;
   background-color: #f2f2f2;
 `;
 
@@ -52,7 +47,6 @@ interface ILayoutProps {
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
-  console.log(router);
   const HIDDEN_HEADERS = [
     "/notice/list",
     "/notice/new",

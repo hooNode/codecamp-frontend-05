@@ -10,6 +10,7 @@ const Div = styled.div`
   width: 100%;
   height: 200px;
   display: none;
+
   h3 {
     display: flex;
     justify-content: center;
@@ -22,7 +23,8 @@ const Div = styled.div`
 const Container = styled.div`
   width: 50%;
   height: 20rem;
-
+  background-color: white;
+  width: 100%;
   .slick-dots {
     .slick-active {
       button::before {
@@ -35,6 +37,11 @@ const Container = styled.div`
   }
 `;
 
+const SubContainer = styled.div`
+  position: relative;
+  left: 25%;
+  width: 50%;
+`;
 const TextBox = styled.div`
   display: flex;
   justify-content: center;
@@ -54,30 +61,32 @@ const CardSlier = () => {
   };
   return (
     <Container>
-      <TextBox>베스트 동영상</TextBox>
-      <Slider {...settings}>
-        {" "}
-        <Div>
+      <SubContainer>
+        <TextBox>베스트 동영상</TextBox>
+        <Slider {...settings}>
           {" "}
-          <h3>유</h3>{" "}
-        </Div>{" "}
-        <Div>
-          {" "}
-          <h3>튜</h3>{" "}
-        </Div>{" "}
-        <Div>
-          {" "}
-          <h3>브</h3>{" "}
-        </Div>{" "}
-        <Div>
-          {" "}
-          <h3>영</h3>{" "}
-        </Div>{" "}
-        <Div>
-          {" "}
-          <h3>상</h3>{" "}
-        </Div>{" "}
-      </Slider>
+          <Div>
+            {" "}
+            <h3>유</h3>{" "}
+          </Div>{" "}
+          <Div>
+            {" "}
+            <h3>튜</h3>{" "}
+          </Div>{" "}
+          <Div>
+            {" "}
+            <h3>브</h3>{" "}
+          </Div>{" "}
+          <Div>
+            {" "}
+            <h3>영</h3>{" "}
+          </Div>{" "}
+          <Div>
+            {" "}
+            <h3>상</h3>{" "}
+          </Div>{" "}
+        </Slider>
+      </SubContainer>
     </Container>
   );
 };

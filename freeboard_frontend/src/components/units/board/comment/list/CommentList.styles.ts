@@ -1,5 +1,10 @@
 import styled from "@emotion/styled";
 
+export const Fragment = styled.div`
+  /* background: red; */
+  /* height: 100px; */
+`;
+
 export const CommentListContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -39,7 +44,7 @@ export const Modal = styled.div`
   background-color: black;
   opacity: 0.5;
   width: 100%;
-  height: 100vh;
+  /* height: 100vh; */
 `;
 export const PasswordInput = styled.input`
   width: 100%;

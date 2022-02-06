@@ -6,8 +6,8 @@ export const FETCH_BOARD_COMMENTS = gql`
       _id
       writer
       contents
-      createdAt
       rating
+      createdAt
     }
   }
 `;

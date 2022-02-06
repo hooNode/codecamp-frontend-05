@@ -13,10 +13,8 @@ export default function BoardList({
   checkItems,
   onClickDelete,
 }: IBoardList) {
-  // (e) => e.target ? { onClickDelete } : console.log("체크해라")
   const confirmCheck = (e: MouseEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
-    console.log(checkItems.includes(target.name));
     return checkItems.includes(target.name)
       ? onClickDelete(e)
       : alert("체크하신 후 삭제해주세요.");
