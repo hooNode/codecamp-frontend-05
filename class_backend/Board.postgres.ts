@@ -1,7 +1,8 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, BaseEntity } from "typeorm";
 
 @Entity()
-export class Board {
+// BaseEntity 기본 기능이 추가됨
+export class Board extends BaseEntity {
   @PrimaryGeneratedColumn("increment")
   number!: number;
 
@@ -13,4 +14,7 @@ export class Board {
 
   @Column({ type: "text" })
   age!: number;
+
+  @Column({ type: "timestamp", default: null, nullable: true })
+  deleteAt!: Date;
 }

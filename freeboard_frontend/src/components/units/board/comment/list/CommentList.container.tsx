@@ -19,7 +19,6 @@ export default function CommentListContainer() {
 
   const onLoadMore = () => {
     if (!data) return;
-    console.log("나는 무한");
     fetchMore({
       variables: { page: Math.ceil(data?.fetchBoardComments.length / 10) + 1 },
       updateQuery: (prev, { fetchMoreResult }) => {
@@ -33,7 +32,6 @@ export default function CommentListContainer() {
         };
       },
     });
-    console.log(data);
   };
 
   return (

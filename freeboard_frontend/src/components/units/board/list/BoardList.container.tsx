@@ -1,4 +1,4 @@
-import React, { MouseEvent } from "react";
+import React, { MouseEvent, useEffect } from "react";
 import { useRouter } from "next/router";
 import PBoardList from "./BoardList.presenter";
 import { FETCH_BOARDS, DELETE_BOARD } from "./BoardList.queries";
@@ -9,8 +9,13 @@ export default function BoardList() {
   const router = useRouter();
   const { data } = useQuery(FETCH_BOARDS);
   const [checkItems, setCheckItems] = useState([]);
-
   const [deleteBoard] = useMutation(DELETE_BOARD);
+  const [newData, setNewData] = useState<Array<any>>([]);
+
+  const youTubeData = () => {
+    const youTubeList = data?.fetchBoards.filter((el) => el.youtubeUrl !== "");
+    setNewData((youTubeList && [...youTubeList]) || []);
+  };
 
   const onClickDelete = async (e: MouseEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -73,6 +78,11 @@ export default function BoardList() {
   const createClick = () => {
     router.push("/notice/new");
   };
+
+  useEffect(() => {
+    if (data) youTubeData();
+  }, [data]);
+  console.log(newData);
 
   return (
     <PBoardList

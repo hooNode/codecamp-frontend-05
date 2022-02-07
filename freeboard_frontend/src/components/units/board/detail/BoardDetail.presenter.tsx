@@ -15,6 +15,7 @@ export default function DynamicRoutePage({
   data,
   btnMoveToList,
   btnMoveToEdit,
+  onClickDeleteBtn,
 }: IPresenterBoardProps) {
   return (
     <S.Fragment>
@@ -51,7 +52,7 @@ export default function DynamicRoutePage({
               <S.Body>
                 <S.List_Btn onClick={btnMoveToList}>목록</S.List_Btn>
                 <S.Edit_Btn onClick={btnMoveToEdit}>수정</S.Edit_Btn>
-                <S.Delete_Btn>삭제</S.Delete_Btn>
+                <S.Delete_Btn onClick={onClickDeleteBtn}>삭제</S.Delete_Btn>
               </S.Body>
               <S.BtnBox>
                 <S.Like_Btn>

@@ -39,6 +39,7 @@ const BodyWrapper = styled.div`
   align-items: flex-start;
   width: 100vw;
   background-color: #f2f2f2;
+  padding-bottom: 100px;
 `;
 
 interface ILayoutProps {
