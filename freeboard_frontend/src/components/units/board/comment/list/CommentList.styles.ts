@@ -11,13 +11,14 @@ export const CommentListContainer = styled.div`
   width: 100%;
   font-size: 20px;
   margin: 10px 0 40px 0;
-  padding-top: 15px;
+  padding: 15px;
   border-top: 1px solid #e6e6e6;
 `;
 export const FirstLine = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  height: 30px;
 `;
 export const CreatedDay = styled.div`
   color: #bdbdbd;
@@ -63,4 +64,56 @@ export const StarBox = styled.div`
   width: 100px;
 `;
 export const ThirdLine = styled.div``;
+export const EditThirdLine = styled.div`
+  display: flex;
+  align-items: center;
+  p {
+    font-size: 15px;
+    margin: 0 0 0 15px;
+  }
+`;
 export const ContentsText = styled.div``;
+
+export const EditPassword = styled.input`
+  height: 30px;
+  width: 10%;
+  background: none;
+  border: none;
+  border-radius: 0px;
+  resize: none;
+  border-bottom: 0.1rem solid #e6e6e6;
+  padding: 0 0 0 10px;
+  margin-left: 20px;
+  &:focus {
+    outline: none;
+    border-bottom: 0.5px solid black;
+  }
+`;
+export const EditTextBox = styled.textarea`
+  height: 2rem;
+  width: 50%;
+  background: none;
+  border: none;
+  border-radius: 0px;
+  resize: none;
+  border-bottom: 0.1rem solid #e6e6e6;
+  padding: 0 0 0 10px;
+  margin-right: 20px;
+  &:focus {
+    outline: none;
+    border-bottom: 0.5px solid black;
+  }
+`;
+
+export const ConfirmBtn = styled.button`
+  border: 1px solid #e6e6e6;
+  color: #bdbdbd;
+  margin: 0;
+  padding: 0 10px;
+  margin-right: 10px;
+  cursor: pointer;
+  &:hover {
+    background: gray;
+    color: white;
+  }
+`;

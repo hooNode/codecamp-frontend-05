@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 
 export const Footer = styled.div`
   width: 1200px;
-  height: 500px;
   font-size: 20px;
   border-top: 1px solid #bdbdbd;
   display: flex;

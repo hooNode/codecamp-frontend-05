@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import {
   FETCH_BOARD_COMMENTS,
   DELETE_BOARD_COMMENT,
+  UPDATE_BOARD_COMMENT,
 } from "./CommentList.queries";
 
 export default function CommentListItems({ el }) {
@@ -15,6 +16,10 @@ export default function CommentListItems({ el }) {
   const [deleteModal, setDeleteModal] = useState(false);
   const [password, setPassword] = useState("");
   const [commentId, setCommentId] = useState("");
+  const [isEdit, setIsEdit] = useState(false);
+  const [rating, setRating] = useState(0);
+  const [starNum, setStarNum] = useState(0);
+  const [contentsText, setContentsText] = useState("");
   const isComment = true;
 
   const deleteConfirm = (el) => {
@@ -51,8 +56,49 @@ export default function CommentListItems({ el }) {
     }
   };
 
+  const isEditBtn = () => {
+    setIsEdit(true);
+  };
+
+  const doneEditBtn = () => {
+    setIsEdit(false);
+  };
+
+  const editContents = (e) => {
+    setContentsText(e.target.value);
+  };
+
+  const editPassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+
+  const onClickUpdateComment = async () => {
+    try {
+      await updateBoardComment({
+        variables: {
+          boardCommentId: el._id,
+          password,
+          updateBoardCommentInput: {
+            contents: contentsText,
+            rating: rating,
+          },
+        },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: String(router.query.aaa) },
+          },
+        ],
+      });
+    } catch (error) {
+      console.dir(error);
+    }
+    setIsEdit(false);
+  };
+
   return (
-    <>
+    <S.Fragment>
       {deleteModal && (
         <Modal
           visible={true}
@@ -63,28 +109,67 @@ export default function CommentListItems({ el }) {
           <S.PasswordInput type="password" onChange={onChangeDeletePassword} />
         </Modal>
       )}
-      <S.CommentListContainer>
-        <S.FirstLine>
-          <S.CreatedDay>{el.createdAt.slice(0, 10)}</S.CreatedDay>
-          <S.ImageIcon>
-            <S.EditBtn>
-              <img src="/edit.png" style={{ width: "20px", height: "20px" }} />
-            </S.EditBtn>
-            <S.DeleteBtn onClick={() => deleteConfirm(el)}>
-              <img src="/close.png" style={{ width: "20px", height: "20px" }} />
-            </S.DeleteBtn>
-          </S.ImageIcon>
-        </S.FirstLine>
-        <S.SecondLine>
-          <S.WriterName>{el.writer}</S.WriterName>
-          <S.StarBox>
-            <StarPage commentRating={el.rating} isComment={isComment} />
-          </S.StarBox>
-        </S.SecondLine>
-        <S.ThirdLine>
-          <S.ContentsText>{el.contents}</S.ContentsText>
-        </S.ThirdLine>
-      </S.CommentListContainer>
-    </>
+      {isEdit && (
+        <S.CommentListContainer>
+          <S.FirstLine>
+            <S.CreatedDay>{el.createdAt.slice(0, 10)}</S.CreatedDay>
+            <div>
+              <S.ConfirmBtn onClick={onClickUpdateComment}>수정</S.ConfirmBtn>
+              <S.DeleteBtn onClick={doneEditBtn}>
+                <img
+                  src="/close.png"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </S.DeleteBtn>
+            </div>
+          </S.FirstLine>
+          <S.SecondLine>
+            <S.WriterName>{el.writer}</S.WriterName>
+            <S.StarBox>
+              <StarPage
+                setRating={setRating}
+                starNum={starNum}
+                setStarNum={setStarNum}
+              />
+            </S.StarBox>
+          </S.SecondLine>
+          <S.EditThirdLine>
+            <S.EditTextBox onChange={editContents} />
+            <p>비밀번호 : </p>
+            <S.EditPassword type="password" onChange={editPassword} />
+          </S.EditThirdLine>
+        </S.CommentListContainer>
+      )}
+      {!isEdit && (
+        <S.CommentListContainer>
+          <S.FirstLine>
+            <S.CreatedDay>{el.createdAt.slice(0, 10)}</S.CreatedDay>
+            <S.ImageIcon>
+              <S.EditBtn onClick={isEditBtn}>
+                <img
+                  src="/edit.png"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </S.EditBtn>
+              <S.DeleteBtn onClick={() => deleteConfirm(el)}>
+                <img
+                  src="/close.png"
+                  style={{ width: "20px", height: "20px" }}
+                />
+              </S.DeleteBtn>
+            </S.ImageIcon>
+          </S.FirstLine>
+          <S.SecondLine>
+            <S.WriterName>{el.writer}</S.WriterName>
+            <S.StarBox>
+              <StarPage commentRating={el.rating} isComment={isComment} />
+            </S.StarBox>
+          </S.SecondLine>
+          <S.ThirdLine>
+            <S.ContentsText>{el.contents}</S.ContentsText>
+          </S.ThirdLine>
+        </S.CommentListContainer>
+      )}
+    </S.Fragment>
   );
 }

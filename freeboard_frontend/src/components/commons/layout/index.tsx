@@ -20,11 +20,11 @@ const LayoutBody = styled.div`
 `;
 
 const SideWrapper = styled.div`
-  /* height: 100vh; */
+  /* height: 70vh; */
 `;
 const LayoutSidebar = styled.div`
   width: 23rem;
-  height: 70vh;
+  height: 50vh;
   border-radius: 20px;
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
   background-color: white;
