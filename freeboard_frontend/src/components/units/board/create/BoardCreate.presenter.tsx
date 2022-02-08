@@ -23,6 +23,10 @@ export default function presenterBoard({
   btnEdit,
   data,
   getUTubeUrl,
+  image,
+  onChangeFile,
+  fileRef,
+  onClickImage,
 }: IPresenterBoardProps) {
   return (
     <S.Fragment>
@@ -100,18 +104,28 @@ export default function presenterBoard({
           <S.Content_Picture>
             <span>사진첨부</span>
             <S.Picture_Div>
-              <S.Picture_img1>
-                <div>+</div>
-                <span>Upload</span>
-              </S.Picture_img1>
-              <S.Picture_img2>
-                <div>+</div>
-                <span>Upload</span>
-              </S.Picture_img2>
-              <S.Picture_img3>
-                <div>+</div>
-                <span>Upload</span>
-              </S.Picture_img3>
+              {image.map((el, index) => (
+                <>
+                  {el !== "1" ? (
+                    <img
+                      src={`https:/storage.googleapis.com/${el}`}
+                      width="78px"
+                      height="78px"
+                    />
+                  ) : (
+                    <S.Picture_img onClick={onClickImage} key={index}>
+                      <div>+</div>
+                      <span>Upload</span>
+                    </S.Picture_img>
+                  )}
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    ref={fileRef}
+                    onChange={onChangeFile}
+                  />
+                </>
+              ))}
             </S.Picture_Div>
           </S.Content_Picture>
           <S.Content_Radio>

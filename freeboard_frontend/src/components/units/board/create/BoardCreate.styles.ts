@@ -223,7 +223,7 @@ export const Content_Picture = styled.div`
   flex-direction: column;
 `;
 
-export const Picture_img1 = styled.div`
+export const Picture_img = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

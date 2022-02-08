@@ -123,7 +123,7 @@ export const Dislike_Btn = styled.div`
 export const Body = styled.div`
   display: flex;
 `;
-export const List_Btn = styled.div`
+export const ListBtn = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;

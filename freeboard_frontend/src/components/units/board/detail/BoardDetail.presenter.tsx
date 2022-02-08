@@ -48,9 +48,20 @@ export default function DynamicRoutePage({
             />
           </S.Body_Youtube>
           <S.Content_Body>
+            <>
+              {data?.fetchBoard?.images.map((el) => (
+                <>
+                  <img
+                    src={`https:/storage.googleapis.com/${el}`}
+                    width="78px"
+                    height="78px"
+                  />
+                </>
+              ))}
+            </>
             <S.Content_Footer>
               <S.Body>
-                <S.List_Btn onClick={btnMoveToList}>목록</S.List_Btn>
+                <S.ListBtn onClick={btnMoveToList}>목록</S.ListBtn>
                 <S.Edit_Btn onClick={btnMoveToEdit}>수정</S.Edit_Btn>
                 <S.Delete_Btn onClick={onClickDeleteBtn}>삭제</S.Delete_Btn>
               </S.Body>

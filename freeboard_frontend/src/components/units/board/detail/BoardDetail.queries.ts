@@ -8,6 +8,7 @@ export const FETCH_BOARD = gql`
       contents
       createdAt
       youtubeUrl
+      images
     }
   }
 `;

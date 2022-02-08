@@ -1,6 +1,6 @@
 import PBoardCreate from "./BoardCreate.presenter";
-import { ChangeEvent, useState, useEffect } from "react";
-import { CREATE_BOARD, UPDATE_BOARD } from "./BoardCreate.queries";
+import { ChangeEvent, useState, useEffect, useRef } from "react";
+import { CREATE_BOARD, UPDATE_BOARD, UPLOAD_FILE } from "./BoardCreate.queries";
 import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { IBoardCreateProps } from "./BoardCreate.types";
@@ -8,11 +8,12 @@ import {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
+  IMutationUploadFileArgs,
 } from "../../../../commons/types/generated/types";
 
 export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
   const router = useRouter();
-
+  const fileRef = useRef();
   const [msg1, setMsg1] = useState(false);
   const [msg2, setMsg2] = useState(false);
   const [msg3, setMsg3] = useState(false);
@@ -25,6 +26,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
   const [onBtn, setOnBtn] = useState(true);
   const [allData, setAllData] = useState("");
   const [modaltime, setModaltime] = useState(false);
+  const [image, setImage] = useState(new Array(3).fill("1"));
 
   const [clientData] = useMutation<
     Pick<IMutation, "createBoard">,
@@ -34,6 +36,11 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     Pick<IMutation, "updateBoard">,
     IMutationUpdateBoardArgs
   >(UPDATE_BOARD);
+
+  const [uploadFile] = useMutation<
+    Pick<IMutation, "uploadFile">,
+    IMutationUploadFileArgs
+  >(UPLOAD_FILE);
 
   const checkWording1 = (e: ChangeEvent<HTMLInputElement>) => {
     setWord1(e.target.value);
@@ -94,6 +101,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
             title: word3,
             contents: word4,
             youtubeUrl: youTubeUrl,
+            images: image,
           },
         },
       });
@@ -160,6 +168,29 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
     }
   };
 
+  const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    console.log(file);
+
+    const result = await uploadFile({
+      variables: {
+        file,
+      },
+    });
+    const newImage = result.data?.uploadFile.url;
+
+    if (newImage) {
+      const newArr = [newImage, ...image];
+      newArr.pop();
+      setImage([...newArr]);
+    }
+
+    console.log(image);
+  };
+  const onClickImage = () => {
+    fileRef.current?.click();
+  };
+
   useEffect(() => {
     if (modaltime === true) {
       setTimeout(() => {
@@ -190,6 +221,10 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
       word4={word4}
       getUTubeUrl={getUTubeUrl}
       data={data}
+      image={image}
+      onChangeFile={onChangeFile}
+      fileRef={fileRef}
+      onClickImage={onClickImage}
     />
   );
 }
