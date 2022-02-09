@@ -4,31 +4,47 @@ import PBoardList from "./BoardList.presenter";
 import { FETCH_BOARDS, DELETE_BOARD, BOARD_COUNTS } from "./BoardList.queries";
 import { useMutation, useQuery, gql } from "@apollo/client";
 import { useState } from "react";
+import {
+  IQuery,
+  IQueryFetchBoardsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardList() {
   const router = useRouter();
-  // const [pageCount, setPageCount] = useState(1);
+
   const { data: boardCounts } = useQuery(BOARD_COUNTS);
 
   const [checkItems, setCheckItems] = useState([]);
   const [deleteBoard] = useMutation(DELETE_BOARD);
-  // const [newData, setNewData] = useState<Array<any>>([]);
+  const [pageNum, setPageNum] = useState(1);
+  const [newData, setNewData] = useState<Array<any>>([]);
   const { data } = useQuery(FETCH_BOARDS, {
     variables: {
-      page: 1,
+      // page: 10,
+      page: pageNum,
     },
   });
-  // const youTubeData = async () => {
-  //   const youTubeList = await data?.fetchBoards.filter(
-  //     (el) => el.youtubeUrl !== ""
-  //   );
-  //   console.log(youTubeList);
-  //   setNewData((prev) => [...prev, ...youTubeList]);
-  // };
+  const youTubeData = async () => {
+    const youTubeList = await data?.fetchBoards.filter(
+      (el) => el.youtubeUrl !== null && el.youtubeUrl !== ""
+    );
+    console.log("youTubeList");
+    console.log(youTubeList);
+    if (youTubeList) {
+      setNewData([...youTubeList]);
+      // const newArrr = [...newData];
+      // setNewData([]);
+    }
+    // console.log(pageNum);
+  };
 
-  // useEffect(() => {
-  //   youTubeData();
-  // }, []);
+  useEffect(() => {
+    if (boardCounts) youTubeData();
+    if (pageNum < Math.ceil(boardCounts?.fetchBoardsCount / 10) - 1) {
+      setPageNum((prev) => prev + 1);
+    }
+    // }, [boardCounts, pageNum]);
+  }, [boardCounts]);
 
   const onClickDelete = async (e: MouseEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -52,7 +68,6 @@ export default function BoardList() {
   };
 
   const onClickDeleteAll = (ids: string[]) => {
-    console.log("실행은됨");
     ids.map((id) => {
       deleteBoard({
         variables: { boardId: id },
@@ -77,7 +92,8 @@ export default function BoardList() {
   const handleAllCheck = (checked: boolean) => {
     if (checked) {
       const idArray = [];
-      data?.fetchBoards.forEach((el) => idArray.push(el._id));
+      // data?.fetchBoards.forEach((el) => idArray.push(el._id));
+      newData?.forEach((el) => idArray.push(el._id));
       setCheckItems(idArray);
     } else {
       setCheckItems([]);
@@ -102,6 +118,12 @@ export default function BoardList() {
       onClickDeleteAll={onClickDeleteAll}
       pushClick={pushClick}
       createClick={createClick}
+      newData={newData}
     />
   );
 }
+
+// setNewData((youTubeList && [...newData, ...youTubeList]) || []);
+// if (pageNum < boardCounts?.fetchBoardsCount / 10) {
+//   youTubeData();
+// }

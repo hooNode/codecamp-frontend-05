@@ -12,6 +12,7 @@ export default function BoardList({
   handleAllCheck,
   checkItems,
   onClickDelete,
+  newData,
 }: IBoardList) {
   const confirmCheck = (e: MouseEvent<HTMLInputElement>) => {
     const target = e.target as HTMLInputElement;
@@ -37,7 +38,7 @@ export default function BoardList({
           <S.ColumnCreate>날짜</S.ColumnCreate>
           <S.ColumnBtn>삭제</S.ColumnBtn>
         </S.Row>
-        {data?.fetchBoards.map((el: any, index: number) => (
+        {newData?.map((el: any, index: number) => (
           <S.Row key={el._id}>
             <S.ColumnCheck>
               <input
