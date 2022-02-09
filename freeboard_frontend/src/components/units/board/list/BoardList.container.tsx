@@ -11,97 +11,40 @@ import {
 
 export default function BoardList() {
   const router = useRouter();
-
-  const { data: boardCounts } = useQuery(BOARD_COUNTS);
-
-  const [checkItems, setCheckItems] = useState([]);
-  const [deleteBoard] = useMutation(DELETE_BOARD);
   const [pageNum, setPageNum] = useState(1);
   const [newData, setNewData] = useState<Array<any>>([]);
+  const [newPage, setNewPage] = useState(9);
+  const [prevData, setPrevData] = useState<Array<any>>([]);
+
+  const { data: boardCounts } = useQuery(BOARD_COUNTS);
   const { data } = useQuery(FETCH_BOARDS, {
     variables: {
-      // page: 10,
       page: pageNum,
     },
   });
-  const youTubeData = async () => {
-    const youTubeList = await data?.fetchBoards.filter(
-      (el) => el.youtubeUrl !== null && el.youtubeUrl !== ""
+
+  const youTubeData = () => {
+    const youTubeList = data?.fetchBoards.filter(
+      (el) =>
+        el.youtubeUrl !== null &&
+        el.youtubeUrl !== "" &&
+        el.youtubeUrl.startsWith("https://www.youtube.com/")
     );
-    console.log("youTubeList");
-    console.log(youTubeList);
-    if (youTubeList) {
-      setNewData([...youTubeList]);
-      // const newArrr = [...newData];
-      // setNewData([]);
+    if (data) {
+      // setNewData((prev) => [...prev, ...youTubeList]);
+      setPrevData((prev) => [...prev, ...youTubeList]);
     }
-    // console.log(pageNum);
   };
 
   useEffect(() => {
-    if (boardCounts) youTubeData();
-    if (pageNum < Math.ceil(boardCounts?.fetchBoardsCount / 10) - 1) {
+    youTubeData();
+    if (pageNum < Math.ceil(boardCounts?.fetchBoardsCount / 10)) {
       setPageNum((prev) => prev + 1);
     }
-    // }, [boardCounts, pageNum]);
-  }, [boardCounts]);
+  }, [data]);
 
-  const onClickDelete = async (e: MouseEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
-    interface IBoardId {
-      boardId: string;
-    }
-
-    const myvariables: IBoardId = {
-      boardId: target.name,
-    };
-
-    await deleteBoard({
-      variables: myvariables,
-      refetchQueries: [
-        {
-          query: FETCH_BOARDS,
-        },
-      ],
-    });
-    setCheckItems(checkItems.filter((_id) => _id !== target.name));
-  };
-
-  const onClickDeleteAll = (ids: string[]) => {
-    ids.map((id) => {
-      deleteBoard({
-        variables: { boardId: id },
-        refetchQueries: [
-          {
-            query: FETCH_BOARDS,
-          },
-        ],
-      });
-    });
-    setCheckItems([]);
-  };
-
-  const handleSingleCheck = (checked: boolean, id: string) => {
-    if (checked) {
-      setCheckItems([...checkItems, id]);
-    } else {
-      setCheckItems(checkItems.filter((_id) => _id !== id));
-    }
-  };
-
-  const handleAllCheck = (checked: boolean) => {
-    if (checked) {
-      const idArray = [];
-      // data?.fetchBoards.forEach((el) => idArray.push(el._id));
-      newData?.forEach((el) => idArray.push(el._id));
-      setCheckItems(idArray);
-    } else {
-      setCheckItems([]);
-    }
-  };
-
-  const pushClick = (id) => {
-    router.push("/notice/" + id);
+  const pushClick = (e) => {
+    router.push("/notice/" + e.currentTarget.id);
   };
 
   const createClick = () => {
@@ -110,20 +53,11 @@ export default function BoardList() {
 
   return (
     <PBoardList
-      data={data}
-      onClickDelete={onClickDelete}
-      handleAllCheck={handleAllCheck}
-      checkItems={checkItems}
-      handleSingleCheck={handleSingleCheck}
-      onClickDeleteAll={onClickDeleteAll}
       pushClick={pushClick}
       createClick={createClick}
       newData={newData}
+      setNewData={setNewData}
+      prevData={prevData}
     />
   );
 }
-
-// setNewData((youTubeList && [...newData, ...youTubeList]) || []);
-// if (pageNum < boardCounts?.fetchBoardsCount / 10) {
-//   youTubeData();
-// }

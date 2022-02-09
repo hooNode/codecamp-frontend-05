@@ -13,10 +13,11 @@ const LayoutFixBox = styled.div`
 `;
 const LayoutBody = styled.div`
   display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
+  align-items: ${({ isList }) => (isList ? "center" : "flex-start")};
+  justify-content: ${({ isList }) => (isList ? "center" : "flex-start")};
   margin-top: 40px;
-  margin-right: 3rem;
+  margin-right: ${({ isList }) => (isList ? "0rem" : "3rem")};
+  width: ${({ isList }) => (isList ? "100%" : "auto")};
 `;
 
 const SideWrapper = styled.div`
@@ -62,7 +63,7 @@ export default function Layout(props: ILayoutProps) {
       <Banner />
       <Navigation />
       <BodyWrapper>
-        <LayoutBody>{props.children}</LayoutBody>
+        <LayoutBody isList={isHiddenHeader}>{props.children}</LayoutBody>
         <SideWrapper>{!isHiddenHeader && <LayoutSidebar />}</SideWrapper>
       </BodyWrapper>
     </LayoutFixBox>

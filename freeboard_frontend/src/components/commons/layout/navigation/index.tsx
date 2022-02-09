@@ -7,7 +7,9 @@ const Wrapper = styled.div`
   align-items: center;
   width: 100%;
   height: 200px;
-  background-color: black;
+  /* background-color: black; */
+  /* border-top: 1px solid #bdbdbd;
+  border-bottom: 1px solid #bdbdbd; */
   color: white;
   font-size: 40px;
 `;
@@ -15,13 +17,14 @@ const SearchBar = styled.input`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-left: 15px;
+  padding-left: 30px;
   border-radius: 15px;
   width: 60%;
+  border: 1px solid #bdbdbd;
   height: 80px;
   background-color: white;
-  color: black;
-  font-size: 20px;
+  color: #bdbdbd;
+  font-size: 40px;
 `;
 export default function LayoutNavigation() {
   return (

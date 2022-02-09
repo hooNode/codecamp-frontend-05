@@ -6,78 +6,87 @@ export const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 1000px;
   box-sizing: border-box;
-  padding-top: 100px;
-`;
-export const TableTop = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: -webkit-fill-available;
-  height: 45px;
-  border-bottom: 1px solid #bdbdbd;
+  padding-top: 10px;
 `;
 
 export const BoardTable = styled.div`
-  border-top: 1px solid black;
-  border-bottom: 1px solid black;
-  width: 1200px;
-  height: 485px;
-`;
-interface Iid {
-  id: number;
-}
-export const Row = styled.div`
+  width: 100%;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  padding: 15px 20px 0px 20px;
-  border-bottom: ${({ id }: Iid) => (id === 9 ? "" : "1px solid #BDBDBD")};
-  display: flex;
-  padding: 0px;
-  height: 44px;
 `;
 
-export const ColumnCheck = styled.div`
+export const Row = styled.div`
   display: flex;
-  width: -webkit-fill-available;
-  padding-left: 25px;
-  margin: 10px 0px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0px;
+  margin: 30px;
+  height: 40rem;
+  width: 50rem;
+  z-index: 10;
+  /* background: blue; */
 `;
-export const ColumnIndex = styled.div`
+export const Body_Youtube = styled.div`
   display: flex;
-  width: -webkit-fill-available;
-  margin: 10px 0px;
+  justify-content: flex-start;
+  width: 100%;
+  height: 28rem;
+  position: relative;
+  filter: contrast(80%);
+  cursor: pointer;
+  transition-property: width, height;
+  transition-duration: 0.5s;
+  width: 100%;
+  height: 28rem;
+  &:hover {
+    filter: none;
+    transition-property: width, height;
+    transition-duration: 0.5s;
+    width: 110%;
+    height: 30rem;
+    z-index: 1000;
+  }
 `;
+
+export const BodyTitle = styled.div`
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 30px;
+`;
+export const SubYoutubeLeft = styled.div`
+  margin: 10px 30px 0 10px;
+`;
+export const SubYoutubeRight = styled.div``;
+
 export const ColumnTitle = styled.div`
   width: -webkit-fill-available;
-  margin: 10px 0px;
+  font-size: 40px;
+  font-weight: bold;
+  margin-bottom: -10px;
 `;
 export const ColumnWriter = styled.div`
   width: -webkit-fill-available;
-  margin: 10px 0px;
+  font-size: 30px;
+  font-weight: normal;
 `;
 export const ColumnContent = styled.div`
   width: -webkit-fill-available;
-  margin: 10px 0px;
+  font-size: 25px;
+  font-weight: normal;
+  color: "gray";
   overflow: hidden;
   text-overflow: clip;
-  padding-right: 20px;
-`;
-export const ColumnContents = styled.div`
-  width: -webkit-fill-available;
-  margin: 10px 0px;
-  overflow: hidden;
-  text-overflow: clip;
-  padding-right: 20px;
-  cursor: pointer;
 `;
 export const ColumnCreate = styled.div`
   width: -webkit-fill-available;
-  margin: 10px 0px;
   overflow: hidden;
   text-overflow: clip;
-  padding-right: 20px;
 `;
 export const ColumnBtn = styled.div`
   width: -webkit-fill-available;
@@ -91,6 +100,13 @@ export const ColumnBtn = styled.div`
     border: none;
     cursor: pointer;
   }
+`;
+export const LoadingBox = styled.div`
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 export const AllBtn = styled.div`
   width: -webkit-fill-available;

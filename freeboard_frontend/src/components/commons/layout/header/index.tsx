@@ -12,11 +12,23 @@ const Wrapper = styled.div`
 
 const WarningMsg = styled.div`
   color: #b0b0b0;
-  font-size: 20px;
+  font-size: 1.5rem;
+`;
+const IdTag = styled.div`
+  display: flex;
+  margin-top: 40px;
+`;
+const LoginBox = styled.div`
+  margin-right: 30px;
+  font-size: 1.5rem;
+`;
+const SignupBox = styled.div`
+  font-size: 1.5rem;
 `;
 const TextBox = styled.div`
   display: flex;
-  justify-content: flex-end;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: flex-end;
   width: 30rem;
   height: 100%;
@@ -28,6 +40,10 @@ export default function LayoutHeader() {
       <img src="/youTube.png" width="350px" height="300px" />
 
       <TextBox>
+        <IdTag>
+          <LoginBox>로그인</LoginBox>
+          <SignupBox>회원가입</SignupBox>
+        </IdTag>
         <WarningMsg>화면 크기를 조정해 주세요.</WarningMsg>
       </TextBox>
     </Wrapper>
