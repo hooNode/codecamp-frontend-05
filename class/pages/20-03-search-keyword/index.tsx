@@ -35,11 +35,16 @@ export default function SearchPage() {
   let timer: any;
 
   const onClickSearch = (e) => {
+    // console.log(e.target.value);
+    // refetch({
+    //   search: e.target.value,
+    //   page: 1,
+    // });
     if (timer) {
       clearTimeout(timer);
     }
     timer = setTimeout(() => {
-      console.log("하이");
+      console.log(e.target.value);
       refetch({
         search: e.target.value,
         page: 1,

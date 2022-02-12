@@ -1,10 +1,4 @@
-import { IQuery } from "../../../../commons/types/generated/types";
-import {
-  ChangeEvent,
-  ChangeEventHandler,
-  MouseEvent,
-  TextareaHTMLAttributes,
-} from "react";
+import { ChangeEvent } from "react";
 
 type NewType = ChangeEvent<HTMLInputElement>;
 

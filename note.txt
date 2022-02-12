@@ -1,0 +1,13 @@
+props, el, prev 의 차이
+
+getProfile( a = 3 : 인자, argument )
+
+function getProfile(a : 매개변수, parameter) {
+  console.log(a) // 3
+}
+
+=> props
+
+=> el
+
+=> prev

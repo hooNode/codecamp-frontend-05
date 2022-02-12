@@ -1,13 +1,12 @@
-import React, { ChangeEvent, useState } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { useQuery } from "@apollo/client";
-import { useMutation } from "@apollo/client";
-import PBoardDetail from "./BoardDetail.presenter";
-import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries";
+import React from "react";
 import {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
+import PBoardDetail from "./BoardDetail.presenter";
+import { DELETE_BOARD, FETCH_BOARD } from "./BoardDetail.queries";
 
 export default function DynamicRoutePage() {
   const router = useRouter();

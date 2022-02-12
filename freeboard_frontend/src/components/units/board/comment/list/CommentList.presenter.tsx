@@ -1,7 +1,5 @@
-import CommentListItems from "./CommentList.Items.presenter";
 import InfiniteScroll from "react-infinite-scroller";
-import * as S from "./CommentList.styles";
-import { useEffect, useState } from "react";
+import CommentListItems from "./CommentList.Items.presenter";
 
 export default function BoardCommentListUI({ onLoadMore, data }) {
   if (!data) return <div />;
