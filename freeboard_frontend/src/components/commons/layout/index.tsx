@@ -2,6 +2,7 @@ import { ReactChild, useEffect, useRef, useState } from "react";
 import Banner from "./banner";
 import Header from "./header";
 import Navigation from "./navigation";
+import Navbar from "./navbar";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 
@@ -39,8 +40,9 @@ const BodyWrapper = styled.div`
   justify-content: center;
   align-items: flex-start;
   width: 100vw;
-  background-color: #f2f2f2;
+  background-color: #1e191a;
   padding-bottom: 100px;
+  min-height: 130vh;
 `;
 
 interface ILayoutProps {
@@ -49,22 +51,31 @@ interface ILayoutProps {
 
 export default function Layout(props: ILayoutProps) {
   const router = useRouter();
+  const isLogin = true;
   const HIDDEN_HEADERS = [
     "/notice/list",
     "/notice/new",
     `/notice/${router.query.aaa}/edit`,
+    "/boards/signup",
+    "/boards/login",
   ];
+  const HIDDEN_REST = ["/boards/login", "/boards/signup"];
+  const HIDDEN_SIDEBAR = [`/notice/${router.query.aaa}`];
 
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);
+  const isHiddenSidebar = HIDDEN_SIDEBAR.includes(router.asPath);
+  const isHiddenRest = HIDDEN_REST.includes(router.asPath);
 
   return (
     <LayoutFixBox>
-      <Header />
-      <Banner />
-      <Navigation />
+      {isHiddenRest ? <Header isLogin={isLogin} /> : <Header />}
+      {!isHiddenRest && <Banner />}
+      {!isHiddenRest && <Navigation />}
+      {!isHiddenRest && <Navbar />}
+
       <BodyWrapper>
         <LayoutBody isList={isHiddenHeader}>{props.children}</LayoutBody>
-        <SideWrapper>{!isHiddenHeader && <LayoutSidebar />}</SideWrapper>
+        <SideWrapper>{isHiddenSidebar && <LayoutSidebar />}</SideWrapper>
       </BodyWrapper>
     </LayoutFixBox>
   );
