@@ -1,3 +1,5 @@
+import { RiArrowDropLeftLine } from "react-icons/ri";
+
 interface NextArrowProps {
   className?: any;
   style?: any;
@@ -11,19 +13,21 @@ export default function NextArrow({
 }: NextArrowProps) {
   return (
     <div
-      className={className}
       style={{
-        ...style,
-        background: "black",
-        borderRadius: "100px",
+        color: "white",
+        background: "white",
+        borderRadius: "20px",
         cursor: "pointer",
         width: "10%",
-        height: "20%",
+        height: "80px",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginLeft: "50px",
       }}
       onClick={onClick}
-    />
+    >
+      <RiArrowDropLeftLine style={{ color: "black", fontSize: "80px" }} />
+    </div>
   );
 }

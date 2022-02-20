@@ -1,15 +1,21 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
+import CardSlier from "../banner";
+import { debounce } from "lodash";
+import { GiHamburgerMenu } from "react-icons/gi";
+import { BiSearchAlt } from "react-icons/bi";
+import { BsFillTriangleFill } from "react-icons/bs";
+import { GlobalContext } from "../../../../../pages/_app";
 
 const Wrapper = styled.div`
   display: flex;
   justify-content: center;
-  align-items: ${({ isLogin }) => (isLogin ? "flex-end" : "center")};
+  align-items: center;
   width: 100%;
-  height: ${({ isLogin }) => (isLogin ? "70px" : "500px")};
-  background: ${({ isWord }) => (isWord ? "#1e191a" : "white")};
-  padding-bottom: 13px;
+  height: ${({ isLogin }) => isLogin && "70px"};
+  background-color: ${({ isLogin }) => (isLogin ? "white" : "none")};
+  z-index: 100;
 `;
 
 const Writer = styled.div`
@@ -25,9 +31,9 @@ const Writer = styled.div`
     type3 3s steps(22, end) 5s forwards;
   overflow: hidden;
   white-space: nowrap;
-  color: ${({ isWord }) => (isWord ? "white" : "black")};
-  color: ${({ isTop }) => !isTop && "white"};
-  cursor: pointer;
+  color: black;
+  color: ${({ isTop }) => (isTop ? "black" : "white")};
+
   ::before {
     content: "Hello, I'm Hnnn.";
     animation: type2 1s steps(6) 3s forwards,
@@ -94,11 +100,10 @@ const Container = styled.div`
   top: 0;
   animation: ${({ isTop }) => (isTop ? "fadeout 1s" : "fadein 1s")};
   animation: ${({ isFirst }) => isFirst && "none"};
-
   animation-fill-mode: forwards;
   @keyframes fadeout {
     from {
-      opacity: 1;
+      opacity: 0.9;
       background-color: #1e191a;
     }
     to {
@@ -110,7 +115,7 @@ const Container = styled.div`
       opacity: 0;
     }
     to {
-      opacity: 1;
+      opacity: 0.9;
       background-color: #1e191a;
     }
   }
@@ -132,6 +137,7 @@ const LeftTag = styled.div`
 `;
 const ImageBox = styled.div`
   margin-right: 50px;
+  cursor: pointer;
 `;
 const NavBox = styled.div`
   display: flex;
@@ -139,10 +145,46 @@ const NavBox = styled.div`
 
 const MenuTag = styled.div`
   color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   font-size: 0.9rem;
   font-weight: bold;
   margin-right: 50px;
+  height: 20px;
+  width: 50px;
   cursor: pointer;
+`;
+const NewMenu = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 80px;
+  width: 250px;
+  position: fixed;
+  top: 70px;
+  border-top: 3px solid white;
+`;
+const MenuIdTag = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  width: 250px;
+  height: 60px;
+  background-color: black;
+  border-bottom: 1px solid gray;
+  opacity: 0.8;
+  font-size: 0.7rem;
+  font-weight: thin;
+  cursor: pointer;
+  &:hover {
+    opacity: 0.9;
+    background-color: #3a3a3a;
+    font-size: 0.8rem;
+  }
 `;
 const IdTag = styled.div`
   color: white;
@@ -153,10 +195,56 @@ const IdTag = styled.div`
 `;
 const UserText = styled.div`
   display: flex;
+  align-items: center;
   margin-right: 20px;
 `;
+const SearchTag = styled.div`
+  display: flex;
+  align-items: center;
+  width: 300px;
+  height: 25px;
+  margin-right: 20px;
+  animation: ${({ isSearchBar }) =>
+    isSearchBar ? "present 1s both" : "disappear 0.5s both"};
+  @keyframes present {
+    from {
+      width: 10px;
+      border: none;
+    }
+    to {
+      width: 200px;
+      border: 1px solid white;
+    }
+  }
+  @keyframes disappear {
+    from {
+      width: 200px;
+      border: 1px solid white;
+    }
+    to {
+      width: 30px;
+      border: none;
+    }
+  }
+`;
+const SearchBar = styled.input`
+  width: 90%;
+  margin: 0 5px;
+  background-color: transparent;
+  border: none;
+  padding-left: 5px;
+  color: white;
+  font-size: 12px;
+  &:focus {
+    outline-width: 0;
+  }
+  ::placeholder {
+    color: white;
+  }
+`;
 const LoginBox = styled.div`
-  color: ${({ isWord }) => (isWord ? "white" : "black")};
+  color: ${({ isLogin }) => isLogin && "black"};
+  color: ${({ isLogin }) => !isLogin && "white"};
   color: ${({ isTop }) => !isTop && "white"};
   margin-right: 30px;
   font-size: 0.7rem;
@@ -164,7 +252,8 @@ const LoginBox = styled.div`
   cursor: pointer;
 `;
 const SignupBox = styled.div`
-  color: ${({ isWord }) => (isWord ? "white" : "black")};
+  color: ${({ isLogin }) => isLogin && "black"};
+  color: ${({ isLogin }) => !isLogin && "white"};
   color: ${({ isTop }) => !isTop && "white"};
   font-size: 0.7rem;
   font-weight: thin;
@@ -176,9 +265,13 @@ export default function LayoutHeader({ isLogin }) {
   const [isFirst, setIsFirst] = useState(true);
   const [isSmall, setIsSmall] = useState(false);
   const [isTop, setIsTop] = useState(true);
-  const [isWord, setIsWord] = useState(false);
+  const [isHover, setIsHover] = useState(false);
+  const [isSearchBar, setIsSearchBar] = useState(false);
   const moveToMain = () => {
     router.push("/");
+  };
+  const moveToList = () => {
+    router.push("/notice/list");
   };
   const moveToLogin = () => {
     router.push("/boards/login");
@@ -187,14 +280,28 @@ export default function LayoutHeader({ isLogin }) {
     router.push("/boards/signup");
   };
 
-  const changeWord = () => {
-    setIsWord((prev) => !prev);
-  };
   const handleFollow = useCallback(() => {
     if (window.pageYOffset === 0) setIsTop(true);
     if (window.pageYOffset > 0) setIsTop(false);
     setIsFirst(false);
   }, [isTop]);
+
+  let timer;
+  const onMenuOver = () => {
+    clearTimeout(timer);
+    setIsHover(true);
+  };
+
+  const onMenuOut = () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      setIsHover(false);
+    }, 500);
+  };
+
+  const onSearchBar = () => {
+    setIsSearchBar((prev) => !prev);
+  };
 
   useEffect(() => {
     const watch = () => {
@@ -204,10 +311,10 @@ export default function LayoutHeader({ isLogin }) {
     return () => {
       window.removeEventListener("scroll", handleFollow);
     };
-  });
+  }, [isTop]);
 
   const handleResize = () => {
-    if (window.innerWidth <= 772) {
+    if (window.innerWidth <= 1026) {
       setIsSmall(true);
     } else {
       setIsSmall(false);
@@ -217,7 +324,7 @@ export default function LayoutHeader({ isLogin }) {
   useEffect(() => {
     window.addEventListener("resize", handleResize);
     if (typeof window !== "undefined") {
-      if (window.innerWidth <= 772) {
+      if (window.innerWidth <= 1026) {
         setIsSmall(true);
       } else {
         setIsSmall(false);
@@ -227,16 +334,12 @@ export default function LayoutHeader({ isLogin }) {
     return () => {
       window.removeEventListener("resize", handleResize);
     };
-  });
+  }, [isSmall]);
 
   return (
-    <Wrapper isLogin={isLogin} isWord={isWord}>
-      <Writer
-        isTop={isTop}
-        isLogin={isLogin}
-        isWord={isWord}
-        onClick={changeWord}
-      />
+    <Wrapper isLogin={isLogin}>
+      <Writer isTop={isTop} isLogin={isLogin} />
+
       <Container isTop={isTop} isFirst={isFirst}></Container>
       <Rest>
         <LeftTag>
@@ -253,10 +356,38 @@ export default function LayoutHeader({ isLogin }) {
           ) : (
             <NavBox>
               {isSmall ? (
-                <MenuTag>메뉴</MenuTag>
+                <MenuTag onMouseOver={onMenuOver} onMouseOut={onMenuOut}>
+                  <GiHamburgerMenu
+                    style={{
+                      color: "white",
+                      width: "200px",
+                      height: "200px",
+                      fontSize: "100px",
+                      fontWeight: "1000",
+                    }}
+                  />
+
+                  <NewMenu
+                    onMouseOver={onMenuOver}
+                    onMouseOut={onMenuOut}
+                    style={isHover ? { display: "block" } : { display: "none" }}
+                  >
+                    <BsFillTriangleFill
+                      style={{
+                        position: "absolute",
+                        top: "-15px",
+                        left: "47%",
+                      }}
+                    />
+                    <MenuIdTag onClick={moveToList}>영상목록</MenuIdTag>
+                    <MenuIdTag>콘텐츠 올리기</MenuIdTag>
+                    <MenuIdTag>상품 올리기</MenuIdTag>
+                    <MenuIdTag>내가 찜한 콘텐츠</MenuIdTag>
+                  </NewMenu>
+                </MenuTag>
               ) : (
                 <>
-                  <IdTag onClick={moveToMain}>홈</IdTag>
+                  <IdTag onClick={moveToList}>영상목록</IdTag>
                   <IdTag>콘텐츠 올리기</IdTag>
                   <IdTag>상품 올리기</IdTag>
                   <IdTag>내가 찜한 콘텐츠</IdTag>
@@ -267,10 +398,26 @@ export default function LayoutHeader({ isLogin }) {
         </LeftTag>
 
         <UserText>
-          <LoginBox isTop={isTop} isWord={isWord} onClick={moveToLogin}>
+          <SearchTag isSearchBar={isSearchBar}>
+            <BiSearchAlt
+              style={{
+                fontSize: "20px",
+                color: "white",
+                marginLeft: "5px",
+              }}
+              onClick={onSearchBar}
+            />
+            {isSearchBar ? (
+              <SearchBar placeholder="검색어를 입력하세요." />
+            ) : (
+              <></>
+            )}
+          </SearchTag>
+
+          <LoginBox isLogin={isLogin} isTop={isTop} onClick={moveToLogin}>
             로그인
           </LoginBox>
-          <SignupBox isTop={isTop} isWord={isWord} onClick={moveToSignup}>
+          <SignupBox isLogin={isLogin} isTop={isTop} onClick={moveToSignup}>
             회원가입
           </SignupBox>
         </UserText>

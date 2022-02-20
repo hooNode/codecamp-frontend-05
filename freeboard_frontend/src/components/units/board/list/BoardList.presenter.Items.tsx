@@ -49,7 +49,7 @@ export default function BoardListPresenterItems({
           </S.Body_Youtube>
           <S.BodyTitle>
             <S.SubYoutubeLeft>
-              <RedditCircleFilled style={{ fontSize: "90px", color: "gray" }} />
+              <RedditCircleFilled style={{ fontSize: "30px", color: "gray" }} />
             </S.SubYoutubeLeft>
             <S.SubYoutubeRight>
               <S.ColumnTitle>
@@ -86,7 +86,7 @@ export default function BoardListPresenterItems({
           </S.Body_Youtube>
           <S.BodyTitle>
             <S.SubYoutubeLeft>
-              <RedditCircleFilled style={{ fontSize: "90px", color: "gray" }} />
+              <RedditCircleFilled style={{ fontSize: "30px", color: "gray" }} />
             </S.SubYoutubeLeft>
             <S.SubYoutubeRight>
               <S.ColumnTitle>

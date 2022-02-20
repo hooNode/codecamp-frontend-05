@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useEffect, MouseEvent } from "react";
 import * as S from "./BoardList.styles";
 import { IBoardList } from "./BoardList.types";
@@ -7,6 +7,7 @@ import ReactPlayer from "react-player";
 import { RedditCircleFilled } from "@ant-design/icons";
 import GetDate from "./GetDate";
 import ClipLoader from "react-spinners/ClipLoader";
+import { GlobalContext } from "../../../commons/layout/index";
 
 export default function BoardList({
   createClick,
@@ -15,6 +16,7 @@ export default function BoardList({
   setNewData,
   prevData,
 }: IBoardList) {
+  // const { setBestYoutube } = useContext(GlobalContext);
   const [isInView, setIsInView] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [newPage, setNewPage] = useState(20);
@@ -40,6 +42,9 @@ export default function BoardList({
     }
   }, [isInView]);
 
+  // useEffect(() => {
+  //   setBestYoutube(newData);
+  // });
   return (
     <S.Wrapper>
       <S.BoardTable>

@@ -1,15 +1,12 @@
-import React, { MouseEvent, useEffect } from "react";
+import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
+import React, { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../../../components/commons/layout/index";
 import PBoardList from "./BoardList.presenter";
-import { FETCH_BOARDS, DELETE_BOARD, BOARD_COUNTS } from "./BoardList.queries";
-import { useMutation, useQuery, gql } from "@apollo/client";
-import { useState } from "react";
-import {
-  IQuery,
-  IQueryFetchBoardsArgs,
-} from "../../../../commons/types/generated/types";
+import { BOARD_COUNTS, FETCH_BOARDS } from "./BoardList.queries";
 
 export default function BoardList() {
+  const { setBestYoutube } = useContext(GlobalContext);
   const router = useRouter();
   const [pageNum, setPageNum] = useState(1);
   const [newData, setNewData] = useState<Array<any>>([]);
@@ -36,13 +33,6 @@ export default function BoardList() {
     }
   };
 
-  useEffect(() => {
-    youTubeData();
-    if (pageNum < Math.ceil(boardCounts?.fetchBoardsCount / 10)) {
-      setPageNum((prev) => prev + 1);
-    }
-  }, [data]);
-
   const pushClick = (e) => {
     router.push("/notice/" + e.currentTarget.id);
   };
@@ -50,6 +40,16 @@ export default function BoardList() {
   const createClick = () => {
     router.push("/notice/new");
   };
+  useEffect(() => {
+    youTubeData();
+    if (pageNum < Math.ceil(boardCounts?.fetchBoardsCount / 10)) {
+      setPageNum((prev) => prev + 1);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setBestYoutube(prevData);
+  });
 
   return (
     <PBoardList

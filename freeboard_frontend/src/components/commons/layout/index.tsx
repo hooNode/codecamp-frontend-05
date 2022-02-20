@@ -1,10 +1,7 @@
-import { ReactChild, useEffect, useRef, useState } from "react";
-import Banner from "./banner";
-import Header from "./header";
-import Navigation from "./navigation";
-import Navbar from "./navbar";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
+import { createContext, ReactChild, useState } from "react";
+import Header from "./header";
 
 const LayoutFixBox = styled.div`
   display: flex;
@@ -16,13 +13,11 @@ const LayoutBody = styled.div`
   display: flex;
   align-items: ${({ isList }) => (isList ? "center" : "flex-start")};
   justify-content: ${({ isList }) => (isList ? "center" : "flex-start")};
-  margin-top: 40px;
-  margin-right: ${({ isList }) => (isList ? "0rem" : "3rem")};
   width: ${({ isList }) => (isList ? "100%" : "auto")};
 `;
 
 const SideWrapper = styled.div`
-  /* height: 70vh; */
+  height: 70vh;
 `;
 const LayoutSidebar = styled.div`
   width: 23rem;
@@ -39,17 +34,19 @@ const BodyWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  width: 100vw;
   background-color: #1e191a;
-  padding-bottom: 100px;
-  min-height: 130vh;
 `;
 
 interface ILayoutProps {
   children: ReactChild;
 }
-
+export const GlobalContext = createContext({});
 export default function Layout(props: ILayoutProps) {
+  const [bestYoutube, setBestYoutube] = useState([]);
+  const value = {
+    bestYoutube,
+    setBestYoutube,
+  };
   const router = useRouter();
   const isLogin = true;
   const HIDDEN_HEADERS = [
@@ -68,13 +65,13 @@ export default function Layout(props: ILayoutProps) {
 
   return (
     <LayoutFixBox>
-      {isHiddenRest ? <Header isLogin={isLogin} /> : <Header />}
-      {!isHiddenRest && <Banner />}
-      {!isHiddenRest && <Navigation />}
-      {!isHiddenRest && <Navbar />}
-
+      <GlobalContext.Provider value={value}>
+        {isHiddenRest ? <Header isLogin={isLogin} /> : <Header />}
+      </GlobalContext.Provider>
       <BodyWrapper>
-        <LayoutBody isList={isHiddenHeader}>{props.children}</LayoutBody>
+        <GlobalContext.Provider value={value}>
+          <LayoutBody isList={isHiddenHeader}>{props.children}</LayoutBody>
+        </GlobalContext.Provider>
         <SideWrapper>{isHiddenSidebar && <LayoutSidebar />}</SideWrapper>
       </BodyWrapper>
     </LayoutFixBox>

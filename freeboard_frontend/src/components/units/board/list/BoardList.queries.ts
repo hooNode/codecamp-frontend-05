@@ -19,6 +19,8 @@ export const FETCH_BOARDS = gql`
       createdAt
       _id
       youtubeUrl
+      likeCount
+      dislikeCount
     }
   }
 `;

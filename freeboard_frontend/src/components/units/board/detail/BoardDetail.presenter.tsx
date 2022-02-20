@@ -16,6 +16,8 @@ export default function DynamicRoutePage({
   btnMoveToList,
   btnMoveToEdit,
   onClickDeleteBtn,
+  onClickLikeBtn,
+  onClickDislikeBtn,
 }: IPresenterBoardProps) {
   return (
     <S.Fragment>
@@ -67,12 +69,18 @@ export default function DynamicRoutePage({
               </S.Body>
               <S.BtnBox>
                 <S.Like_Btn>
-                  <LikeFilled style={{ color: "#df3416", fontSize: "30px" }} />
-                  1920
+                  <LikeFilled
+                    onClick={onClickLikeBtn}
+                    style={{ color: "#df3416", fontSize: "30px" }}
+                  />
+                  {data?.fetchBoard?.likeCount}
                 </S.Like_Btn>
                 <S.Dislike_Btn>
-                  <LikeFilled style={{ fontSize: "30px" }} />
-                  1920
+                  <LikeFilled
+                    onClick={onClickDislikeBtn}
+                    style={{ fontSize: "30px" }}
+                  />
+                  {data?.fetchBoard?.dislikeCount}
                 </S.Dislike_Btn>
               </S.BtnBox>
             </S.Content_Footer>

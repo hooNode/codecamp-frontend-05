@@ -6,11 +6,19 @@ import {
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
 import PBoardDetail from "./BoardDetail.presenter";
-import { DELETE_BOARD, FETCH_BOARD } from "./BoardDetail.queries";
+import {
+  DELETE_BOARD,
+  FETCH_BOARD,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
+} from "./BoardDetail.queries";
 
 export default function DynamicRoutePage() {
   const router = useRouter();
   const [deleteBoardF] = useMutation(DELETE_BOARD);
+  const [likeCount, refetch] = useMutation(LIKE_BOARD);
+  const [dislikeCount] = useMutation(DISLIKE_BOARD);
+
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {
@@ -25,6 +33,32 @@ export default function DynamicRoutePage() {
   };
   const btnMoveToList = () => {
     router.push(`/notice/list`);
+  };
+  const onClickLikeBtn = async () => {
+    await likeCount({
+      variables: {
+        boardId: String(router.query.aaa),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: { boardId: String(router.query.aaa) },
+        },
+      ],
+    });
+  };
+  const onClickDislikeBtn = async () => {
+    await dislikeCount({
+      variables: {
+        boardId: String(router.query.aaa),
+      },
+      refetchQueries: [
+        {
+          query: FETCH_BOARD,
+          variables: { boardId: String(router.query.aaa) },
+        },
+      ],
+    });
   };
 
   const onClickDeleteBtn = async () => {
@@ -45,6 +79,8 @@ export default function DynamicRoutePage() {
       btnMoveToList={btnMoveToList}
       btnMoveToEdit={btnMoveToEdit}
       onClickDeleteBtn={onClickDeleteBtn}
+      onClickLikeBtn={onClickLikeBtn}
+      onClickDislikeBtn={onClickDislikeBtn}
     />
   );
 }

@@ -30,7 +30,9 @@ export default function LayoutNavigation() {
   return (
     <Wrapper>
       <SearchBar placeholder="검색" />
-      <BiSearchAlt style={{ fontSize: "60px", marginLeft: "15px" }} />
+      <BiSearchAlt
+        style={{ fontSize: "40px", marginLeft: "15px", color: "black" }}
+      />
     </Wrapper>
   );
 }

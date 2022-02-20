@@ -3,9 +3,12 @@ import styled from "@emotion/styled";
 export const Wrapper = styled.div`
   box-sizing: border-box;
   margin: 0;
+  min-height: 70vh;
 
+  width: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   justify-content: center;
 
   background: #ffffff;
