@@ -48,15 +48,17 @@ export default function Layout(props: ILayoutProps) {
     setBestYoutube,
   };
   const router = useRouter();
+
   const isLogin = true;
+
   const HIDDEN_HEADERS = [
     "/notice/list",
     "/notice/new",
     `/notice/${router.query.aaa}/edit`,
-    "/boards/signup",
-    "/boards/login",
+    "/accounts/signup",
+    "/accounts/login",
   ];
-  const HIDDEN_REST = ["/boards/login", "/boards/signup"];
+  const HIDDEN_REST = ["/accounts/login", "/accounts/signup"];
   const HIDDEN_SIDEBAR = [`/notice/${router.query.aaa}`];
 
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);

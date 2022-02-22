@@ -11,7 +11,9 @@ const TopWrapper = styled.div`
   align-items: center;
   justify-content: center;
 `;
-const SecondWrapper = styled.div``;
+const SecondWrapper = styled.div`
+  margin-top: -50px;
+`;
 const BlackHeader = styled.div`
   position: relative;
   top: 60px;
@@ -32,7 +34,7 @@ const Wrapper = styled.div`
 const ThirdWrapper = styled.div`
   z-index: 10;
   width: 100%;
-  margin-top: -60px;
+  margin-top: -80px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -59,9 +61,7 @@ const TextBox = styled.div`
 export default function Home() {
   return (
     <TopWrapper>
-      <SecondWrapper>
-        <CardSlier />
-      </SecondWrapper>
+      <SecondWrapper>{/* <CardSlier /> */}</SecondWrapper>
 
       <Wrapper>
         <BlackHeader />
@@ -71,7 +71,7 @@ export default function Home() {
             <SASA>모든 영상</SASA>
           </TextBox>
 
-          <BoardList />
+          {/* <BoardList /> */}
         </ThirdWrapper>
       </Wrapper>
     </TopWrapper>

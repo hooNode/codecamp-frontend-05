@@ -1,12 +1,11 @@
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
 import { useCallback, useContext, useEffect, useState } from "react";
-import CardSlier from "../banner";
-import { debounce } from "lodash";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { BiSearchAlt } from "react-icons/bi";
 import { BsFillTriangleFill } from "react-icons/bs";
+import { GiHamburgerMenu } from "react-icons/gi";
 import { GlobalContext } from "../../../../../pages/_app";
+import { useMoveToPage } from "../../hooks/useMoveToPage";
 
 const Wrapper = styled.div`
   display: flex;
@@ -95,7 +94,6 @@ const Writer = styled.div`
 const Container = styled.div`
   width: 100%;
   height: 70px;
-  background-color: none;
   position: fixed;
   top: 0;
   animation: ${({ isTop }) => (isTop ? "fadeout 1s" : "fadein 1s")};
@@ -141,6 +139,7 @@ const ImageBox = styled.div`
 `;
 const NavBox = styled.div`
   display: flex;
+  margin-top: ${({ isBoards }) => (isBoards ? "10px" : "0px")};
 `;
 
 const MenuTag = styled.div`
@@ -261,24 +260,15 @@ const SignupBox = styled.div`
 `;
 
 export default function LayoutHeader({ isLogin }) {
+  const { moveToPage } = useMoveToPage();
   const router = useRouter();
+  const { userInfo } = useContext(GlobalContext);
   const [isFirst, setIsFirst] = useState(true);
   const [isSmall, setIsSmall] = useState(false);
   const [isTop, setIsTop] = useState(true);
   const [isHover, setIsHover] = useState(false);
   const [isSearchBar, setIsSearchBar] = useState(false);
-  const moveToMain = () => {
-    router.push("/");
-  };
-  const moveToList = () => {
-    router.push("/notice/list");
-  };
-  const moveToLogin = () => {
-    router.push("/boards/login");
-  };
-  const moveToSignup = () => {
-    router.push("/boards/signup");
-  };
+  const [isBoards, setIsBoards] = useState(false);
 
   const handleFollow = useCallback(() => {
     if (window.pageYOffset === 0) setIsTop(true);
@@ -336,6 +326,14 @@ export default function LayoutHeader({ isLogin }) {
     };
   }, [isSmall]);
 
+  useEffect(() => {
+    if (router.asPath.includes("/boards")) {
+      setIsBoards(true);
+    } else {
+      setIsBoards(false);
+    }
+  }, [router]);
+
   return (
     <Wrapper isLogin={isLogin}>
       <Writer isTop={isTop} isLogin={isLogin} />
@@ -345,16 +343,16 @@ export default function LayoutHeader({ isLogin }) {
         <LeftTag>
           <ImageBox>
             <img
-              src="/aqaq.png"
+              src={isBoards ? "/dang.png" : "/aqaq.png"}
               width="130px"
-              height="50px"
-              onClick={moveToMain}
+              height={isBoards ? "40px" : "50px"}
+              onClick={moveToPage("/")}
             />
           </ImageBox>
           {isLogin ? (
             <></>
           ) : (
-            <NavBox>
+            <NavBox isBoards={isBoards}>
               {isSmall ? (
                 <MenuTag onMouseOver={onMenuOver} onMouseOut={onMenuOut}>
                   <GiHamburgerMenu
@@ -379,18 +377,30 @@ export default function LayoutHeader({ isLogin }) {
                         left: "47%",
                       }}
                     />
-                    <MenuIdTag onClick={moveToList}>영상목록</MenuIdTag>
-                    <MenuIdTag>콘텐츠 올리기</MenuIdTag>
-                    <MenuIdTag>상품 올리기</MenuIdTag>
-                    <MenuIdTag>내가 찜한 콘텐츠</MenuIdTag>
+                    <MenuIdTag onClick={moveToPage("/notice/list")}>
+                      콘텐츠 목록
+                    </MenuIdTag>
+                    <MenuIdTag onClick={moveToPage("/notice/new")}>
+                      콘텐츠 올리기
+                    </MenuIdTag>
+                    <MenuIdTag onClick={moveToPage("/notice/new")}>
+                      상품목록
+                    </MenuIdTag>
+                    <MenuIdTag onClick={moveToPage("/boards/new")}>
+                      상품 올리기
+                    </MenuIdTag>
                   </NewMenu>
                 </MenuTag>
               ) : (
                 <>
-                  <IdTag onClick={moveToList}>영상목록</IdTag>
-                  <IdTag>콘텐츠 올리기</IdTag>
-                  <IdTag>상품 올리기</IdTag>
-                  <IdTag>내가 찜한 콘텐츠</IdTag>
+                  <IdTag onClick={moveToPage("/notice/list")}>
+                    콘텐츠 목록
+                  </IdTag>
+                  <IdTag onClick={moveToPage("/notice/new")}>
+                    콘텐츠 올리기
+                  </IdTag>
+                  <IdTag onClick={moveToPage("/notice/new")}>상품목록</IdTag>
+                  <IdTag onClick={moveToPage("/boards/new")}>상품 올리기</IdTag>
                 </>
               )}
             </NavBox>
@@ -413,13 +423,34 @@ export default function LayoutHeader({ isLogin }) {
               <></>
             )}
           </SearchTag>
-
-          <LoginBox isLogin={isLogin} isTop={isTop} onClick={moveToLogin}>
-            로그인
-          </LoginBox>
-          <SignupBox isLogin={isLogin} isTop={isTop} onClick={moveToSignup}>
-            회원가입
-          </SignupBox>
+          {userInfo.name ? (
+            <>
+              <SignupBox
+                isLogin={isLogin}
+                isTop={isTop}
+                onClick={moveToPage("/accounts/login")}
+              >
+                {userInfo?.name}님 안녕하세요.
+              </SignupBox>
+            </>
+          ) : (
+            <>
+              <LoginBox
+                isLogin={isLogin}
+                isTop={isTop}
+                onClick={moveToPage("/accounts/login")}
+              >
+                로그인
+              </LoginBox>
+              <SignupBox
+                isLogin={isLogin}
+                isTop={isTop}
+                onClick={moveToPage("/accounts/signup")}
+              >
+                회원가입
+              </SignupBox>
+            </>
+          )}
         </UserText>
       </Rest>
     </Wrapper>

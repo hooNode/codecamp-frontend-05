@@ -1,6 +1,9 @@
 import * as S from "./style";
 
-export default function SignupPagePresenter() {
+export default function SignupPagePresenter({
+  onClickCreateUser,
+  onChangeInputs,
+}) {
   return (
     <S.Wrapper>
       <S.Container>
@@ -8,26 +11,22 @@ export default function SignupPagePresenter() {
         <S.SignupFrom>
           <S.ForEmailBox>
             <p>이메일</p>
-            <S.SignupFromEmail />
+            <S.SignupFromEmail name="email" onChange={onChangeInputs} />
           </S.ForEmailBox>
           <S.ForEmailBox>
             <p>닉네임</p>
-            <S.SignupFromNickname />
-          </S.ForEmailBox>
-          <S.ForEmailBox>
-            <p>아이디</p>
-            <S.SignupFromId />
+            <S.SignupFromNickname name="name" onChange={onChangeInputs} />
           </S.ForEmailBox>
           <S.ForEmailBox>
             <p>비밀번호</p>
-            <S.SignupFromPassword />
+            <S.SignupFromPassword name="password" onChange={onChangeInputs} />
           </S.ForEmailBox>
           <S.ForEmailBox>
             <p>비밀번호 확인</p>
             <S.SignupFromConfirmPassword />
           </S.ForEmailBox>
         </S.SignupFrom>
-        <S.SignupBtn>회원가입</S.SignupBtn>
+        <S.SignupBtn onClick={onClickCreateUser}>회원가입</S.SignupBtn>
       </S.Container>
     </S.Wrapper>
   );

@@ -8,8 +8,10 @@ import NextArrow from "./NextArrow";
 import PrevArrow from "./PrevArrow";
 import ReactPlayer from "react-player";
 import { useRouter } from "next/router";
+import { AiOutlineInfoCircle } from "react-icons/ai";
 
 const Container = styled.div`
+  margin-top: -40px;
   .slick-slider {
     height: 100%;
     width: 100vw;
@@ -63,10 +65,36 @@ const Div = styled.div`
   width: 100%;
 `;
 
+const TextBox = styled.div`
+  font-size: 30px;
+  color: white;
+  font-weight: bold;
+  position: relative;
+  top: 450px;
+  left: 100px;
+  width: 300px;
+`;
+const LinkBox = styled.div`
+  display: flex;
+  z-index: 20;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  font-size: 18px;
+  font-weight: lighter;
+  background-color: gray;
+  min-width: 120px;
+  width: 120px;
+  margin-top: 10px;
+  cursor: pointer;
+`;
 export const CardSlier = () => {
   const router = useRouter();
   const { bestYoutube } = useContext(GlobalContext);
   const [bestArr, setBestArr] = useState([]);
+  const [randomNum, setRandomNum] = useState(
+    Math.ceil((Math.random() * 10) / 2)
+  );
 
   const settings = {
     dots: false,
@@ -90,18 +118,43 @@ export const CardSlier = () => {
     clearTimeout(timer);
   }, [bestYoutube]);
 
+  const onClickLink = (id) => () => {
+    router.push(`/notice/${id}`);
+  };
+
   useEffect(() => {
     clearTimeout(timer);
     getBest();
     timer = setTimeout(() => {
       setBestArr(bestYoutube);
-    }, 1000);
+    }, 2000);
   }, [bestArr]);
 
   return (
     <Container>
       <SubContainer>
-        <Slider {...settings}>
+        <Div>
+          <TextBox>
+            인기 있는 콘텐츠 {randomNum}순위
+            <LinkBox onClick={onClickLink(bestArr[randomNum - 1]?._id)}>
+              <AiOutlineInfoCircle />
+              &nbsp; 상세정보
+            </LinkBox>
+          </TextBox>
+          <ReactPlayer
+            style={{
+              zIndex: "10",
+            }}
+            height="100vh"
+            width="100vw"
+            url={bestArr[randomNum - 1]?.youtubeUrl}
+            id={bestArr[randomNum - 1]?._id}
+            playing={true}
+            muted={true}
+            onClick={pushClick}
+          />
+        </Div>
+        {/* <Slider {...settings}>
           {" "}
           <Div>
             <Player
@@ -111,8 +164,9 @@ export const CardSlier = () => {
               height="100vh"
               width="100vw"
               url={bestArr[0]?.youtubeUrl}
-              light={true}
               id={bestArr[0]?._id}
+              playing={true}
+              muted={true}
               onClick={pushClick}
             />
           </Div>{" "}
@@ -124,8 +178,9 @@ export const CardSlier = () => {
               height="100vh"
               width="100vw"
               url={bestArr[1]?.youtubeUrl}
-              light={true}
               id={bestArr[1]?._id}
+              playing={true}
+              muted={true}
               onClick={pushClick}
             />
           </Div>{" "}
@@ -137,8 +192,9 @@ export const CardSlier = () => {
               height="100vh"
               width="100vw"
               url={bestArr[2]?.youtubeUrl}
-              light={true}
               id={bestArr[2]?._id}
+              playing={true}
+              muted={true}
               onClick={pushClick}
             />
           </Div>{" "}
@@ -151,28 +207,28 @@ export const CardSlier = () => {
                 height="100vh"
                 width="100vw"
                 url={bestArr[3]?.youtubeUrl}
-                light={true}
                 id={bestArr[3]?._id}
+                playing={true}
+                muted={true}
                 onClick={pushClick}
               />
             </>
           </Div>{" "}
           <Div>
-            <>
-              <ReactPlayer
-                style={{
-                  zIndex: "10",
-                }}
-                height="100vh"
-                width="100vw"
-                url={bestArr[4]?.youtubeUrl}
-                light={true}
-                id={bestArr[4]?._id}
-                onClick={pushClick}
-              />
-            </>
+            <ReactPlayer
+              style={{
+                zIndex: "10",
+              }}
+              height="100vh"
+              width="100vw"
+              url={bestArr[4]?.youtubeUrl}
+              id={bestArr[4]?._id}
+              playing={true}
+              muted={true}
+              onClick={pushClick}
+            />
           </Div>
-        </Slider>
+        </Slider> */}
       </SubContainer>
     </Container>
   );

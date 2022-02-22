@@ -169,6 +169,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
   };
 
   const onChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.files);
     const file = e.target.files?.[0];
     console.log(file);
 
@@ -177,6 +178,7 @@ export default function CreateBoard({ isEdit, data }: IBoardCreateProps) {
         file,
       },
     });
+
     const newImage = result.data?.uploadFile.url;
 
     if (newImage) {
