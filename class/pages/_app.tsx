@@ -6,7 +6,6 @@ import {
   ApolloProvider,
   ApolloLink,
 } from "@apollo/client";
-import { Global } from "@emotion/react";
 import { AppProps } from "next/app";
 import { createUploadLink } from "apollo-upload-client";
 
