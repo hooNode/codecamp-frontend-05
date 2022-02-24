@@ -75,6 +75,8 @@ export const AdressNum = styled.input`
 export const PicturImg = styled.div`
   height: 78px;
   width: 78px;
+  margin-right: 10px;
+  margin-bottom: 10px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -87,5 +89,13 @@ export const BtnBox = styled.div`
   display: flex;
   justify-content: flex-end;
   align-items: center;
+`;
+export const PictureWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+export const PictureDiv = styled.div`
+  display: flex;
+  margin-right: 15px;
 `;
 export const CreateBtn = styled.button``;
