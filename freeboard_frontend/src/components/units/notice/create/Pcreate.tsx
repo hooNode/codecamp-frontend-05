@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import * as S from "./style";
 import Head from "next/head";
+import DaumPostcode from "react-daum-postcode";
+import { Modal, Button } from "antd";
 
 declare const window: typeof globalThis & {
   kakao: any;
@@ -12,14 +14,26 @@ export default function PCreatePage({
   onClickImage,
   onChangeFile,
   fileRef,
-  images,
   editImage,
-  imageId,
+  handleComplete,
+  modalVisible,
+  modalVisalbe2,
+  isFinish,
+  address,
+  modalVisible1,
+  zonecode,
+  onChangeAddress,
+  mapAddress,
+  subAddress,
+  tags,
+  onChangeTags,
+  onClickDeleteTags,
+  preImages,
 }) {
   useEffect(() => {
     const script = document.createElement("script");
     script.src =
-      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9997524bd009f644dd961f73e5fcd9a7&autoload=false";
+      "//dapi.kakao.com/v2/maps/sdk.js?appkey=9997524bd009f644dd961f73e5fcd9a7&libraries=services&autoload=false";
     document.head.appendChild(script);
 
     script.onload = () => {
@@ -30,26 +44,42 @@ export default function PCreatePage({
           level: 3, // 지도의 레벨(확대, 축소 정도)
         };
         const map = new window.kakao.maps.Map(container, options);
+        const geocoder = new window.kakao.maps.services.Geocoder();
 
-        const markerPosition = new window.kakao.maps.LatLng(
-          33.450701,
-          126.570667
-        );
+        // 주소로 좌표를 검색합니다
+        geocoder.addressSearch(mapAddress, function (result, status) {
+          // 정상적으로 검색이 완료됐으면
+          if (status === window.kakao.maps.services.Status.OK) {
+            const coords = new window.kakao.maps.LatLng(
+              result[0].y,
+              result[0].x
+            );
 
-        // 마커를 생성합니다
-        const marker = new window.kakao.maps.Marker({
-          position: markerPosition,
+            // 결과값으로 받은 위치를 마커로 표시합니다
+            const marker = new window.kakao.maps.Marker({
+              map: map,
+              position: coords,
+            });
+
+            // 인포윈도우로 장소에 대한 설명을 표시합니다
+            const infowindow = new window.kakao.maps.InfoWindow({
+              content:
+                '<div style="width:150px;text-align:center;padding:6px 0;">거래장소</div>',
+            });
+            infowindow.open(map, marker);
+
+            // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+            map.setCenter(coords);
+          }
         });
-
-        // 마커가 지도 위에 표시되도록 설정합니다
-        marker.setMap(map);
       });
     };
-  }, []);
+  }, [mapAddress]);
   return (
     <S.Wrapper>
+      <S.TopBox></S.TopBox>
+      <S.TopTitle>상품등록</S.TopTitle>
       <S.Container>
-        <S.Title>상품등록</S.Title>
         <S.ItemContainer>
           <S.ItmeTitle>
             <S.Label>상품명</S.Label>
@@ -73,22 +103,50 @@ export default function PCreatePage({
           </S.ItmeTitle>
           <S.ItmeTitle>
             <S.Label>태그</S.Label>
-            <S.ItemInput type="text" />
+            <S.TagBox>
+              {tags.map((tag, index) => (
+                <S.TagItem id={index} key={index} onClick={onClickDeleteTags}>
+                  {tag}
+                </S.TagItem>
+              ))}
+              <S.TagInput
+                placeholder="태그를 입력해주세요."
+                onKeyPress={onChangeTags}
+              />
+            </S.TagBox>
           </S.ItmeTitle>
           <S.AdressForm>
             <S.Label>거래장소</S.Label>
             <S.AdressLeft>
-              지도
               <div id="map" style={{ width: "100%%", height: "14rem" }}></div>
             </S.AdressLeft>
             <S.AdressRight>
               <S.Label>주소</S.Label>
               <S.AdressFirst>
-                <S.FindAdress>주소검색</S.FindAdress>
-                <S.AdressNum type="text" />
+                <Button type="primary" onClick={modalVisible1}>
+                  우편번호 검색
+                </Button>
+                <Modal
+                  title="우편 번호"
+                  style={{ top: 20 }}
+                  visible={modalVisible}
+                  onOk={modalVisalbe2}
+                  onCancel={modalVisalbe2}
+                >
+                  {isFinish ? (
+                    "검색을 완료했습니다."
+                  ) : (
+                    <DaumPostcode onComplete={handleComplete} />
+                  )}
+                </Modal>
+                <S.AdressNum>{zonecode}</S.AdressNum>
               </S.AdressFirst>
-              <S.AdressInput type="text" />
-              <S.AdressInput type="text" />
+              <S.AdressInput1>{address}</S.AdressInput1>
+              <S.AdressInput2
+                placeholder="상세주소를 입력해주세요"
+                type="text"
+                onChange={onChangeAddress}
+              />
             </S.AdressRight>
           </S.AdressForm>
           <S.PictureWrapper>
@@ -97,16 +155,11 @@ export default function PCreatePage({
               <span>Upload</span>
             </S.PicturImg>
 
-            {images.length !== 0 && (
+            {preImages.length !== 0 && (
               <>
-                {images.map((image, index) => (
+                {preImages.map((image, index) => (
                   <S.PictureDiv key={index} onClick={editImage}>
-                    <img
-                      id={imageId[index]}
-                      src={`https:/storage.googleapis.com/${image}`}
-                      width="78px"
-                      height="78px"
-                    />
+                    <img id={image} src={image} width="78px" height="78px" />
                   </S.PictureDiv>
                 ))}
               </>

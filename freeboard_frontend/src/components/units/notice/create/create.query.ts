@@ -8,6 +8,11 @@ export const CREATE_USEDITEM = gql`
       remarks
       contents
       price
+      useditemAddress {
+        zipcode
+        address
+        addressDetail
+      }
       seller {
         email
         name

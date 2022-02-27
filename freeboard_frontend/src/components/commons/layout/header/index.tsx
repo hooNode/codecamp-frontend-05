@@ -139,11 +139,14 @@ const ImageBox = styled.div`
 `;
 const NavBox = styled.div`
   display: flex;
+  color: ${({ isMarket }) => (isMarket ? "black" : "white")};
+  color: ${({ isTop }) => !isTop && "white"};
   margin-top: ${({ isBoards }) => (isBoards ? "10px" : "0px")};
 `;
 
 const MenuTag = styled.div`
-  color: white;
+  color: ${({ isMarket }) => (isMarket ? "black" : "white")};
+  color: ${({ isTop }) => !isTop && "white"};
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -157,6 +160,8 @@ const MenuTag = styled.div`
 `;
 const NewMenu = styled.div`
   display: flex;
+  color: ${({ isMarket }) => isMarket && "black"};
+  color: ${({ isTop }) => !isTop && "white"};
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -171,6 +176,8 @@ const MenuIdTag = styled.div`
   align-items: center;
   justify-content: center;
   color: white;
+  color: ${({ isMarket }) => isMarket && "black"};
+  color: ${({ isTop }) => !isTop && "white"};
   width: 250px;
   height: 60px;
   background-color: black;
@@ -186,7 +193,7 @@ const MenuIdTag = styled.div`
   }
 `;
 const IdTag = styled.div`
-  color: white;
+  color: ${({ isMarket }) => isMarket && "black"};
   font-size: 0.8rem;
   font-weight: thin;
   margin-right: 50px;
@@ -231,19 +238,25 @@ const SearchBar = styled.input`
   margin: 0 5px;
   background-color: transparent;
   border: none;
+
   padding-left: 5px;
   color: white;
+  color: ${({ isMarket }) => isMarket && "black"};
+  color: ${({ isTop }) => !isTop && "white"};
   font-size: 12px;
   &:focus {
     outline-width: 0;
   }
   ::placeholder {
     color: white;
+    color: ${({ isMarket }) => isMarket && "black"};
+    color: ${({ isTop }) => !isTop && "white"};
   }
 `;
 const LoginBox = styled.div`
   color: ${({ isLogin }) => isLogin && "black"};
   color: ${({ isLogin }) => !isLogin && "white"};
+  color: ${({ isMarket }) => isMarket && "black"};
   color: ${({ isTop }) => !isTop && "white"};
   margin-right: 30px;
   font-size: 0.7rem;
@@ -253,13 +266,14 @@ const LoginBox = styled.div`
 const SignupBox = styled.div`
   color: ${({ isLogin }) => isLogin && "black"};
   color: ${({ isLogin }) => !isLogin && "white"};
+  color: ${({ isMarket }) => isMarket && "black"};
   color: ${({ isTop }) => !isTop && "white"};
   font-size: 0.7rem;
   font-weight: thin;
   cursor: pointer;
 `;
 
-export default function LayoutHeader({ isLogin }) {
+export default function LayoutHeader({ isLogin, isMarket }) {
   const { moveToPage } = useMoveToPage();
   const router = useRouter();
   const { userInfo } = useContext(GlobalContext);
@@ -335,8 +349,8 @@ export default function LayoutHeader({ isLogin }) {
   }, [router]);
 
   return (
-    <Wrapper isLogin={isLogin}>
-      <Writer isTop={isTop} isLogin={isLogin} />
+    <Wrapper isLogin={isLogin} isMarket={isMarket}>
+      <Writer isTop={isTop} isLogin={isLogin} isMarket={isMarket} />
 
       <Container isTop={isTop} isFirst={isFirst}></Container>
       <Rest>
@@ -352,12 +366,17 @@ export default function LayoutHeader({ isLogin }) {
           {isLogin ? (
             <></>
           ) : (
-            <NavBox isBoards={isBoards}>
+            <NavBox isMarket={isMarket} isTop={isTop} isBoards={isBoards}>
               {isSmall ? (
-                <MenuTag onMouseOver={onMenuOver} onMouseOut={onMenuOut}>
+                <MenuTag
+                  isMarket={isMarket}
+                  isTop={isTop}
+                  onMouseOver={onMenuOver}
+                  onMouseOut={onMenuOut}
+                >
                   <GiHamburgerMenu
                     style={{
-                      color: "white",
+                      color: isMarket ? (isTop ? "black" : "white") : "white",
                       width: "200px",
                       height: "200px",
                       fontSize: "100px",
@@ -366,9 +385,21 @@ export default function LayoutHeader({ isLogin }) {
                   />
 
                   <NewMenu
+                    isMarket={isMarket}
+                    isTop={isTop}
                     onMouseOver={onMenuOver}
                     onMouseOut={onMenuOut}
-                    style={isHover ? { display: "block" } : { display: "none" }}
+                    style={
+                      isHover
+                        ? {
+                            display: "block",
+                            color: "white",
+                          }
+                        : {
+                            display: "none",
+                            color: "white",
+                          }
+                    }
                   >
                     <BsFillTriangleFill
                       style={{
@@ -377,16 +408,28 @@ export default function LayoutHeader({ isLogin }) {
                         left: "47%",
                       }}
                     />
-                    <MenuIdTag onClick={moveToPage("/notice/list")}>
+                    <MenuIdTag
+                      isMarket={isMarket}
+                      onClick={moveToPage("/notice/list")}
+                    >
                       콘텐츠 목록
                     </MenuIdTag>
-                    <MenuIdTag onClick={moveToPage("/notice/new")}>
+                    <MenuIdTag
+                      isMarket={isMarket}
+                      onClick={moveToPage("/notice/new")}
+                    >
                       콘텐츠 올리기
                     </MenuIdTag>
-                    <MenuIdTag onClick={moveToPage("/notice/new")}>
+                    <MenuIdTag
+                      isMarket={isMarket}
+                      onClick={moveToPage("/boards/list")}
+                    >
                       상품목록
                     </MenuIdTag>
-                    <MenuIdTag onClick={moveToPage("/boards/new")}>
+                    <MenuIdTag
+                      isMarket={isMarket}
+                      onClick={moveToPage("/boards/new")}
+                    >
                       상품 올리기
                     </MenuIdTag>
                   </NewMenu>
@@ -399,7 +442,7 @@ export default function LayoutHeader({ isLogin }) {
                   <IdTag onClick={moveToPage("/notice/new")}>
                     콘텐츠 올리기
                   </IdTag>
-                  <IdTag onClick={moveToPage("/notice/new")}>상품목록</IdTag>
+                  <IdTag onClick={moveToPage("/boards/list")}>상품목록</IdTag>
                   <IdTag onClick={moveToPage("/boards/new")}>상품 올리기</IdTag>
                 </>
               )}
@@ -408,17 +451,26 @@ export default function LayoutHeader({ isLogin }) {
         </LeftTag>
 
         <UserText>
-          <SearchTag isSearchBar={isSearchBar}>
+          <SearchTag
+            isMarket={isMarket}
+            isTop={isTop}
+            isSearchBar={isSearchBar}
+          >
             <BiSearchAlt
               style={{
                 fontSize: "20px",
-                color: "white",
+                color: isMarket ? (isTop ? "black" : "white") : "white",
+
                 marginLeft: "5px",
               }}
               onClick={onSearchBar}
             />
             {isSearchBar ? (
-              <SearchBar placeholder="검색어를 입력하세요." />
+              <SearchBar
+                isMarket={isMarket}
+                isTop={isTop}
+                placeholder="검색어를 입력하세요."
+              />
             ) : (
               <></>
             )}
@@ -428,6 +480,7 @@ export default function LayoutHeader({ isLogin }) {
               <SignupBox
                 isLogin={isLogin}
                 isTop={isTop}
+                isMarket={isMarket}
                 onClick={moveToPage("/accounts/login")}
               >
                 {userInfo?.name}님 안녕하세요.
@@ -438,6 +491,7 @@ export default function LayoutHeader({ isLogin }) {
               <LoginBox
                 isLogin={isLogin}
                 isTop={isTop}
+                isMarket={isMarket}
                 onClick={moveToPage("/accounts/login")}
               >
                 로그인
@@ -445,6 +499,7 @@ export default function LayoutHeader({ isLogin }) {
               <SignupBox
                 isLogin={isLogin}
                 isTop={isTop}
+                isMarket={isMarket}
                 onClick={moveToPage("/accounts/signup")}
               >
                 회원가입

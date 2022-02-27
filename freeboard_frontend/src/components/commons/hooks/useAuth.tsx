@@ -1,12 +1,14 @@
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../../../pages/_app";
 
 export function useAuth() {
   const router = useRouter();
+  const { accessToken } = useContext(GlobalContext);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!accessToken) {
       alert("로그인을 먼저 해주세요!!!");
       router.push("/accounts/login");
     } else {

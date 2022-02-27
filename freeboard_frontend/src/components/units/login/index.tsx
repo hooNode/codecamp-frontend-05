@@ -59,10 +59,9 @@ export default function LoginPageContainer() {
         setUserInfo(userInfo);
       }
 
-      localStorage.setItem("accessToken", accessToken || "");
       localStorage.setItem("userInfo", JSON.stringify(userInfo));
 
-      console.log(JSON.parse(localStorage.getItem("userInfo") || "{}"));
+      // console.log(JSON.parse(localStorage.getItem("userInfo") || "{}"));
 
       history.back();
     } catch (e) {

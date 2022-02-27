@@ -50,6 +50,7 @@ export default function Layout(props: ILayoutProps) {
   const router = useRouter();
 
   const isLogin = true;
+  const isMarket = true;
 
   const HIDDEN_HEADERS = [
     "/notice/list",
@@ -59,16 +60,20 @@ export default function Layout(props: ILayoutProps) {
     "/accounts/login",
   ];
   const HIDDEN_REST = ["/accounts/login", "/accounts/signup"];
+  const HIDDEN_MARKET = ["/boards/list", "/boards/new"];
   const HIDDEN_SIDEBAR = [`/notice/${router.query.aaa}`];
 
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);
   const isHiddenSidebar = HIDDEN_SIDEBAR.includes(router.asPath);
   const isHiddenRest = HIDDEN_REST.includes(router.asPath);
+  const isHiddenMarket = HIDDEN_MARKET.includes(router.asPath);
 
   return (
     <LayoutFixBox>
       <GlobalContext.Provider value={value}>
-        {isHiddenRest ? <Header isLogin={isLogin} /> : <Header />}
+        {isHiddenRest && <Header isLogin={isLogin} />}
+        {isHiddenMarket && <Header isMarket={isMarket} />}
+        {!isHiddenMarket && !isHiddenRest && <Header />}
       </GlobalContext.Provider>
       <BodyWrapper>
         <GlobalContext.Provider value={value}>
