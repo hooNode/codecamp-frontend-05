@@ -1,7 +1,8 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation, gql, useQuery, useApolloClient } from "@apollo/client";
 import { Modal } from "antd";
 import { useRouter } from "next/router";
-import { ChangeEvent, useContext, useState } from "react";
+import { ChangeEvent, useContext, useEffect, useState } from "react";
+import { getAccessToken } from "../../src/commons/libraries/getAccessToken";
 import {
   IMutation,
   IMutationLoginUserArgs,
@@ -16,16 +17,21 @@ const LOGIN_USER = gql`
   }
 `;
 
+const LOGIN_USER_EXAMPLE = gql`
+  mutation loginUserExample($email: String!, $password: String!) {
+    loginUserExample(email: $email, password: $password) {
+      accessToken
+    }
+  }
+`;
+
 export default function LoginPage() {
   const { setAccessToken } = useContext(GlobalContext);
   const router = useRouter();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loginUser] = useMutation<
-    Pick<IMutation, "loginUser">, // Omit => 특정 데이터 빼고 나머지 다가져와줘 // Partial => ? 붙여서 가져와줘
-    IMutationLoginUserArgs
-  >(LOGIN_USER);
+  const [loginUserExample] = useMutation(LOGIN_USER_EXAMPLE);
 
   const onChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
     setEmail(event.target.value);
@@ -37,19 +43,21 @@ export default function LoginPage() {
 
   const onClickLogin = async () => {
     try {
-      const result = await loginUser({
+      const result = await loginUserExample({
         variables: {
           email: email,
           password: password,
         },
       });
-      const accessToken = result.data?.loginUser.accessToken;
+      const accessToken = result.data?.loginUserExample.accessToken;
       if (setAccessToken) setAccessToken(accessToken || "");
-
+      localStorage.setItem("accessToken", accessToken || "");
       // 로그인 성공 페이지로 이동하기!!
       router.push("/30-02-login-success");
     } catch (error) {
       if (error instanceof Error) Modal.error({ content: error.message });
+
+      // 4. 재발급 받은 accessToken 저장하기
     }
   };
 
