@@ -158,12 +158,27 @@ export default function CreatePage() {
   };
 
   const onChangeTags = (e) => {
-    if (e.key === "Enter") {
-      if (e.target.value === "") {
-        setTags([...tags]);
-      } else {
-        setTags([...tags, e.target.value]);
+    if (e.isComposing || e.keyCode === 229) {
+      return;
+    }
+
+    if (e.key === "Backspace" && e.target.value === "") {
+      console.log(e.target.id);
+      return setTags(tags.filter((_, i) => i + 1 !== tags.length));
+    } else {
+      if (tags.length > 3) {
         e.target.value = "";
+        return alert("최대 네 개까지 입력 가능합니다.");
+      } else {
+        if (e.key === "Enter") {
+          if (e.target.value === "") {
+            setTags([...tags]);
+            e.target.value = "";
+          } else {
+            setTags([...tags, e.target.value]);
+            e.target.value = "";
+          }
+        }
       }
     }
   };

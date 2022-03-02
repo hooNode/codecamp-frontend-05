@@ -5,7 +5,7 @@ import { AiFillPlusCircle } from "react-icons/ai";
 import { MdOutlineDoNotDisturb } from "react-icons/md";
 import { useMoveToPage } from "../../../commons/hooks/useMoveToPage";
 
-export default function PListPage({ data }) {
+export default function PListPage({ data, onClickDetail }) {
   const { moveToPage } = useMoveToPage();
   return (
     <S.Wrapper>
@@ -13,7 +13,7 @@ export default function PListPage({ data }) {
       <S.TopTitle>중고상품</S.TopTitle>
       <S.Container>
         {data?.fetchUseditems?.map((item, index) => (
-          <S.ItemListWapper key={index}>
+          <S.ItemListWapper id={item._id} key={index} onClick={onClickDetail}>
             {item.images.length > 0 &&
             item.images[0].endsWith(".png" || ".jpeg") ? (
               <S.ItemImageBox>
@@ -26,18 +26,18 @@ export default function PListPage({ data }) {
                 />
               </S.ItemImageBox>
             ) : (
-              <S.ItemImageBox>
+              <S.ItemNoneImageBox>
                 <S.ItemImageBoxFont>No Image</S.ItemImageBoxFont>
                 <MdOutlineDoNotDisturb
                   style={{ width: "100%", height: "100%", color: "gray" }}
                 />
-              </S.ItemImageBox>
+              </S.ItemNoneImageBox>
             )}
             <S.ContentBox>
               <S.TagBox>
                 {item.tags.map((tag, index) => (
                   <S.TagItem id={index} key={index}>
-                    {tag}
+                    #{tag}
                   </S.TagItem>
                 ))}
               </S.TagBox>
@@ -49,7 +49,8 @@ export default function PListPage({ data }) {
                   .map((el, index) => {
                     if (
                       String(item.price).length >= 4 &&
-                      (index + 1) % 3 === 0
+                      (String(item.price).length - index) % 3 === 0 &&
+                      index !== 0
                     ) {
                       return `,${el}`;
                     } else {

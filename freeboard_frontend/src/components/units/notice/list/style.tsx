@@ -55,6 +55,21 @@ export const ItemImageBox = styled.div`
   width: 15vw;
   min-width: 200px;
   height: 20vh;
+
+  /* min-height: 100px; */
+  /* margin-bottom: 25px; */
+`;
+export const ItemNoneImageBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 15vw;
+  min-width: 200px;
+  height: 20vh;
+  background: #ededed;
+  border-radius: 10px;
+
   /* min-height: 100px; */
   /* margin-bottom: 25px; */
 `;

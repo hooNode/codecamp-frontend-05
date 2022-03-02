@@ -106,12 +106,12 @@ export default function PCreatePage({
             <S.TagBox>
               {tags.map((tag, index) => (
                 <S.TagItem id={index} key={index} onClick={onClickDeleteTags}>
-                  {tag}
+                  #{tag}
                 </S.TagItem>
               ))}
               <S.TagInput
                 placeholder="태그를 입력해주세요."
-                onKeyPress={onChangeTags}
+                onKeyDown={onChangeTags}
               />
             </S.TagBox>
           </S.ItmeTitle>

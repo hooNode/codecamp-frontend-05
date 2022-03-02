@@ -59,8 +59,14 @@ export default function Layout(props: ILayoutProps) {
     "/accounts/signup",
     "/accounts/login",
   ];
+
   const HIDDEN_REST = ["/accounts/login", "/accounts/signup"];
-  const HIDDEN_MARKET = ["/boards/list", "/boards/new"];
+  const HIDDEN_MARKET = [
+    "/boards/list",
+    "/boards/new",
+    `/boards/${router.query.board}`,
+    `/boards/${router.query.board}/edit`,
+  ];
   const HIDDEN_SIDEBAR = [`/notice/${router.query.aaa}`];
 
   const isHiddenHeader = HIDDEN_HEADERS.includes(router.asPath);

@@ -1,4 +1,5 @@
 import { gql, useQuery } from "@apollo/client";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import PListPage from "./Plist";
 
@@ -31,17 +32,16 @@ const FETCH_USEDITEMS = gql`
 `;
 
 export default function ProductListPage() {
+  const router = useRouter();
   const { data } = useQuery(FETCH_USEDITEMS, {
     variables: {
       page: 1,
     },
   });
 
-  useEffect(() => {
-    data?.fetchUseditems.forEach((fetchUseditem) =>
-      console.log(fetchUseditem.tags)
-    );
-  });
+  const onClickDetail = (e) => {
+    router.push(`/boards/${e.currentTarget.id}`);
+  };
 
-  return <PListPage data={data} />;
+  return <PListPage data={data} onClickDetail={onClickDetail} />;
 }

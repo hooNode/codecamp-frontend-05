@@ -219,13 +219,13 @@ const SearchTag = styled.div`
     }
     to {
       width: 200px;
-      border: 1px solid white;
+      border: "1px solid white";
     }
   }
   @keyframes disappear {
     from {
       width: 200px;
-      border: 1px solid white;
+      border: "1px solid white";
     }
     to {
       width: 30px;
@@ -238,7 +238,6 @@ const SearchBar = styled.input`
   margin: 0 5px;
   background-color: transparent;
   border: none;
-
   padding-left: 5px;
   color: white;
   color: ${({ isMarket }) => isMarket && "black"};
