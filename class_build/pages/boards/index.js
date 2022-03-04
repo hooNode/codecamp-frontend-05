@@ -1,5 +1,5 @@
 import React from "react";
 
-export default function index() {
-  return <div>index</div>;
+export default function BoardsPage() {
+  return <div>안녕하세요. 게시판입니다.</div>;
 }
