@@ -1,9 +1,5 @@
-import BoardCreate from '../../../src/components/units/board/create/BoardCreate.container'
+import BoardCreate from "../../../src/components/units/notice/create/BoardCreate.container";
 
 export default function NoticeBoard() {
-
-  return (
-
-    < BoardCreate isEdit={false} />
-  )
+  return <BoardCreate isEdit={false} />;
 }

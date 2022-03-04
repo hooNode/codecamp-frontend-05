@@ -1,4 +1,4 @@
-import BoardCreate from "../../../../src/components/units/board/create/BoardCreate.container";
+import BoardCreate from "../../../../src/components/units/notice/create/BoardCreate.container";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
 

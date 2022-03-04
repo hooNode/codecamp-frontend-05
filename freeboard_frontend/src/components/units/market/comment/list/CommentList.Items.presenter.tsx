@@ -2,51 +2,42 @@ import { useState } from "react";
 import { useMutation } from "@apollo/client";
 import * as S from "./CommentList.styles";
 import { Modal } from "antd";
-import StarPage from "../star";
 
 import { useRouter } from "next/router";
 import {
-  FETCH_BOARD_COMMENTS,
-  DELETE_BOARD_COMMENT,
-  UPDATE_BOARD_COMMENT,
+  FETCH_USEDITEM_QUESTIONS,
+  DELETE_USEDITEM_QUESTIONS,
+  UPDATE_USEDITEM_QUESTIONS,
 } from "./CommentList.queries";
 
 export default function CommentListItems({ el }) {
   const router = useRouter();
   const [deleteModal, setDeleteModal] = useState(false);
-  const [password, setPassword] = useState("");
   const [commentId, setCommentId] = useState("");
   const [isEdit, setIsEdit] = useState(false);
-  const [rating, setRating] = useState(0);
-  const [starNum, setStarNum] = useState(0);
   const [contentsText, setContentsText] = useState("");
-  const isComment = true;
 
   const deleteConfirm = (el) => {
     setDeleteModal(true);
     setCommentId(el._id);
-  };
-  const onChangeDeletePassword = (e) => {
-    setPassword(e.target.value);
   };
 
   const onClickDelete = () => {
     setDeleteModal(false);
   };
 
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation(DELETE_USEDITEM_QUESTIONS);
 
   const onClickDeleteComment = async () => {
     try {
       await deleteBoardComment({
         variables: {
-          password: password,
-          boardCommentId: commentId,
+          useditemQuestionId: commentId,
         },
         refetchQueries: [
           {
-            query: FETCH_BOARD_COMMENTS,
-            variables: { boardId: router.query.aaa },
+            query: FETCH_USEDITEM_QUESTIONS,
+            variables: { useditemId: String(router.query.board) },
           },
         ],
       });
@@ -68,26 +59,21 @@ export default function CommentListItems({ el }) {
     setContentsText(e.target.value);
   };
 
-  const editPassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const [updateBoardComment] = useMutation(UPDATE_BOARD_COMMENT);
+  const [updateUseditemQuestion] = useMutation(UPDATE_USEDITEM_QUESTIONS);
 
   const onClickUpdateComment = async () => {
     try {
-      await updateBoardComment({
+      await updateUseditemQuestion({
         variables: {
-          boardCommentId: el._id,
-          password,
-          updateBoardCommentInput: {
+          useditemQuestionId: el._id,
+          updateUseditemQuestionInput: {
             contents: contentsText,
-            rating: rating,
           },
         },
         refetchQueries: [
           {
-            query: FETCH_BOARD_COMMENTS,
-            variables: { boardId: String(router.query.aaa) },
+            query: FETCH_USEDITEM_QUESTIONS,
+            variables: { useditemId: String(router.query.board) },
           },
         ],
       });
@@ -104,10 +90,7 @@ export default function CommentListItems({ el }) {
           visible={true}
           onCancel={onClickDelete}
           onOk={onClickDeleteComment}
-        >
-          <div>비밀번호 입력: </div>
-          <S.PasswordInput type="password" onChange={onChangeDeletePassword} />
-        </Modal>
+        ></Modal>
       )}
       {isEdit && (
         <S.CommentListContainer>
@@ -125,18 +108,9 @@ export default function CommentListItems({ el }) {
           </S.FirstLine>
           <S.SecondLine>
             <S.WriterName>{el.writer}</S.WriterName>
-            <S.StarBox>
-              <StarPage
-                setRating={setRating}
-                starNum={starNum}
-                setStarNum={setStarNum}
-              />
-            </S.StarBox>
           </S.SecondLine>
           <S.EditThirdLine>
             <S.EditTextBox onChange={editContents} />
-            <p>비밀번호 : </p>
-            <S.EditPassword type="password" onChange={editPassword} />
           </S.EditThirdLine>
         </S.CommentListContainer>
       )}
@@ -161,9 +135,6 @@ export default function CommentListItems({ el }) {
           </S.FirstLine>
           <S.SecondLine>
             <S.WriterName>{el.writer}</S.WriterName>
-            <S.StarBox>
-              <StarPage commentRating={el.rating} isComment={isComment} />
-            </S.StarBox>
           </S.SecondLine>
           <S.ThirdLine>
             <S.ContentsText>{el.contents}</S.ContentsText>

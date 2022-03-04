@@ -2,7 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import styled from "@emotion/styled";
-import BoardList from "../src/components/units/board/list/BoardList.container";
+import BoardList from "../src/components/units/notice/list/BoardList.container";
 import CardSlier from "../src/components/commons/layout/banner/index";
 
 const TopWrapper = styled.div`

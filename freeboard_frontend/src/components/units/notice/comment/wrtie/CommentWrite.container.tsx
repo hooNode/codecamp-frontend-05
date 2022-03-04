@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import UICommentWrite from "./CommentWrite.presenter";
 import { CREATE_BOARD_COMMENT } from "./CommentWrite.queries";
-import { FETCH_BOARD_COMMENTS } from "../../comment/list/CommentList.queries";
+import { FETCH_BOARD_COMMENTS } from "../list/CommentList.queries";
 
 export default function CommentWrite() {
   const router = useRouter();

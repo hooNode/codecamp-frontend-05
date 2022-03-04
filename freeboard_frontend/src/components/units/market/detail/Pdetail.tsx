@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useEffect } from "react";
-import GetDate from "../../board/list/GetDate";
+import GetDate from "../../notice/list/GetDate";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
@@ -22,6 +22,7 @@ const SliderBox = styled(Slider)`
     align-items: center;
     text-align: center;
   }
+
   .slick-track {
     display: flex;
     width: 100%;
@@ -44,6 +45,13 @@ const SliderBox = styled(Slider)`
     text-align: center;
   }
   .slick-activate {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  .slick-list {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -98,7 +106,7 @@ export default function PDetailPage({ data, isLoading }) {
                   {el?.endsWith(".png" || "jpeg") ? (
                     <ImageBox
                       src={`https:/storage.googleapis.com/${data?.fetchUseditem?.images[index]}`}
-                      style={{ width: "100%" }}
+                      style={{ width: "100%", height: "100%" }}
                     />
                   ) : (
                     <ImageBox src={"/no-image-icon-6.png"} />

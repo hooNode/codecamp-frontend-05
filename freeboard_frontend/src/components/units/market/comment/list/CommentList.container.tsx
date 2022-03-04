@@ -1,33 +1,35 @@
 import BoardCommentListUI from "./CommentList.presenter";
 import {
   IQuery,
-  IQueryFetchBoardCommentsArgs,
+  IQueryFetchUseditemQuestionsArgs,
 } from "../../../../../commons/types/generated/types";
 import * as S from "./CommentList.styles";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
-import { FETCH_BOARD_COMMENTS } from "./CommentList.queries";
+import { FETCH_USEDITEM_QUESTIONS } from "./CommentList.queries";
 
 export default function CommentListContainer() {
   const router = useRouter();
   const { data, fetchMore } = useQuery<
-    Pick<IQuery, "fetchBoardComments">,
-    IQueryFetchBoardCommentsArgs
-  >(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: String(router.query.aaa) },
+    Pick<IQuery, "fetchUseditemQuestions">,
+    IQueryFetchUseditemQuestionsArgs
+  >(FETCH_USEDITEM_QUESTIONS, {
+    variables: { useditemId: String(router.query.board) },
   });
 
   const onLoadMore = () => {
     if (!data) return;
     fetchMore({
-      variables: { page: Math.ceil(data?.fetchBoardComments.length / 10) + 1 },
+      variables: {
+        page: Math.ceil(data?.fetchUseditemQuestions.length / 10) + 1,
+      },
       updateQuery: (prev, { fetchMoreResult }) => {
-        if (!fetchMoreResult?.fetchBoardComments)
-          return { fetchBoardComments: [...prev.fetchBoardComments] };
+        if (!fetchMoreResult?.fetchUseditemQuestions)
+          return { fetchUseditemQuestions: [...prev.fetchUseditemQuestions] };
         return {
-          fetchBoardComments: [
-            ...prev.fetchBoardComments,
-            ...fetchMoreResult.fetchBoardComments,
+          fetchUseditemQuestions: [
+            ...prev?.fetchUseditemQuestions,
+            ...fetchMoreResult?.fetchUseditemQuestions,
           ],
         };
       },

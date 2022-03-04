@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../../../components/commons/layout/index";
+import { GlobalContext } from "../../../commons/layout/index";
 import PBoardList from "./BoardList.presenter";
 import { BOARD_COUNTS, FETCH_BOARDS } from "./BoardList.queries";
 

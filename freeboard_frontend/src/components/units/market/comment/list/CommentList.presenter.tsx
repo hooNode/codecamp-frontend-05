@@ -5,7 +5,7 @@ export default function BoardCommentListUI({ onLoadMore, data }) {
   if (!data) return <div />;
   return (
     <InfiniteScroll pageStart={0} loadMore={onLoadMore} hasMore={true}>
-      {data?.fetchBoardComments.map((el) => (
+      {data?.fetchUseditemQuestions.map((el) => (
         <CommentListItems key={el._id} el={el} />
       ))}
     </InfiniteScroll>
