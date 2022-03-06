@@ -51,8 +51,8 @@ export const Text = styled.textarea`
   resize: none;
   background: none;
   font-size: 18px;
-  padding-left: 10px;
   font-weight: 300;
+  padding-left: 10px;
   /* min-width: 350px; */
   &::placeholder {
     font-weight: 500;

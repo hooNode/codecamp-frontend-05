@@ -101,6 +101,9 @@ export default function PDetailPage({ data, isLoading }) {
         <S.CarouselBox>
           {isLoading || (
             <SliderBox {...settings}>
+              {data?.fetchUseditem?.images.length === 0 && (
+                <ImageBox src={"/no-image-icon-6.png"} />
+              )}
               {data?.fetchUseditem?.images.map((el, index) => (
                 <ImageContainer key={index}>
                   {el?.endsWith(".png" || "jpeg") ? (

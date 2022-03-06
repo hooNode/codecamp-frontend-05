@@ -1,8 +1,17 @@
 import styled from "@emotion/styled";
 
 export const Fragment = styled.div`
-  /* background: red; */
-  /* height: 100px; */
+  box-sizing: border-box;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  width: 60vw;
+
+  min-width: 350px;
+  border-radius: 10px;
+  padding: 0px 30px;
 `;
 
 export const CommentListContainer = styled.div`
@@ -10,7 +19,7 @@ export const CommentListContainer = styled.div`
   flex-direction: column;
   width: 100%;
   font-size: 20px;
-  margin: 10px 0 40px 0;
+  margin: 10px 0 20px 0;
   padding: 15px;
   border-top: 1px solid #e6e6e6;
 `;
@@ -22,6 +31,7 @@ export const FirstLine = styled.div`
 `;
 export const CreatedDay = styled.div`
   color: #bdbdbd;
+  font-size: 14px;
 `;
 export const ImageIcon = styled.div`
   display: flex;
@@ -30,12 +40,27 @@ export const ImageIcon = styled.div`
   width: 60px;
 `;
 export const DeleteBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   border: none;
+  &:hover {
+    background: #f9961e;
+    color: white;
+  }
 `;
 export const EditBtn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
   border: none;
+  margin-right: 10px;
+  &:hover {
+    background: #f9961e;
+    color: white;
+  }
 `;
 
 export const Modal = styled.div`
@@ -72,7 +97,10 @@ export const EditThirdLine = styled.div`
     margin: 0 0 0 15px;
   }
 `;
-export const ContentsText = styled.div``;
+export const ContentsText = styled.div`
+  font-size: 18px;
+  font-weight: 300;
+`;
 
 export const EditPassword = styled.input`
   height: 30px;
@@ -99,6 +127,8 @@ export const EditTextBox = styled.textarea`
   border-bottom: 0.1rem solid #e6e6e6;
   padding: 0 0 0 10px;
   margin-right: 20px;
+  font-size: 18px;
+  font-weight: 300;
   &:focus {
     outline: none;
     border-bottom: 0.5px solid black;
@@ -108,12 +138,39 @@ export const EditTextBox = styled.textarea`
 export const ConfirmBtn = styled.button`
   border: 1px solid #e6e6e6;
   color: #bdbdbd;
+  font-size: 14px;
   margin: 0;
   padding: 0 10px;
   margin-right: 10px;
   cursor: pointer;
   &:hover {
-    background: gray;
+    background: #f9961e;
     color: white;
+  }
+`;
+export const IsEditBtn = styled.div`
+  display: flex;
+  margin-right: -6px;
+`;
+export const AnswerBtn = styled.button`
+  width: 10%;
+  font-size: 14px;
+  font-weight: 300;
+  border: none;
+  margin-top: 10px;
+  &:hover {
+    background: #f9961e;
+    color: white;
+  }
+`;
+export const AnswerInput = styled.input`
+  font-size: 14px;
+  font-weight: 300;
+  border: none;
+  border-bottom: 0.1rem solid #e6e6e6;
+  margin-top: 10px;
+  &:focus {
+    outline: none;
+    border-bottom: 0.5px solid black;
   }
 `;
