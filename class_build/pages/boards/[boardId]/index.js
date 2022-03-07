@@ -11,7 +11,7 @@ export default function BoardsDetailPage({ myboardData }) {
       <Head>
         <meta property="og:site_name" content={myboardData?.title} />
         <meta property="og:description" content={myboardData?.contents} />
-        <meta property="og:image" content={myboardData?.images} />
+        <meta property="og:image" content={myboardData?.images[0]} />
       </Head>
       <div>
         안녕하세요! 게시글 상세 페이지입니다.awdawd 게시글 ID는{" "}
