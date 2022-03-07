@@ -10,7 +10,7 @@ export default function BoardsDetailPage({ myboardData }) {
     <div>
       <Head>
         <meta property="og:site_name" content={myboardData.title} />
-        <meta property="description" content={myboardData.contents} />
+        <meta property="og:description" content={myboardData.contents} />
         <meta property="og:image" content={myboardData.images[0]} />
       </Head>
       <div>
