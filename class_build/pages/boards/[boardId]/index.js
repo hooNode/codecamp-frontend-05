@@ -10,12 +10,12 @@ export default function BoardsDetailPage() {
       <Head>
         <meta property="og:title" content="나의 게시판입니다." />
         <meta
-          property="og:discription"
+          property="og:description"
           content="저의 게시판에 오신 것을 환영합니다."
         />
         <meta
           property="og:image"
-          content="https://dullyshin.github.io/2018/08/30/HTML-imgLink/#lg=1&slide=0"
+          content="https://codebootcamp.co.kr/images/projects/contents/project_3-2_contents_gif.webp"
         />
       </Head>
       <div>
