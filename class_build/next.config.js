@@ -2,6 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   trailingSlash: true,
+  generateBuildId: () => "hooNode",
   //스태틱 페이지 path 설정해주기
   exportPathMap: () => ({
     "/": { page: "/" },

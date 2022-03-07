@@ -9,9 +9,9 @@ export default function BoardsDetailPage({ myboardData }) {
   return (
     <div>
       <Head>
-        <meta property="og:site_name" content={myboardData.title} />
-        <meta property="og:description" content={myboardData.contents} />
-        <meta property="og:image" content={myboardData.images[0]} />
+        <meta property="og:site_name" content={myboardData?.title} />
+        <meta property="og:description" content={myboardData?.contents} />
+        <meta property="og:image" content={myboardData?.images} />
       </Head>
       <div>
         안녕하세요! 게시글 상세 페이지입니다.awdawd 게시글 ID는{" "}
@@ -26,9 +26,9 @@ export default function BoardsDetailPage({ myboardData }) {
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
     fetchBoard(boardId: $boardId) {
-      _id
       title
       contents
+      images
     }
   }
 `;
@@ -39,7 +39,7 @@ export async function getServerSideProps(context) {
     "https://backend05.codebootcamp.co.kr/graphql",
     FETCH_BOARD,
     {
-      boardId: context.query.boardId,
+      boardId: String(context.query.boardId),
     }
   );
 
