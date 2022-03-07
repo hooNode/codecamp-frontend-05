@@ -8,15 +8,12 @@ export default function BoardsDetailPage() {
   return (
     <div>
       <Head>
-        <meta property="og:title" content="나의 게시판입니다." />
+        <meta property="og:site_name" content={data?.fetchBoard.title} />
         <meta
-          property="og:description"
+          property="description"
           content="저의 게시판에 오신 것을 환영합니다."
         />
-        <meta
-          property="og:image"
-          content="https://codebootcamp.co.kr/images/projects/contents/project_3-2_contents_gif.webp"
-        />
+        <meta property="og:image" content={data?.fetchBoard.title} />
       </Head>
       <div>
         안녕하세요! 게시글 상세 페이지입니다.awdawd 게시글 ID는{" "}
