@@ -12,7 +12,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: ${({ isLogin }) => isLogin && "70px"};
+  height: ${({ isLogin }) => isLogin && "60px"};
   background-color: ${({ isLogin }) => (isLogin ? "white" : "none")};
   z-index: 100;
 `;
@@ -93,7 +93,7 @@ const Writer = styled.div`
 `;
 const Container = styled.div`
   width: 100%;
-  height: 70px;
+  height: 60px;
   position: fixed;
   top: 0;
   animation: ${({ isTop }) => (isTop ? "fadeout 1s" : "fadein 1s")};
@@ -168,7 +168,7 @@ const NewMenu = styled.div`
   height: 80px;
   width: 250px;
   position: fixed;
-  top: 70px;
+  top: 60px;
   border-top: 3px solid white;
 `;
 const MenuIdTag = styled.div`
@@ -358,7 +358,7 @@ export default function LayoutHeader({ isLogin, isMarket }) {
             <img
               src={isBoards ? "/dang.png" : "/aqaq.png"}
               width="130px"
-              height={isBoards ? "40px" : "50px"}
+              height={isBoards ? "35px" : "40px"}
               onClick={moveToPage("/")}
             />
           </ImageBox>

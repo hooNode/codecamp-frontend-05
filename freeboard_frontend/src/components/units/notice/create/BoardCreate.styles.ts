@@ -33,7 +33,7 @@ export const Title = styled.div`
 
 export const User = styled.div`
   width: 996px;
-  height: 70px;
+  height: 60px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;

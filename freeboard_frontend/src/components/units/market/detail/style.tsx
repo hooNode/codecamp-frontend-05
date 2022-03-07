@@ -21,7 +21,7 @@ export const Container = styled.div`
   padding: 20px 40px;
 `;
 export const TopBox = styled.div`
-  height: 70px;
+  height: 60px;
   width: 100%;
   background: white;
 `;
@@ -33,7 +33,7 @@ export const CarouselBox = styled.div`
   margin-bottom: 50px;
 `;
 export const ProfileBox = styled.div`
-  height: 70px;
+  height: 60px;
   width: 100%;
   border-bottom: 1px solid #bdbdbd;
   display: flex;
