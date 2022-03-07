@@ -8,12 +8,12 @@ export default function BoardsDetailPage() {
   return (
     <div>
       <Head>
-        <meta property="og:site_name" content={data?.fetchBoard.title} />
+        <meta property="og:site_name" content="hoonode Page" />
         <meta
           property="description"
           content="저의 게시판에 오신 것을 환영합니다."
         />
-        <meta property="og:image" content={data?.fetchBoard.title} />
+        <meta property="og:image" content="이미지일걸..?" />
       </Head>
       <div>
         안녕하세요! 게시글 상세 페이지입니다.awdawd 게시글 ID는{" "}
