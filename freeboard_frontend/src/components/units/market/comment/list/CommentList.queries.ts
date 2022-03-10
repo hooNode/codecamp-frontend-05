@@ -55,12 +55,46 @@ export const CREATE_USEDITEM_QUESTION_ANSWER = gql`
     ) {
       _id
       contents
-      useditemQuestion {
-        _id
-        contents
-        useditem
-      }
       createdAt
+      user {
+        name
+        email
+        picture
+      }
+    }
+  }
+`;
+
+export const FETCH_USEDITEM_QUESTION_ANSWERS = gql`
+  query fetchUseditemQuestionAnswers($page: Int, $useditemQuestionId: ID!) {
+    fetchUseditemQuestionAnswers(
+      page: $page
+      useditemQuestionId: $useditemQuestionId
+    ) {
+      _id
+      createdAt
+      contents
+      user {
+        name
+        email
+        picture
+      }
+    }
+  }
+`;
+
+export const DELETE_USEDITEM_QUESTION_ANSWERS = gql`
+  mutation deleteUseditemQuestionAnswer($useditemQuestionAnswerId: ID!) {
+    deleteUseditemQuestionAnswer(
+      useditemQuestionAnswerId: $useditemQuestionAnswerId
+    )
+  }
+`;
+
+export const FETCH_USER_LOGGED_IN = gql`
+  query fetchUserLoggedIn {
+    fetchUserLoggedIn {
+      name
     }
   }
 `;

@@ -7,8 +7,11 @@ import {
   CREATE_USEDITEM_QUESTION,
   FETCH_USEDITEM_QUESTIONS,
 } from "./CommentWrite.queries";
+import { useAuth } from "../../../../commons/hooks/useAuth";
 
 export default function CommentWrite() {
+  const { isLoading } = useAuth();
+
   const router = useRouter();
   const [createUseditemQuestion] = useMutation(CREATE_USEDITEM_QUESTION);
   const [contents, setContent] = useState("");

@@ -106,7 +106,7 @@ export default function PDetailPage({ data, isLoading }) {
               )}
               {data?.fetchUseditem?.images.map((el, index) => (
                 <ImageContainer key={index}>
-                  {el?.endsWith(".png" || "jpeg") ? (
+                  {el?.includes(".") ? (
                     <ImageBox
                       src={`https:/storage.googleapis.com/${data?.fetchUseditem?.images[index]}`}
                       style={{ width: "100%", height: "100%" }}
@@ -131,7 +131,9 @@ export default function PDetailPage({ data, isLoading }) {
           <S.ProfileWord>
             <S.ProfileName>{data?.fetchUseditem?.seller.name}</S.ProfileName>
             <S.ProfilePlace>
-              {data?.fetchUseditem?.useditemAddress.address}
+              {data?.fetchUseditem?.useditemAddress
+                ? data?.fetchUseditem?.useditemAddress.address
+                : ""}
             </S.ProfilePlace>
           </S.ProfileWord>
         </S.ProfileBox>

@@ -7,9 +7,11 @@ import * as S from "./CommentList.styles";
 import { useQuery } from "@apollo/client";
 import { useRouter } from "next/router";
 import { FETCH_USEDITEM_QUESTIONS } from "./CommentList.queries";
+import { useAuth } from "../../../../commons/hooks/useAuth";
 
 export default function CommentListContainer() {
   const router = useRouter();
+
   const { data, fetchMore } = useQuery<
     Pick<IQuery, "fetchUseditemQuestions">,
     IQueryFetchUseditemQuestionsArgs

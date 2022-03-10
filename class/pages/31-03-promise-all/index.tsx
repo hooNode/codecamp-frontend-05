@@ -56,7 +56,7 @@ export default function PromiseAllPage() {
     // map을 사용해서 간소화하기
     console.time("Promise 시작");
     const classmates = ["철수", "영희", "훈이"];
-    const results = await Promise.race(
+    const results = await Promise.all(
       classmates.map(
         (el, index) =>
           new Promise((resolve, reject) => {

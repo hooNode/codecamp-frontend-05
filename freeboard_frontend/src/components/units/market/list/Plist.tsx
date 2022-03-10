@@ -14,8 +14,7 @@ export default function PListPage({ data, onClickDetail }) {
       <S.Container>
         {data?.fetchUseditems?.map((item, index) => (
           <S.ItemListWapper id={item._id} key={index} onClick={onClickDetail}>
-            {item.images.length > 0 &&
-            item.images[0].endsWith(".png" || ".jpeg") ? (
+            {item.images.length > 0 && item.images[0].includes(".") ? (
               <S.ItemImageBox>
                 <img
                   id={item.images[0]}

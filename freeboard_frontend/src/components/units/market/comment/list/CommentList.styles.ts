@@ -101,6 +101,10 @@ export const ContentsText = styled.div`
   font-size: 18px;
   font-weight: 300;
 `;
+export const ContentsSubText = styled.div`
+  font-size: 16px;
+  font-weight: 300;
+`;
 
 export const EditPassword = styled.input`
   height: 30px;
@@ -158,6 +162,7 @@ export const AnswerBtn = styled.button`
   font-weight: 300;
   border: none;
   margin-top: 10px;
+  min-width: 50px;
   &:hover {
     background: #f9961e;
     color: white;
@@ -173,4 +178,50 @@ export const AnswerInput = styled.input`
     outline: none;
     border-bottom: 0.5px solid black;
   }
+`;
+export const AnswerWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+`;
+export const AnswerRightSide = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+export const QuestionAnswerBtn = styled.button`
+  width: 10%;
+  font-size: 14px;
+  font-weight: 300;
+  border: none;
+  margin-top: 10px;
+  min-width: 80px;
+  &:hover {
+    background: #f9961e;
+    color: white;
+  }
+`;
+export const MoreAnswer = styled.button`
+  width: 10%;
+  font-size: 14px;
+  font-weight: 300;
+  min-width: 50px;
+  border: none;
+  margin-top: 10px;
+  font-size: 12px;
+  &:hover {
+    background: #f9961e;
+    color: white;
+  }
+`;
+export const QuestionAnswerWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+`;
+export const AnswerTextArea = styled.div`
+  display: flex;
+  justify-content: flex-start;
+`;
+export const AnswerImageIcon = styled.div`
+  display: flex;
 `;

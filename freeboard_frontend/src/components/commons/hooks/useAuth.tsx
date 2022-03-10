@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../../../pages/_app";
+import { getAccessToken } from "../../../commons/libraries/getAccessToken";
 
 export function useAuth() {
   const router = useRouter();
@@ -8,12 +9,18 @@ export function useAuth() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (!accessToken) {
-      alert("로그인을 먼저 해주세요!!!");
-      router.push("/accounts/login");
-    } else {
-      setIsLoading(false);
+    async function Auth() {
+      if (!accessToken) {
+        const newAccessToken = await getAccessToken();
+        if (!newAccessToken) {
+          alert("로그인을 먼저 해주세요!!!");
+          router.push("/accounts/login");
+        } else {
+          setIsLoading(false);
+        }
+      }
     }
+    Auth();
   }, []);
 
   return {
