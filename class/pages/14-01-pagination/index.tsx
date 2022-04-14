@@ -10,9 +10,8 @@ export default function PaginationPage() {
   const [activePrevBtn, setActivePrevBtn] = useState(false);
   const [activeNextBtn, setActiveNextBtn] = useState(false);
 
-  const onClickPage = (e) => {
+  const onClickPage = async (e) => {
     // variables를 수정하는 것
-    // setPageNum((pageNum) => e.target.id);
     refetch({ page: Number(e.target.id) });
   };
 

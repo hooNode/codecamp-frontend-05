@@ -6,7 +6,7 @@ import { getAccessToken } from "../../../commons/libraries/getAccessToken";
 export function useAuth() {
   const router = useRouter();
   const { accessToken } = useContext(GlobalContext);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLogin, setIsLogin] = useState(true);
 
   useEffect(() => {
     async function Auth() {
@@ -16,7 +16,7 @@ export function useAuth() {
           alert("로그인을 먼저 해주세요!!!");
           router.push("/accounts/login");
         } else {
-          setIsLoading(false);
+          setIsLogin(false);
         }
       }
     }
@@ -24,6 +24,6 @@ export function useAuth() {
   }, []);
 
   return {
-    isLoading,
+    isLogin,
   };
 }
